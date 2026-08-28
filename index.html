@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>c-ECO — Threshold Governance</title>
+  <meta name="description" content="Anticipatory governance system for ecological, financial and social systems at the edge of irreversibility.">
+  <meta property="og:title" content="c-ECO — Threshold Governance">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://c-eco.io">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700;800&display=swap">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body { background: #000; color: #fff; font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { text-decoration: none; }
+
+  /* ── NAV ── */
+  #s-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 48px;
+    transition: background 0.4s, padding 0.3s, backdrop-filter 0.4s;
+  }
+  #s-nav.scrolled {
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 14px 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .s-logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem; letter-spacing: 0.28em; font-weight: 500;
+    color: rgba(255,255,255,0.9);
+  }
+  .s-logo span {
+    font: inherit; letter-spacing: inherit; color: inherit;
+    margin-left: 0; font-weight: inherit;
+  }
+  .s-nav-links { display: flex; gap: 2.25rem; list-style: none; }
+  .s-nav-links a {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55); transition: color 0.18s;
+  }
+  .s-nav-links a:hover { color: rgba(255,255,255,0.9); }
+  .s-nav-btn {
+    display: none; background: none; border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.6); cursor: pointer; padding: 5px 10px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em;
+  }
+  @media (max-width: 1380px) {
+    .s-nav-links { display: none; }
+    .s-nav-btn { display: block; }
+    .s-nav-links.open {
+      display: flex; flex-direction: column; gap: 0;
+      position: absolute; top: 60px; left: 0; right: 0;
+      background: rgba(0,0,0,0.97); border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 1rem 48px;
+    }
+    .s-nav-links.open li { padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    #s-nav { padding: 18px 24px; }
+    #s-nav.scrolled { padding: 12px 24px; }
+  }
+
+  /* ── SCENES ── */
+  .scene {
+    position: relative; width: 100%;
+    min-height: 100vh; display: flex; align-items: flex-end;
+    overflow: hidden;
+  }
+  .scene.align-center { align-items: center; justify-content: center; }
+  .scene-bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    will-change: transform;
+  }
+  .scene-body {
+    position: relative; z-index: 2;
+    padding: 0 80px 120px; max-width: 860px;
+  }
+  .scene-body.center {
+    text-align: center; max-width: 780px;
+    margin: 0 auto; padding: 0 48px;
+  }
+  .scene-body.right {
+    margin-left: auto; padding-right: 80px;
+  }
+  .scene-kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.42); margin-bottom: 1.5rem; display: block;
+  }
+  .scene-h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(3.5rem, 9vw, 6.5rem);
+    font-weight: 800; line-height: 0.97;
+    color: #fff; margin-bottom: 1.5rem; letter-spacing: -0.025em;
+  }
+  .scene-h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800; line-height: 0.97;
+    color: #fff; margin-bottom: 1.25rem; letter-spacing: -0.025em;
+  }
+  .scene-sub {
+    font-size: 1rem; line-height: 1.72;
+    color: rgba(255,255,255,0.58); margin-bottom: 2.5rem;
+    max-width: 520px; font-weight: 400;
+  }
+  .scene-body.center .scene-sub { margin: 0 auto 2.5rem; }
+  .scene-ctas { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-start; }
+
+  /* BUTTONS */
+  .cta-p {
+    display: inline-block; padding: 14px 32px;
+    border: 1px solid rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.08);
+    color: #fff; font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+    transition: background 0.2s, color 0.2s;
+  }
+  .cta-p:hover { background: #fff; color: #000; }
+  .cta-s {
+    display: inline-block; padding: 14px 32px;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: transparent; color: rgba(255,255,255,0.6);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .cta-s:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
+
+  /* SCROLL HINT */
+  .scroll-hint {
+    position: absolute; bottom: 36px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(255,255,255,0.28);
+    animation: sb 2.2s ease-in-out infinite;
+  }
+  @keyframes sb {
+    0%,100% { transform: translateX(-50%) translateY(0); opacity: 0.28; }
+    50% { transform: translateX(-50%) translateY(7px); opacity: 0.5; }
+  }
+
+  /* ── STATS BAND ── */
+  .stats-band {
+    display: flex; align-items: center; justify-content: center;
+    background: #050505; padding: 90px 48px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .stat-item { text-align: center; padding: 0 72px; }
+  .stat-n {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 3.25rem; font-weight: 300;
+    color: #fff; line-height: 1; letter-spacing: -0.03em;
+    margin-bottom: 14px;
+  }
+  .stat-l {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.28);
+  }
+  .stat-div { width: 1px; height: 72px; background: rgba(255,255,255,0.07); flex-shrink: 0; }
+
+  /* ── VIDEO HERO ── */
+  #bg-hero { overflow: hidden; }
+  #bg-hero video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center 30%;
+  }
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.94) 0%, rgba(0,0,0,0.42) 50%, rgba(0,0,0,0.08) 100%);
+    z-index: 1;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #000; border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 72px 80px 48px;
+  }
+  .ft-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; margin-bottom: 3rem;
+  }
+  .ft-brand-name {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem;
+    letter-spacing: 0.25em; color: rgba(255,255,255,0.5);
+    display: block; margin-bottom: 1rem;
+  }
+  .ft-brand p { color: rgba(255,255,255,0.25); font-size: 0.78rem; line-height: 1.8; max-width: 260px; }
+  .ft-brand a { color: rgba(168,184,200,0.45); }
+  .ft-col h4 {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.54rem;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.18); margin-bottom: 1rem; font-weight: 400;
+  }
+  .ft-col ul { list-style: none; }
+  .ft-col li { margin-bottom: 0.55rem; }
+  .ft-col a {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
+    color: rgba(255,255,255,0.3); transition: color 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .ft-col a:hover { color: rgba(255,255,255,0.7); }
+  .ft-bottom {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 1.5rem; display: flex; justify-content: space-between;
+  }
+  .ft-bottom p { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; color: rgba(255,255,255,0.18); letter-spacing: 0.06em; }
+  .ft-bottom a { color: rgba(255,255,255,0.18); }
+
+  @media (max-width: 900px) {
+    .scene-body { padding: 0 28px 100px; }
+    .scene-body.right { margin-left: 0; padding-right: 28px; }
+    .stats-band { flex-direction: column; gap: 52px; padding: 72px 28px; }
+    .stat-div { width: 60px; height: 1px; }
+    .stat-item { padding: 0; }
+    footer { padding: 56px 28px 36px; }
+    .ft-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .ft-bottom { flex-direction: column; gap: 6px; }
+  }
+  @media (max-width: 580px) {
+    .ft-grid { grid-template-columns: 1fr; }
+    .scene-h1 { font-size: clamp(3rem, 12vw, 4rem); }
+    .scene-h2 { font-size: clamp(2.2rem, 9vw, 3rem); }
+    .cta-p, .cta-s { padding: 12px 22px; font-size: 0.6rem; }
+    .scene-ctas { flex-direction: column; }
+  }
+    /* Standard c-ECO first-screen title scale */
+  body > header h1,
+  .page-header h1,
+  .scene-h1,
+  .hero-title {
+    font-size: clamp(3.5rem, 9vw, 6.5rem);
+    line-height: 0.97;
+    letter-spacing: -0.025em;
+    font-weight: 800;
+  }
+  @media (max-width: 760px) {
+    body > header h1,
+    .page-header h1,
+    .scene-h1,
+    .hero-title {
+      font-size: clamp(3rem, 12vw, 4.25rem);
+    }
+  }
+
+  </style>
+</head>
+<body>
+<!-- NAV -->
+<nav id="s-nav">
+  <a href="index.html" class="s-logo" style="display:flex;align-items:center;gap:12px;"><img src="assets/img/c-eco.png" alt="c-ECO Institute" style="width:42px;height:42px;object-fit:contain;"><span>c-ECO Institute</span></a>
+  <button class="s-nav-btn" id="nav-btn">Menu</button>
+  <ul class="s-nav-links" id="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="framework.html">Framework</a></li>
+    <li><a href="tdr.html">TDR</a></li>
+    <li><a href="tfp.html">TFP</a></li>
+    <li><a href="amazon-lab.html">Amazon Lab</a></li>
+    <li><a href="sil.html">SIL</a></li>
+    <li><a href="donate.html">Donate</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="sitemap.html">Site Map</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- SCENE 01 — HERO -->
+<section class="scene" id="scene-hero">
+  <div class="scene-bg" id="bg-hero">
+    <video autoplay muted loop playsinline poster="assets/img/c1.jpg">
+      <source src="assets/img/river.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="scene-body">
+    <span class="scene-kicker">c-ECO — Threshold Governance Research Platform</span>
+    <h1 class="scene-h1">Before<br>collapse.</h1>
+    <p class="scene-sub">Anticipatory governance system for ecological, financial and social systems at the edge of irreversibility.</p>
+    <div class="scene-ctas">
+      <a href="framework.html" class="cta-p">Framework →</a>
+      <a href="sil.html" class="cta-s">SIL Dashboard</a>
+    </div>
+  </div>
+  <div class="scroll-hint">↓ scroll</div>
+</section>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="stat-item">
+    <span class="stat-n">1,247</span>
+    <span class="stat-l">Indicators Monitored</span>
+  </div>
+  <div class="stat-div"></div>
+  <div class="stat-item">
+    <span class="stat-n">83</span>
+    <span class="stat-l">Active Alerts</span>
+  </div>
+  <div class="stat-div"></div>
+  <div class="stat-item">
+    <span class="stat-n">12</span>
+    <span class="stat-l">Anticipatory Actions</span>
+  </div>
+</div>
+
+<!-- SCENE 02 — FRAMEWORK -->
+<section class="scene" id="scene-framework">
+  <div class="scene-bg" id="bg-framework"></div>
+  <div class="scene-body">
+    <span class="scene-kicker">// c-ECO Framework — TDR + TFP</span>
+    <h2 class="scene-h2">Detects.<br>Classifies.<br>Acts.</h2>
+    <p class="scene-sub">From science to legal instrument — anticipatory, not reactive.</p>
+    <a href="framework.html" class="cta-p">Explore Framework →</a>
+  </div>
+</section>
+
+<!-- SCENE 03 — AMAZON LAB -->
+<section class="scene" id="scene-amazon">
+  <div class="scene-bg" id="bg-amazon"></div>
+  <div class="scene-body right">
+    <span class="scene-kicker">// Amazon Living Lab</span>
+    <h2 class="scene-h2">8 stations.<br>1 biome.<br>Real time.</h2>
+    <p class="scene-sub">The largest ecological governance laboratory in operation in the world.</p>
+    <a href="amazon-lab.html" class="cta-p">Amazon Lab →</a>
+  </div>
+</section>
+
+<!-- SCENE 04 — TFP (dark) -->
+<section class="scene align-center" id="scene-tfp">
+  <div class="scene-bg" id="bg-tfp"></div>
+  <div class="scene-body center">
+    <span class="scene-kicker">// Threshold Function Protocol</span>
+    <h2 class="scene-h2">Triggered<br>by signal.</h2>
+    <p class="scene-sub">Legal instruments mapped to each threshold proximity band — not to collapse.</p>
+    <a href="tfp.html" class="cta-p">TFP Protocol →</a>
+  </div>
+</section>
+
+<!-- SCENE 05 — SIL -->
+<section class="scene" id="scene-sil">
+  <div class="scene-bg" id="bg-sil"></div>
+  <div class="scene-body center" style="max-width:680px;">
+    <span class="scene-kicker">// Legal Information System</span>
+    <h2 class="scene-h2">Pipeline.<br>Real time.</h2>
+    <p class="scene-sub">Legal activation status for every system under c-ECO observation.</p>
+    <a href="sil.html" class="cta-p">SIL Dashboard →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand">
+      <span class="ft-brand-name">c-ECO</span>
+      <p>Technical research platform for the Comprehensive Ecological Governance doctrine.</p>
+    </div>
+    <div class="ft-col">
+      <h4>Research</h4>
+      <ul>
+        <li><a href="framework.html">c-ECO Framework</a></li>
+        <li><a href="tdr.html">Threshold Dynamics</a></li>
+        <li><a href="tfp.html">TFP Protocol</a></li>
+        <li><a href="amazon-lab.html">Amazon Lab</a></li>
+        <li><a href="sil.html">SIL Dashboard</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Knowledge</h4>
+      <ul>
+        <li><a href="about.html">About c-ECO Institute</a></li>
+        <li><a href="articles-of-incorporation.html">Articles of Incorporation</a></li>
+        <li><a href="documents.html">Documents</a></li>
+        <li><a href="bylaws.html">Bylaws</a></li>
+        <li><a href="org-chart.html">Org Chart</a></li>
+        <li><a href="reports/index.html">Reports</a></li>
+        <li><a href="memo/index.html">Memoranda</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="training.html">Training</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:research@c-eco.io">research@c-eco.io</a></li>
+        <li><a href="contact.html">Contact Form</a></li>
+        <li><a href="donate.html">Donate</a></li>
+        <li><a href="sitemap.html">Site Map</a></li>
+        <li><a href="https://c-eco.org">c-eco.org ↗</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <p>© 2026 c-ECO Institute</p>
+    <p><a href="mailto:research@c-eco.io">research@c-eco.io</a></p>
+  </div>
+</footer>
+
+<script>
+/* ── NAV SCROLL ── */
+const nav = document.getElementById('s-nav');
+const navBtn = document.getElementById('nav-btn');
+const navLinks = document.getElementById('nav-links');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+navBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+/* ── BACKGROUND SCENES ── */
+function setScene(id, imgFile, overlay, pos) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (imgFile) {
+    el.style.backgroundImage = overlay + `, url('assets/img/${imgFile}')`;
+    el.style.backgroundSize = 'auto, cover';
+    el.style.backgroundPosition = `center, ${pos || 'center'}`;
+  } else {
+    el.style.backgroundImage = overlay;
+    el.style.backgroundSize = 'cover';
+    el.style.backgroundPosition = 'center';
+  }
+}
+
+/* Framework — nuvens de tempestade, urgência */
+setScene('bg-framework', 'c7.jpg',
+  'linear-gradient(to top, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.62) 50%, rgba(0,0,0,0.22) 100%)',
+  'center center'
+);
+
+/* Amazon Lab — meandro aéreo, luz dourada */
+setScene('bg-amazon', 'r5.jpg',
+  'linear-gradient(to top, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.08) 100%)',
+  'center center'
+);
+
+/* TFP — dossel com névoa densa */
+setScene('bg-tfp', 'r2.jpg',
+  'linear-gradient(180deg, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.50) 50%, rgba(0,0,0,0.80) 100%)',
+  'center center'
+);
+
+/* SIL — gradiente escuro sem foto */
+setScene('bg-sil', null,
+  'radial-gradient(ellipse at 50% 50%, rgba(6,8,18,1) 0%, rgba(2,3,8,1) 60%, rgba(0,0,3,1) 100%)',
+  null
+);
+
+/* ── PARALLAX (subtle) ── */
+const bgs = document.querySelectorAll('.scene-bg');
+window.addEventListener('scroll', () => {
+  const sy = window.scrollY;
+  bgs.forEach(bg => {
+    const scene = bg.parentElement;
+    const top = scene.getBoundingClientRect().top + sy;
+    const offset = (sy - top) * 0.15;
+    bg.style.transform = `translateY(${offset}px)`;
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
