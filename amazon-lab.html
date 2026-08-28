@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amazon Living Lab — c-ECO</title>
+  <meta name="description" content="8 monitoring stations. 1 biome. Real-time threshold governance at the Brazilian Amazon frontier — the largest ecological governance laboratory in operation.">
+  <meta property="og:title" content="Amazon Living Lab — c-ECO">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://c-eco.io/amazon-lab">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700;800&display=swap">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body { background: #000; color: #fff; font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { text-decoration: none; }
+
+  /* ── NAV ── */
+  #s-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 48px;
+    transition: background 0.4s, padding 0.3s, backdrop-filter 0.4s;
+  }
+  #s-nav.scrolled {
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 14px 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .s-logo {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem; letter-spacing: 0.28em; font-weight: 500;
+    color: rgba(255,255,255,0.9);
+  }
+  .s-logo span {
+    font-size: 0.55rem; letter-spacing: 0.14em; color: rgba(255,255,255,0.35);
+    margin-left: 10px; font-weight: 400;
+  }
+  .s-nav-links { display: flex; gap: 2.25rem; list-style: none; }
+  .s-nav-links a {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55); transition: color 0.18s;
+  }
+  .s-nav-links a:hover, .s-nav-links a.active { color: rgba(255,255,255,0.9); }
+  .s-nav-btn {
+    display: none; background: none; border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.6); cursor: pointer; padding: 5px 10px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; letter-spacing: 0.1em;
+  }
+  @media (max-width: 1380px) {
+    .s-nav-links { display: none; }
+    .s-nav-btn { display: block; }
+    .s-nav-links.open {
+      display: flex; flex-direction: column; gap: 0;
+      position: absolute; top: 60px; left: 0; right: 0;
+      background: rgba(0,0,0,0.97); border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 1rem 48px;
+    }
+    .s-nav-links.open li { padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    #s-nav { padding: 18px 24px; }
+    #s-nav.scrolled { padding: 12px 24px; }
+  }
+
+  /* ── SCENES ── */
+  .scene {
+    position: relative; width: 100%;
+    min-height: 100vh; display: flex; align-items: flex-end;
+    overflow: hidden;
+  }
+  .scene.align-center { align-items: center; }
+  .scene-bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    will-change: transform;
+  }
+  .scene-body {
+    position: relative; z-index: 2;
+    padding: 0 80px 120px; max-width: 860px;
+  }
+  .scene-body.right { margin-left: auto; }
+  .scene-kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.42); margin-bottom: 1.5rem; display: block;
+  }
+  .scene-h1 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(3.5rem, 9vw, 6.5rem);
+    font-weight: 800; line-height: 0.97;
+    color: #fff; margin-bottom: 1.5rem; letter-spacing: -0.025em;
+  }
+  .scene-h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800; line-height: 0.97;
+    color: #fff; margin-bottom: 1.25rem; letter-spacing: -0.025em;
+  }
+  .scene-sub {
+    font-size: 1rem; line-height: 1.72;
+    color: rgba(255,255,255,0.58); margin-bottom: 2.5rem;
+    max-width: 520px; font-weight: 400;
+  }
+  .scene-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .cta-p {
+    display: inline-block; padding: 14px 32px;
+    border: 1px solid rgba(255,255,255,0.85);
+    background: rgba(255,255,255,0.08); color: #fff;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+    transition: background 0.2s, color 0.2s;
+  }
+  .cta-p:hover { background: #fff; color: #000; }
+  .cta-s {
+    display: inline-block; padding: 14px 32px;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: transparent; color: rgba(255,255,255,0.6);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+    transition: all 0.2s;
+  }
+  .cta-s:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
+  .scroll-hint {
+    position: absolute; bottom: 36px; left: 50%;
+    transform: translateX(-50%);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(255,255,255,0.28);
+    animation: sb 2.2s ease-in-out infinite;
+  }
+  @keyframes sb {
+    0%,100% { transform: translateX(-50%) translateY(0); opacity: 0.28; }
+    50% { transform: translateX(-50%) translateY(7px); opacity: 0.5; }
+  }
+
+  /* ── STATS BAND ── */
+  .stats-band {
+    display: flex; align-items: center; justify-content: center;
+    background: #050505; padding: 90px 48px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .stat-item { text-align: center; padding: 0 72px; }
+  .stat-n {
+    display: block; font-family: 'IBM Plex Mono', monospace;
+    font-size: 3.25rem; font-weight: 300;
+    color: #fff; line-height: 1; letter-spacing: -0.03em; margin-bottom: 14px;
+  }
+  .stat-l {
+    display: block; font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.28);
+  }
+  .stat-div { width: 1px; height: 72px; background: rgba(255,255,255,0.07); flex-shrink: 0; }
+
+  /* ── STATIONS GRID ── */
+  .stations-panel {
+    position: relative; z-index: 2;
+    width: 100%; padding: 120px 80px;
+  }
+  .stations-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3); margin-bottom: 48px; display: block;
+  }
+  .stations-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1px; background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .station-card {
+    background: rgba(0,0,0,0.72); padding: 28px 24px;
+    backdrop-filter: blur(8px);
+    border-top: 2px solid transparent;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .station-card:hover { background: rgba(0,0,0,0.85); border-top-color: rgba(255,255,255,0.35); }
+  .station-id {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.52rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.28); margin-bottom: 10px; display: block;
+  }
+  .station-name {
+    font-family: 'Inter', sans-serif; font-weight: 700;
+    font-size: 0.88rem; color: #fff; margin-bottom: 8px; line-height: 1.3;
+  }
+  .station-focus {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem; color: rgba(255,255,255,0.35); line-height: 1.7;
+  }
+  .station-status {
+    display: inline-block; margin-top: 14px; padding: 3px 10px;
+    border: 1px solid rgba(80,200,120,0.35);
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.5rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(80,200,120,0.75);
+  }
+
+  /* ── MONITORING PANEL ── */
+  .monitor-panel {
+    position: relative; z-index: 2;
+    padding: 0 80px 120px; max-width: 100%;
+    display: grid; grid-template-columns: 1fr 420px;
+    gap: 80px; align-items: end;
+  }
+  .monitor-left .scene-sub { max-width: 480px; }
+  .monitor-right {
+    background: rgba(0,0,0,0.78); backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.08); padding: 32px;
+    margin-bottom: 120px;
+  }
+  .monitor-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: rgba(255,255,255,0.28); margin-bottom: 20px; display: block;
+    border-bottom: 1px solid rgba(255,255,255,0.06); padding-bottom: 12px;
+  }
+  .indicator-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .indicator-row:last-child { border-bottom: none; }
+  .ind-name {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
+    color: rgba(255,255,255,0.5); letter-spacing: 0.04em;
+  }
+  .ind-bar-wrap { flex: 1; margin: 0 16px; height: 2px; background: rgba(255,255,255,0.06); }
+  .ind-bar { height: 2px; background: rgba(255,255,255,0.25); }
+  .ind-bar.warn { background: rgba(255,180,40,0.7); }
+  .ind-bar.alert { background: rgba(220,60,60,0.7); }
+  .ind-val {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem;
+    color: rgba(255,255,255,0.4); min-width: 52px; text-align: right;
+  }
+  .ind-val.warn { color: rgba(255,180,40,0.85); }
+  .ind-val.alert { color: rgba(220,60,60,0.85); }
+
+  /* ── OUTPUTS ── */
+  .outputs-panel {
+    position: relative; z-index: 2;
+    padding: 0 80px 120px;
+  }
+  .output-list { margin-top: 40px; }
+  .output-item {
+    display: grid; grid-template-columns: 200px 1fr auto;
+    gap: 32px; align-items: baseline;
+    padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .output-item:first-child { border-top: 1px solid rgba(255,255,255,0.06); }
+  .output-type {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+  .output-desc { font-size: 0.9rem; color: rgba(255,255,255,0.65); line-height: 1.6; }
+  .output-use {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem;
+    color: rgba(255,255,255,0.22); letter-spacing: 0.06em;
+    text-align: right; white-space: nowrap;
+  }
+
+  /* ── CTA SCENE ── */
+  .cta-scene {
+    position: relative; background: #020204;
+    min-height: 60vh; display: flex; align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    padding: 100px 80px;
+  }
+  .cta-inner { max-width: 640px; }
+  .cta-inner h2 {
+    font-family: 'Inter', sans-serif; font-weight: 800;
+    font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -0.025em;
+    color: #fff; margin-bottom: 1.25rem; line-height: 1.05;
+  }
+  .cta-inner p { color: rgba(255,255,255,0.45); font-size: 0.95rem; line-height: 1.75; margin-bottom: 2rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #000; border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 72px 80px 48px;
+  }
+  .ft-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; margin-bottom: 3rem;
+  }
+  .ft-brand-name {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem;
+    letter-spacing: 0.25em; color: rgba(255,255,255,0.5);
+    display: block; margin-bottom: 1rem;
+  }
+  .ft-brand p { color: rgba(255,255,255,0.25); font-size: 0.78rem; line-height: 1.8; max-width: 260px; }
+  .ft-brand a { color: rgba(168,184,200,0.45); }
+  .ft-col h4 {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.54rem;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(255,255,255,0.18); margin-bottom: 1rem; font-weight: 400;
+  }
+  .ft-col ul { list-style: none; }
+  .ft-col li { margin-bottom: 0.55rem; }
+  .ft-col a {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem;
+    color: rgba(255,255,255,0.3); transition: color 0.15s; letter-spacing: 0.02em;
+  }
+  .ft-col a:hover { color: rgba(255,255,255,0.7); }
+  .ft-bottom {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 1.5rem; display: flex; justify-content: space-between;
+  }
+  .ft-bottom p { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; color: rgba(255,255,255,0.18); letter-spacing: 0.06em; }
+  .ft-bottom a { color: rgba(255,255,255,0.18); }
+
+  @media (max-width: 900px) {
+    .scene-body { padding: 0 28px 100px; }
+    .scene-body.right { margin-left: 0; }
+    .stations-panel { padding: 80px 28px; }
+    .stations-grid { grid-template-columns: repeat(2, 1fr); }
+    .stats-band { flex-direction: column; gap: 52px; padding: 72px 28px; }
+    .stat-div { width: 60px; height: 1px; }
+    .stat-item { padding: 0; }
+    .monitor-panel { grid-template-columns: 1fr; padding: 0 28px 80px; gap: 40px; }
+    .monitor-right { margin-bottom: 0; }
+    .outputs-panel { padding: 0 28px 80px; }
+    .output-item { grid-template-columns: 1fr; gap: 6px; }
+    .output-use { text-align: left; }
+    .cta-scene { padding: 80px 28px; }
+    footer { padding: 56px 28px 36px; }
+    .ft-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .ft-bottom { flex-direction: column; gap: 6px; }
+  }
+  @media (max-width: 580px) {
+    .stations-grid { grid-template-columns: 1fr; }
+    .ft-grid { grid-template-columns: 1fr; }
+    .scene-h1 { font-size: clamp(3rem, 12vw, 4rem); }
+    .scene-h2 { font-size: clamp(2.2rem, 9vw, 3rem); }
+  }
+  
+        /* Standard c-ECO Institute navigation */
+  #s-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 48px;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: background 0.4s, padding 0.3s, backdrop-filter 0.4s, border-color 0.3s;
+  }
+  #s-nav.scrolled {
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 14px 48px;
+    border-bottom-color: rgba(255,255,255,0.05);
+  }
+  .s-logo {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem; letter-spacing: 0.28em; font-weight: 500;
+    color: rgba(255,255,255,0.9); text-transform: none;
+    flex-shrink: 0;
+  }
+  .s-logo img { width: 42px; height: 42px; object-fit: contain; flex-shrink: 0; }
+  .s-logo span { font: inherit; letter-spacing: inherit; color: inherit; margin-left: 0; font-weight: inherit; }
+  .s-nav-links { display: flex; gap: clamp(0.9rem, 1.7vw, 2.25rem); list-style: none; align-items: center; }
+  .s-nav-links a {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55); transition: color 0.18s;
+    white-space: nowrap;
+  }
+  .s-nav-links a:hover, .s-nav-links a.active { color: rgba(255,255,255,0.9); }
+  .s-nav-btn {
+    display: none; background: rgba(0,0,0,0.34); border: 1px solid rgba(255,255,255,0.36);
+    color: rgba(255,255,255,0.92); cursor: pointer; padding: 8px 14px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em;
+    text-transform: uppercase; min-width: 66px; text-align: center;
+  }
+  @media (max-width: 1380px) {
+    .s-nav-links { display: none; }
+    .s-nav-btn { display: block; }
+    .s-nav-links.open {
+      display: flex; flex-direction: column; align-items: flex-start; gap: 0;
+      position: absolute; top: 72px; left: 0; right: 0;
+      background: rgba(0,0,0,0.97); border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 0.75rem 48px 1rem;
+    }
+    .s-nav-links.open li { width: 100%; padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    #s-nav { padding: 18px 24px; }
+    #s-nav.scrolled { padding: 12px 24px; }
+  }
+  @media (max-width: 560px) {
+    .s-logo { font-size: 0.72rem; letter-spacing: 0.18em; gap: 10px; }
+    .s-logo img { width: 34px; height: 34px; }
+    .s-nav-links.open { top: 60px; padding-left: 24px; padding-right: 24px; }
+  }
+
+  /* Keep first-screen titles below the fixed brand bar. */
+  body > .scene:first-of-type { align-items: center; }
+  body > .scene:first-of-type .scene-body { padding: 120px 80px 80px; }
+  @media (max-width: 900px) {
+    body > .scene:first-of-type .scene-body { padding: 112px 28px 80px; }
+  }
+
+    /* Standard c-ECO first-screen title scale */
+  body > header h1,
+  .page-header h1,
+  .scene-h1,
+  .hero-title {
+    font-size: clamp(3.5rem, 9vw, 6.5rem);
+    line-height: 0.97;
+    letter-spacing: -0.025em;
+    font-weight: 800;
+  }
+  @media (max-width: 760px) {
+    body > header h1,
+    .page-header h1,
+    .scene-h1,
+    .hero-title {
+      font-size: clamp(3rem, 12vw, 4.25rem);
+    }
+  }
+
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="s-nav">
+  <a href="index.html" class="s-logo"><img src="assets/img/c-eco.png" alt="c-ECO Institute"><span>c-ECO Institute</span></a>
+  <button class="s-nav-btn" id="nav-btn">Menu</button>
+  <ul class="s-nav-links" id="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="framework.html">Framework</a></li>
+    <li><a href="tdr.html">TDR</a></li>
+    <li><a href="tfp.html">TFP</a></li>
+    <li><a href="amazon-lab.html">Amazon Lab</a></li>
+    <li><a href="sil.html">SIL</a></li>
+    <li><a href="donate.html">Donate</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="sitemap.html">Site Map</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- SCENE 01 — HERO -->
+<section class="scene" id="scene-hero">
+  <div class="scene-bg" id="bg-hero"></div>
+  <div class="scene-body">
+    <h1 class="scene-h1">8 stations.<br>1 biome.<br>Real time.</h1>
+    <p class="scene-sub">The largest ecological governance laboratory in operation — positioned at the threshold zone where ecological, legal, and institutional systems are simultaneously under stress.</p>
+    <div class="scene-ctas">
+      <a href="amazon-lab-program.html" class="cta-p">Full Lab Portal →</a>
+      <a href="mailto:dir@c-eco.io" class="cta-s">dir@c-eco.io</a>
+    </div>
+  </div>
+  <span class="scroll-hint">Scroll</span>
+</section>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="stat-item">
+    <span class="stat-n">8</span>
+    <span class="stat-l">Field Stations</span>
+  </div>
+  <div class="stat-div"></div>
+  <div class="stat-item">
+    <span class="stat-n">24/7</span>
+    <span class="stat-l">Monitoring</span>
+  </div>
+  <div class="stat-div"></div>
+  <div class="stat-item">
+    <span class="stat-n">3</span>
+    <span class="stat-l">Threshold Axes</span>
+  </div>
+  <div class="stat-div"></div>
+  <div class="stat-item">
+    <span class="stat-n">2026</span>
+    <span class="stat-l">Active Cohort</span>
+  </div>
+</div>
+
+<!-- SCENE 02 — STATIONS -->
+<section class="scene align-center" id="scene-stations" style="min-height:auto; align-items:stretch;">
+  <div class="scene-bg" id="bg-stations"></div>
+  <div class="stations-panel">
+    <span class="stations-label">// Field Station Network · Brazilian Amazon</span>
+    <div class="stations-grid">
+      <div class="station-card">
+        <span class="station-id">Station 01</span>
+        <div class="station-name">Deforestation Arc</div>
+        <div class="station-focus">Active frontier monitoring · Biomass threshold proximity · Enforcement gap mapping</div>
+        <span class="station-status">● Active</span>
+      </div>
+      <div class="station-card">
+        <span class="station-id">Station 02</span>
+        <div class="station-name">Upper River Corridor</div>
+        <div class="station-focus">Hydrological regime · Sediment load indicators · Cross-border governance interface</div>
+        <span class="station-status">● Active</span>
+      </div>
+      <div class="station-card">
+        <span class="station-id">Station 03</span>
+        <div class="station-name">Protected Area Buffer</div>
+        <div class="station-focus">Buffer zone pressure · Species abundance tracking · Legal instrument field-testing</div>
+        <span class="station-status">● Active</span>
+      </div>
+      <div class="station-card">
+        <span class="station-id">Station 04</span>
+        <div class="station-name">Indigenous Territory Interface</div>
+        <div class="station-focus">Traditional governance integration · Territorial boundary pressure · Socio-ecological indicators</div>
+        <span class="station-status">● Active</span>
+      </div>
+      <div class="station-card">
+        <span class="station-id">Station 05</span>
+        <div class="station-name">Legal Amazon Edge</div>
+        <div class="station-focus">Jurisdictional interface · Authority gap diagnostics · TFP activation calibration</div>
+        <span class="station-status">● Active</span>
+      </div>
+      <div class="station-card">
+        <span class="station-id">Station 06</span>
+        <div class="station-name">Floodplain Transition</div>
+        <div class="station-focus">Flood-pulse monitoring · Aquatic threshold signals · Seasonal governance cycles</div>
+        <span class="station-status">● Active</span>
+      </div>
+      <div class="station-card">
+        <span class="station-id">Station 07</span>
+        <div class="station-name">Savanna–Forest Boundary</div>
+        <div class="station-focus">Biome transition dynamics · Fire frequency indicators · Tipping point proximity</div>
+        <span class="station-status">● Active</span>
+      </div>
+      <div class="station-card">
+        <span class="station-id">Station 08</span>
+        <div class="station-name">Urban–Forest Frontier</div>
+        <div class="station-focus">Peri-urban encroachment · Multi-scale governance coordination · Institutional resilience assessment</div>
+        <span class="station-status">● Active</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCENE 03 — MONITORING DATA -->
+<section class="scene" id="scene-monitor">
+  <div class="scene-bg" id="bg-monitor"></div>
+  <div class="monitor-panel">
+    <div class="monitor-left">
+      <h2 class="scene-h2">Signal before<br>event.</h2>
+      <p class="scene-sub">Every station feeds continuous threshold proximity data into the TDR model — translating ecological signals into governance activation criteria before the threshold is reached.</p>
+      <div class="scene-ctas">
+        <a href="https://www.globalforestwatch.org/dashboards/country/BRA/" target="_blank" rel="noopener" class="cta-s">View live data →</a>
+      </div>
+    </div>
+    <div class="monitor-right">
+      <span class="monitor-title">// Threshold Proximity Indicators · 2026-Q2</span>
+      <div class="indicator-row">
+        <span class="ind-name">Deforestation rate</span>
+        <div class="ind-bar-wrap"><div class="ind-bar warn" style="width:74%"></div></div>
+        <span class="ind-val warn">P 0.74</span>
+      </div>
+      <div class="indicator-row">
+        <span class="ind-name">Fire incidence</span>
+        <div class="ind-bar-wrap"><div class="ind-bar warn" style="width:61%"></div></div>
+        <span class="ind-val warn">P 0.61</span>
+      </div>
+      <div class="indicator-row">
+        <span class="ind-name">Rainfall anomaly</span>
+        <div class="ind-bar-wrap"><div class="ind-bar alert" style="width:83%"></div></div>
+        <span class="ind-val alert">P 0.83</span>
+      </div>
+      <div class="indicator-row">
+        <span class="ind-name">Species abundance</span>
+        <div class="ind-bar-wrap"><div class="ind-bar" style="width:38%"></div></div>
+        <span class="ind-val">P 0.38</span>
+      </div>
+      <div class="indicator-row">
+        <span class="ind-name">Biomass loss rate</span>
+        <div class="ind-bar-wrap"><div class="ind-bar warn" style="width:67%"></div></div>
+        <span class="ind-val warn">P 0.67</span>
+      </div>
+      <div class="indicator-row">
+        <span class="ind-name">Governance gap index</span>
+        <div class="ind-bar-wrap"><div class="ind-bar alert" style="width:79%"></div></div>
+        <span class="ind-val alert">P 0.79</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCENE 04 — OUTPUTS -->
+<section class="scene" id="scene-outputs" style="min-height:auto; align-items:stretch; background:#050505;">
+  <div class="outputs-panel" style="padding-top:100px;">
+    <span class="scene-kicker">// Lab Outputs · In Production</span>
+    <h2 class="scene-h2" style="margin-bottom:8px;">From field<br>to instrument.</h2>
+    <p style="color:rgba(255,255,255,0.4); font-size:0.9rem; max-width:500px; line-height:1.75; margin-bottom:0;">Every observation becomes a calibration point. Every governance gap becomes an instrument specification.</p>
+    <div class="output-list">
+      <div class="output-item">
+        <span class="output-type">Ecological Datasets</span>
+        <span class="output-desc">Structured time-series on deforestation rate, fire incidence, hydrological anomalies, biomass and species indicators — continuous since 2024.</span>
+        <span class="output-use">TDR calibration</span>
+      </div>
+      <div class="output-item">
+        <span class="output-type">Governance Diagnostics</span>
+        <span class="output-desc">Qualitative and quantitative assessments of frontier institutional systems — authority structures, enforcement gaps, and cross-scale coordination failures.</span>
+        <span class="output-use">TFP instrument design</span>
+      </div>
+      <div class="output-item">
+        <span class="output-type">Case Studies</span>
+        <span class="output-desc">Documented governance episodes at threshold conditions — used to validate Framework logic and inform Fellowship curriculum.</span>
+        <span class="output-use">Framework validation</span>
+      </div>
+      <div class="output-item">
+        <span class="output-type">Working Papers</span>
+        <span class="output-desc">Research papers from Lab operations submitted for academic peer review — contributing to the empirical base for anticipatory governance science.</span>
+        <span class="output-use">Academic publication</span>
+      </div>
+      <div class="output-item">
+        <span class="output-type">Policy Briefs</span>
+        <span class="output-desc">Governance recommendations for frontier zone management distributed to partner institutions, regulatory bodies, and the c-ECO Fellowship network.</span>
+        <span class="output-use">Policy engagement</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / COLLABORATION -->
+<section class="cta-scene">
+  <div class="cta-inner">
+    <span class="scene-kicker">// Research Collaboration</span>
+    <h2>Work with the Lab.</h2>
+    <p>The Amazon Living Lab welcomes collaboration from academic institutions, environmental organisations, governmental bodies, and independent researchers with relevant expertise in threshold ecology, frontier governance, or legal instrument design.</p>
+    <div class="scene-ctas">
+      <a href="amazon-lab-program.html" class="cta-p">Lab Portal →</a>
+      <a href="mailto:dir@c-eco.io" class="cta-s">dir@c-eco.io</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand">
+      <a href="index.html" class="ft-brand-name">C—ECO</a>
+      <p>Threshold Governance Research Platform.</p>
+    </div>
+    <div class="ft-col">
+      <h4>Research</h4>
+      <ul>
+        <li><a href="framework.html">c-ECO Framework</a></li>
+        <li><a href="tdr.html">TDR</a></li>
+        <li><a href="tfp.html">TFP</a></li>
+        <li><a href="amazon-lab-program.html">Amazon Lab</a></li>
+        <li><a href="sil.html">SIL</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Knowledge</h4>
+      <ul>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="training.html">Training</a></li>
+        <li><a href="tfp/fellowship/">Fellowship</a></li>
+      </ul>
+    </div>
+    <div class="ft-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:dir@c-eco.io">dir@c-eco.io</a></li>
+        <li><a href="mailto:lab@c-eco.io">lab@c-eco.io</a></li>
+        <li><a href="contact.html">Contact Form</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <p>© 2026 c-ECO Institute</p>
+    <p><a href="mailto:dir@c-eco.io">dir@c-eco.io</a></p>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('s-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // Mobile menu
+  document.getElementById('nav-btn').addEventListener('click', () => {
+    document.getElementById('nav-links').classList.toggle('open');
+  });
+
+  // Parallax
+  const bgs = document.querySelectorAll('.scene-bg');
+  function parallax() {
+    bgs.forEach(el => {
+      const rect = el.parentElement.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+      const offset = (window.scrollY - (rect.top + window.scrollY)) * 0.15;
+      el.style.transform = `translateY(${offset}px)`;
+    });
+  }
+  window.addEventListener('scroll', parallax, { passive: true });
+
+  // Scene backgrounds
+  function setScene(id, imgFile, overlay, pos) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (imgFile) {
+      el.style.backgroundImage = overlay + `, url('assets/img/${imgFile}')`;
+      el.style.backgroundSize = 'auto, cover';
+      el.style.backgroundPosition = `center, ${pos || 'center'}`;
+    } else {
+      el.style.backgroundImage = overlay;
+      el.style.backgroundSize = 'cover';
+      el.style.backgroundPosition = 'center';
+    }
+  }
+
+  setScene('bg-hero',     'r5.jpg',
+    'linear-gradient(to top, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.42) 50%, rgba(0,0,0,0.10) 100%)',
+    'center center');
+
+  setScene('bg-stations', 'amazon-rainforest.avif',
+    'linear-gradient(to bottom, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.72) 100%)',
+    'center center');
+
+  setScene('bg-monitor',  'r6.jpg',
+    'linear-gradient(to top, rgba(0,0,0,0.96) 0%, rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.22) 100%)',
+    'center center');
+</script>
+</body>
+</html>
