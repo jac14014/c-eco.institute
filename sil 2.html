@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Systemic Intelligence Library — c-ECO</title>
+  <meta name="description" content="The c-ECO Systemic Intelligence Library — sector-specific knowledge assets that calibrate TFP instruments across 17 global sectors.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700;800&display=swap">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body { background: #000; color: #fff; font-family: 'Inter', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { text-decoration: none; }
+
+  /* ── NAV ── */
+  #s-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 24px 48px; background: rgba(0,0,0,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .s-logo { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; letter-spacing: 0.28em; font-weight: 500; color: rgba(255,255,255,0.9); }
+  .s-logo span { font-size: 0.55rem; letter-spacing: 0.14em; color: rgba(255,255,255,0.35); margin-left: 10px; }
+  .s-nav-links { display: flex; gap: 2.25rem; list-style: none; }
+  .s-nav-links a { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.45); transition: color 0.18s; }
+  .s-nav-links a:hover, .s-nav-links a.active { color: rgba(255,255,255,0.9); }
+  .s-nav-btn { display: none; background: none; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6); cursor: pointer; padding: 5px 10px; font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; }
+  @media (max-width: 1380px) { .s-nav-links { display: none; } .s-nav-btn { display: block; } .s-nav-links.open { display: flex; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: rgba(0,0,0,0.98); border-bottom: 1px solid rgba(255,255,255,0.06); padding: 1rem 48px; } .s-nav-links.open li { padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); } #s-nav { padding: 18px 24px; } }
+
+  /* ── HERO ── */
+  .scene { position: relative; min-height: 100vh; display: flex; align-items: flex-end; overflow: hidden; }
+  .scene-bg { position: absolute; inset: 0; background-size: cover; background-position: center; will-change: transform; }
+  .hero-content { position: relative; z-index: 2; padding: 0 80px 80px; width: 100%; }
+  .hero-eyebrow { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.38); margin-bottom: 20px; display: block; }
+  .hero-title { font-family: 'Inter', sans-serif; font-weight: 800; font-size: clamp(2.8rem, 7vw, 5.5rem); letter-spacing: -0.03em; line-height: 0.95; color: #fff; margin-bottom: 24px; }
+  .hero-sub { font-size: 1rem; color: rgba(255,255,255,0.48); max-width: 520px; line-height: 1.8; }
+
+  /* ── STATS ── */
+  .stats-band { display: flex; align-items: center; justify-content: center; gap: 0; background: #050505; padding: 72px 48px; border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .stat-item { display: flex; flex-direction: column; align-items: center; padding: 0 56px; }
+  .stat-n { font-family: 'IBM Plex Mono', monospace; font-size: 3.25rem; font-weight: 300; color: #fff; line-height: 1; letter-spacing: -0.02em; }
+  .stat-l { font-family: 'IBM Plex Mono', monospace; font-size: 0.54rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-top: 10px; }
+  .stat-div { width: 1px; height: 56px; background: rgba(255,255,255,0.1); flex-shrink: 0; }
+
+  /* ── SECTIONS ── */
+  .sec { padding: 100px 80px; max-width: 1200px; margin: 0 auto; }
+  .sec-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(255,255,255,0.22); margin-bottom: 40px; display: block; }
+  .sec-title { font-family: 'Inter', sans-serif; font-weight: 800; font-size: clamp(1.8rem, 3.5vw, 2.8rem); letter-spacing: -0.025em; color: #fff; margin-bottom: 20px; line-height: 1.1; }
+  .sec-body { font-size: 0.95rem; color: rgba(255,255,255,0.42); max-width: 640px; line-height: 1.85; }
+
+  /* ── WHAT IS SIL ── */
+  .what-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.05); margin-top: 48px; }
+  .what-card { background: #000; padding: 32px; }
+  .wc-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.55rem; letter-spacing: 0.16em; color: rgba(255,255,255,0.18); margin-bottom: 10px; display: block; }
+  .wc-title { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.9rem; color: rgba(255,255,255,0.72); margin-bottom: 6px; }
+  .wc-desc { font-size: 0.8rem; color: rgba(255,255,255,0.32); line-height: 1.72; }
+
+  /* ── SECTOR CARDS ── */
+  .sector-scene { background: #040404; border-top: 1px solid rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.04); padding: 100px 80px; }
+  .sector-grid { max-width: 1200px; margin: 0 auto; }
+  .sector-grid .sec-label { margin-bottom: 48px; }
+  .sector-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.05); }
+  .s-card { background: #040404; padding: 36px; display: flex; flex-direction: column; gap: 16px; transition: background 0.18s; }
+  .s-card.available { cursor: pointer; }
+  .s-card.available:hover { background: #090909; }
+  .s-card-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.52rem; letter-spacing: 0.16em; color: rgba(255,255,255,0.18); }
+  .s-card-title { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.95rem; color: rgba(255,255,255,0.72); line-height: 1.3; }
+  .s-card.pending .s-card-title { color: rgba(255,255,255,0.22); }
+  .s-card-tag { display: inline-block; align-self: flex-start; padding: 4px 12px; border: 1px solid; font-family: 'IBM Plex Mono', monospace; font-size: 0.48rem; letter-spacing: 0.12em; text-transform: uppercase; }
+  .tag-available { border-color: rgba(80,200,120,0.3); color: rgba(80,200,120,0.7); }
+  .tag-development { border-color: rgba(255,255,255,0.08); color: rgba(255,255,255,0.2); }
+  .s-card-sectors { font-size: 0.75rem; color: rgba(255,255,255,0.28); line-height: 1.6; }
+  .s-card.pending .s-card-sectors { color: rgba(255,255,255,0.14); }
+
+  /* ── STRUCTURE ── */
+  .parts-list { display: flex; flex-direction: column; gap: 1px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.05); margin-top: 48px; }
+  .part-row { background: #000; padding: 24px 32px; display: grid; grid-template-columns: 80px 1fr; gap: 24px; align-items: start; }
+  .part-id { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.2); padding-top: 2px; }
+  .part-name { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 0.88rem; color: rgba(255,255,255,0.65); margin-bottom: 4px; }
+  .part-desc { font-size: 0.78rem; color: rgba(255,255,255,0.28); line-height: 1.65; }
+
+  /* ── CTA ── */
+  .cta-band { background: #000; padding: 100px 80px; border-top: 1px solid rgba(255,255,255,0.05); }
+  .cta-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+  .cta-text h2 { font-family: 'Inter', sans-serif; font-weight: 800; font-size: clamp(1.6rem, 3vw, 2.4rem); letter-spacing: -0.02em; color: #fff; margin-bottom: 12px; }
+  .cta-text p { font-size: 0.88rem; color: rgba(255,255,255,0.38); line-height: 1.8; max-width: 500px; }
+  .cta-actions { display: flex; flex-direction: column; gap: 12px; align-items: flex-end; flex-shrink: 0; }
+  .btn-primary { display: inline-block; padding: 16px 36px; background: #fff; color: #000; font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; transition: background 0.18s; }
+  .btn-primary:hover { background: rgba(255,255,255,0.85); }
+  .btn-sec { display: inline-block; padding: 14px 32px; border: 1px solid rgba(255,255,255,0.3); color: rgba(255,255,255,0.6); font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; transition: border-color 0.18s, color 0.18s; }
+  .btn-sec:hover { border-color: rgba(255,255,255,0.7); color: rgba(255,255,255,0.9); }
+
+  /* ── FOOTER ── */
+  footer { background: #000; border-top: 1px solid rgba(255,255,255,0.06); padding: 72px 80px 48px; }
+  .ft-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+  .ft-brand-name { font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; letter-spacing: 0.25em; color: rgba(255,255,255,0.5); display: block; margin-bottom: 1rem; }
+  .ft-brand p { color: rgba(255,255,255,0.22); font-size: 0.78rem; line-height: 1.8; max-width: 260px; }
+  .ft-brand a { color: rgba(168,184,200,0.4); }
+  .ft-col h4 { font-family: 'IBM Plex Mono', monospace; font-size: 0.54rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.18); margin-bottom: 1rem; font-weight: 400; }
+  .ft-col ul { list-style: none; } .ft-col li { margin-bottom: 0.55rem; }
+  .ft-col a { font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; color: rgba(255,255,255,0.28); transition: color 0.15s; }
+  .ft-col a:hover { color: rgba(255,255,255,0.7); }
+  .ft-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1.5rem; display: flex; justify-content: space-between; }
+  .ft-bottom p { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; color: rgba(255,255,255,0.18); }
+  .ft-bottom a { color: rgba(255,255,255,0.18); }
+
+  @media (max-width: 1024px) { .stats-band { flex-wrap: wrap; gap: 2rem; } .stat-div { display: none; } .cta-inner { grid-template-columns: 1fr; } .cta-actions { align-items: flex-start; } }
+  @media (max-width: 900px) { .hero-content { padding: 0 28px 60px; } .sec { padding: 72px 28px; } .sector-scene { padding: 72px 28px; } .cta-band { padding: 72px 28px; } .what-grid { grid-template-columns: 1fr; } .sector-cards { grid-template-columns: 1fr; } .parts-list .part-row { grid-template-columns: 1fr; gap: 4px; } .part-id { font-size: 0.52rem; } footer { padding: 56px 28px 36px; } .ft-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; } .ft-bottom { flex-direction: column; gap: 6px; } }
+  @media (max-width: 580px) { .ft-grid { grid-template-columns: 1fr; } }
+  
+        /* Standard c-ECO Institute navigation */
+  #s-nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 24px 48px;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: background 0.4s, padding 0.3s, backdrop-filter 0.4s, border-color 0.3s;
+  }
+  #s-nav.scrolled {
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 14px 48px;
+    border-bottom-color: rgba(255,255,255,0.05);
+  }
+  .s-logo {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem; letter-spacing: 0.28em; font-weight: 500;
+    color: rgba(255,255,255,0.9); text-transform: none;
+    flex-shrink: 0;
+  }
+  .s-logo img { width: 42px; height: 42px; object-fit: contain; flex-shrink: 0; }
+  .s-logo span { font: inherit; letter-spacing: inherit; color: inherit; margin-left: 0; font-weight: inherit; }
+  .s-nav-links { display: flex; gap: clamp(0.9rem, 1.7vw, 2.25rem); list-style: none; align-items: center; }
+  .s-nav-links a {
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55); transition: color 0.18s;
+    white-space: nowrap;
+  }
+  .s-nav-links a:hover, .s-nav-links a.active { color: rgba(255,255,255,0.9); }
+  .s-nav-btn {
+    display: none; background: rgba(0,0,0,0.34); border: 1px solid rgba(255,255,255,0.36);
+    color: rgba(255,255,255,0.92); cursor: pointer; padding: 8px 14px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em;
+    text-transform: uppercase; min-width: 66px; text-align: center;
+  }
+  @media (max-width: 1380px) {
+    .s-nav-links { display: none; }
+    .s-nav-btn { display: block; }
+    .s-nav-links.open {
+      display: flex; flex-direction: column; align-items: flex-start; gap: 0;
+      position: absolute; top: 72px; left: 0; right: 0;
+      background: rgba(0,0,0,0.97); border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding: 0.75rem 48px 1rem;
+    }
+    .s-nav-links.open li { width: 100%; padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    #s-nav { padding: 18px 24px; }
+    #s-nav.scrolled { padding: 12px 24px; }
+  }
+  @media (max-width: 560px) {
+    .s-logo { font-size: 0.72rem; letter-spacing: 0.18em; gap: 10px; }
+    .s-logo img { width: 34px; height: 34px; }
+    .s-nav-links.open { top: 60px; padding-left: 24px; padding-right: 24px; }
+  }
+
+    /* Standard c-ECO first-screen title scale */
+  body > header h1,
+  .page-header h1,
+  .scene-h1,
+  .hero-title {
+    font-size: clamp(3.5rem, 9vw, 6.5rem);
+    line-height: 0.97;
+    letter-spacing: -0.025em;
+    font-weight: 800;
+  }
+  @media (max-width: 760px) {
+    body > header h1,
+    .page-header h1,
+    .scene-h1,
+    .hero-title {
+      font-size: clamp(3rem, 12vw, 4.25rem);
+    }
+  }
+
+  </style>
+</head>
+<body>
+
+<nav id="s-nav">
+  <a href="index.html" class="s-logo"><img src="assets/img/c-eco.png" alt="c-ECO Institute"><span>c-ECO Institute</span></a>
+  <button class="s-nav-btn" id="nav-btn">Menu</button>
+  <ul class="s-nav-links" id="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="framework.html">Framework</a></li>
+    <li><a href="tdr.html">TDR</a></li>
+    <li><a href="tfp.html">TFP</a></li>
+    <li><a href="amazon-lab.html">Amazon Lab</a></li>
+    <li><a href="sil.html">SIL</a></li>
+    <li><a href="donate.html">Donate</a></li>
+    <li><a href="research.html">Research</a></li>
+    <li><a href="sitemap.html">Site Map</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="scene">
+  <div class="scene-bg" id="bg-hero"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Systemic Intelligence Library</span>
+    <h1 class="hero-title">19 sectors.<br>One calibration<br>standard.</h1>
+    <p class="hero-sub">Sector-specific knowledge assets that feed TFP instrument calibration — position indicators, velocity thresholds, uncertainty ranges, and reversibility scores for each global sector.</p>
+  </div>
+</div>
+
+<!-- ── STATS ── -->
+<div class="stats-band">
+  <div class="stat-item"><span class="stat-n">19</span><span class="stat-l">Sectors</span></div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><span class="stat-n">9</span><span class="stat-l">Parts per SIL</span></div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><span class="stat-n">30</span><span class="stat-l">Risks per sector</span></div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><span class="stat-n">19</span><span class="stat-l">Available now</span></div>
+</div>
+
+<!-- ── WHAT IS SIL ── -->
+<div class="sec">
+  <span class="sec-label">// What is the SIL</span>
+  <h2 class="sec-title">A knowledge base<br>for every sector.</h2>
+  <p class="sec-body">The Systemic Intelligence Library (SIL) is the foundational knowledge layer of the c-ECO Framework. Each SIL document is a structured, research-verified dossier for one of the 17 global sectors monitored by c-ECO — providing the empirical substance that calibrates TFP instruments.</p>
+  <div class="what-grid">
+    <div class="what-card">
+      <span class="wc-num">Function 01</span>
+      <div class="wc-title">TFP Calibration Substrate</div>
+      <p class="wc-desc">SIL indicators directly populate the P (Position), ΔV (Velocity), σ (Uncertainty), and Lr (Reversibility) variables used to compute the TDR Systemic Proximity Score for each sector.</p>
+    </div>
+    <div class="what-card">
+      <span class="wc-num">Function 02</span>
+      <div class="wc-title">Sector Risk Intelligence</div>
+      <p class="wc-desc">Each SIL maps 30 primary systemic risks, secondary amplification mechanisms, and a cascade taxonomy — the cross-sector failure pathways that conventional sector analysis ignores.</p>
+    </div>
+    <div class="what-card">
+      <span class="wc-num">Function 03</span>
+      <div class="wc-title">Legal & Governance Architecture</div>
+      <p class="wc-desc">Applicable international treaties, national frameworks, liability cascade design, and data sovereignty conflicts — the institutional landscape that defines where TFP instruments can and cannot operate.</p>
+    </div>
+    <div class="what-card">
+      <span class="wc-num">Function 04</span>
+      <div class="wc-title">Stress Test & Recovery</div>
+      <p class="wc-desc">Five stress test scenarios per sector with Monte Carlo simulation parameters, Black Start recovery timelines, spare parts inventories, and mutual aid agreement architectures.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTORS ── -->
+<div class="sector-scene">
+  <div class="sector-grid">
+    <span class="sec-label">// Sector Library</span>
+    <div class="sector-cards">
+
+      <!-- Sector 1 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-min.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 1 of 19</div>
+        <div class="s-card-title">Mining &amp; Mineral Extraction</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Tailings risk, extraction systems, aquifer contamination, geotechnical instability, and restoration-linked legal conditioning.</p>
+      </div>
+
+      <!-- Sector 2 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-agr.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 2 of 19</div>
+        <div class="s-card-title">Agribusiness &amp; Intensive Land Use</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Soil degradation, nutrient cycles, food security, agroindustrial dependency, land conversion, and productive landscape reversibility.</p>
+      </div>
+
+      <!-- Sector 3 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-ene.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 3 of 19</div>
+        <div class="s-card-title">Energy Systems</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Energy-water interdependence, infrastructure resilience, reversibility liquidity, and systemic instability in power systems.</p>
+      </div>
+
+      <!-- Sector 4 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-wat.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 4 of 19</div>
+        <div class="s-card-title">Water &amp; Sanitation</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Freshwater scarcity, hydrological thresholds, aquifer stress, sanitation infrastructure, and water-system instability.</p>
+      </div>
+
+      <!-- Sector 5 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-inf.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 5 of 19</div>
+        <div class="s-card-title">Infrastructure &amp; Heavy Construction</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Structural lock-in, civil works, corridor dependency, materials pressure, and threshold-sensitive infrastructure delivery.</p>
+      </div>
+
+      <!-- Sector 6 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-che.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 6 of 19</div>
+        <div class="s-card-title">Chemical &amp; Materials Systems</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Industrial toxicity, hazardous materials, process safety, supply-chain exposure, and reversibility constraints in chemical systems.</p>
+      </div>
+
+      <!-- Sector 7 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-urb.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 7 of 19</div>
+        <div class="s-card-title">Real Estate &amp; Urbanization</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Land-use conversion, urban expansion, housing pressure, property exposure, and infrastructure-dependent spatial development.</p>
+      </div>
+
+      <!-- Sector 8 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-dig.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 8 of 19</div>
+        <div class="s-card-title">Digital Technology &amp; Data Infrastructure</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Data center externalities, computational expansion, digital infrastructure burdens, energy-water pressure, and algorithmic dependency.</p>
+      </div>
+
+      <!-- Sector 9 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-log.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 9 of 19</div>
+        <div class="s-card-title">Logistics &amp; Transportation</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Port, corridor, fleet, storage, and movement dependencies that transmit systemic stress across supply chains.</p>
+      </div>
+
+      <!-- Sector 10 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-fin.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 10 of 19</div>
+        <div class="s-card-title">Financial Systems</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Transmission of systemic environmental risk into guarantees, portfolios, credit instruments, insurance, and reversibility-linked finance.</p>
+      </div>
+
+      <!-- Sector 11 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-ai.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 11 of 19</div>
+        <div class="s-card-title">AI &amp; Algorithmic Systems</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Algorithmic governance, automated decisions, model risk, data dependency, computational burdens, and systemic digital instability.</p>
+      </div>
+
+      <!-- Sector 12 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-for.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 12 of 19</div>
+        <div class="s-card-title">Forests, Carbon &amp; Natural Assets</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Forest integrity, carbon stocks, ecosystem services, natural-asset valuation, biodiversity pressure, and restoration-linked governance.</p>
+      </div>
+
+      <!-- Sector 13 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-spa.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 13 of 19</div>
+        <div class="s-card-title">Space &amp; Orbital Infrastructure</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Satellite dependency, orbital congestion, debris risk, remote-sensing infrastructure, and systemic continuity of space-based services.</p>
+      </div>
+
+      <!-- Sector 14 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-nuc.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 14 of 19</div>
+        <div class="s-card-title">Nuclear &amp; Waste Systems</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Nuclear safety, waste containment, long-duration liability, hazardous storage, and irreversible contamination pathways.</p>
+      </div>
+
+      <!-- Sector 15 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-hea.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 15 of 19</div>
+        <div class="s-card-title">Healthcare &amp; Public Health</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Health-system resilience, public-health capacity, environmental exposure, service continuity, and population vulnerability thresholds.</p>
+      </div>
+
+      <!-- Sector 16 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-eme.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 16 of 19</div>
+        <div class="s-card-title">Emergency Services</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Disaster response, civil protection, emergency logistics, crisis coordination, and operational capacity under cascading shocks.</p>
+      </div>
+
+      <!-- Sector 17 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-gov.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 17 of 19</div>
+        <div class="s-card-title">Governance &amp; Public Administration</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Public decision systems, regulatory capacity, institutional coordination, procurement, public finance, and administrative resilience.</p>
+      </div>
+
+      <!-- Sector 18 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-dsss.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 18 of 19</div>
+        <div class="s-card-title">Defense &amp; Strategic Security Systems</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Military-civilian infrastructure dependency, defense supply chain exposure, strategic asset vulnerability, and security-critical system resilience.</p>
+      </div>
+
+      <!-- Sector 19 — Available -->
+      <div class="s-card available" onclick="window.location='https://c-eco.org/fellowship/fellowship-sil-sovk.html'" style="cursor:pointer;">
+        <div class="s-card-num">Sector 19 of 19</div>
+        <div class="s-card-title">Scientific Observation, Verification &amp; Knowledge Systems</div>
+        <span class="s-card-tag tag-available">Available</span>
+        <p class="s-card-sectors">Research infrastructure integrity, data verification protocols, knowledge system resilience, observational network continuity, and epistemic governance.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ── STRUCTURE ── -->
+<div class="sec">
+  <span class="sec-label">// Document Structure</span>
+  <h2 class="sec-title">Nine parts.<br>Every sector.</h2>
+  <p class="sec-body">Each SIL document follows a standardised nine-part architecture, ensuring consistent calibration inputs across all sectors and enabling cross-sector cascade analysis.</p>
+  <div class="parts-list">
+    <div class="part-row">
+      <div class="part-id">Part I</div>
+      <div><div class="part-name">Domain Intelligence Profile</div><p class="part-desc">Sector definition and scope, historical evolution timeline for ΔV calibration, global institutional landscape.</p></div>
+    </div>
+    <div class="part-row">
+      <div class="part-id">Part II</div>
+      <div><div class="part-name">Systemic Risk Intelligence</div><p class="part-desc">30 primary systemic risks with TFP variable linkage, secondary amplification mechanisms, emerging risk horizon scan, and cascade taxonomy across all 17 sectors.</p></div>
+    </div>
+    <div class="part-row">
+      <div class="part-id">Part III</div>
+      <div><div class="part-name">Systemic Response Intelligence</div><p class="part-desc">Pre-positioned response protocols by SPS Level, Calibration Council activation matrix, communication blackout contingencies.</p></div>
+    </div>
+    <div class="part-row">
+      <div class="part-id">Part IV</div>
+      <div><div class="part-name">Governance &amp; Legal Architecture</div><p class="part-desc">Applicable international treaties, national regulatory frameworks (10 jurisdictions), liability cascade architecture, data sovereignty and extraterritoriality conflicts.</p></div>
+    </div>
+    <div class="part-row">
+      <div class="part-id">Part V</div>
+      <div><div class="part-name">TFP Calibration Intelligence</div><p class="part-desc">30 Position (P) indicators with SPS L3 thresholds and data sources; Velocity (ΔV) rate-of-change indicators; Uncertainty (σ) confidence intervals; Reversibility Liquidity (Lr) capacity scores.</p></div>
+    </div>
+    <div class="part-row">
+      <div class="part-id">Part VI</div>
+      <div><div class="part-name">Scenario &amp; Simulation Intelligence</div><p class="part-desc">Five stress test scenarios with full TFP variable values, Monte Carlo simulation parameters (10,000 iterations), Black Start recovery timeline.</p></div>
+    </div>
+    <div class="part-row">
+      <div class="part-id">Part VII</div>
+      <div><div class="part-name">Restoration &amp; Recovery Architecture</div><p class="part-desc">Restoration provider certification criteria, recovery sequencing with RTO targets, spare parts inventory requirements, mutual aid agreement architecture.</p></div>
+    </div>
+    <div class="part-row">
+      <div class="part-id">Part VIII</div>
+      <div><div class="part-name">Authoritative Source Library</div><p class="part-desc">Source classification (Class A — institutional primary, Class B — industry standard, Class C — academic/NGO), cross-referenced by TFP variable.</p></div>
+    </div>
+    <div class="part-row">
+      <div class="part-id">Part IX</div>
+      <div><div class="part-name">Source Matrices &amp; Historical Intelligence</div><p class="part-desc">Source-to-variable matrix, source-to-risk matrix, monitoring gap analysis, dependency matrix, and 60-event historical intelligence library for ΔV calibration.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CTA ── -->
+<div class="cta-band">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <h2>Access the SIL through the Fellowship.</h2>
+      <p>SIL documents are restricted to c-ECO Fellows and institutional partners. Fellowship admission provides access to all available sectors, updates as new sectors are completed, and calibration training through the TFP programme.</p>
+    </div>
+    <div class="cta-actions">
+      <a href="tfp/fellowship/" class="btn-primary">Apply for Fellowship →</a>
+      <a href="mailto:fellowship@c-eco.io" class="btn-sec">fellowship@c-eco.io</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="ft-grid">
+    <div class="ft-brand"><a href="index.html" class="ft-brand-name">C—ECO</a><p>Threshold Governance Research Platform.</p></div>
+    <div class="ft-col"><h4>System</h4><ul><li><a href="framework.html">c-ECO Framework</a></li><li><a href="tdr.html">TDR</a></li><li><a href="tfp.html">TFP</a></li><li><a href="sil.html">SIL</a></li></ul></div>
+    <div class="ft-col"><h4>Lab & Research</h4><ul><li><a href="amazon-lab.html">Amazon Lab</a></li><li><a href="research.html">Research</a></li><li><a href="publications.html">Publications</a></li><li><a href="training.html">Training</a></li></ul></div>
+    <div class="ft-col"><h4>Contact</h4><ul><li><a href="mailto:dir@c-eco.io">dir@c-eco.io</a></li><li><a href="contact.html">Contact</a></li><li><a href="tfp/fellowship/">Fellowship</a></li></ul></div>
+  </div>
+  <div class="ft-bottom"><p>© 2026 c-ECO Institute</p><p><a href="mailto:dir@c-eco.io">dir@c-eco.io</a></p></div>
+</footer>
+
+<script>
+  const nav = document.getElementById('s-nav');
+  const navBtn = document.getElementById('nav-btn');
+  const navLinks = document.getElementById('nav-links');
+  if (nav) {
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+  }
+  if (navBtn && navLinks) {
+    navBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
+  }
+</script>
+</body>
+</html>
