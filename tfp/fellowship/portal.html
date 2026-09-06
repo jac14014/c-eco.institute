@@ -912,6 +912,7 @@
     font-size: 13px;
   }
 }
+
   .s-logo{
     display:flex;
     align-items:center;
@@ -928,7 +929,10 @@
     display:block;
     width:42px;
     height:42px;
-    object-fit:contain;
+    object-fit:cover;
+    clip-path:inset(17%);
+    transform:scale(1.55);
+    transform-origin:center;
     flex:0 0 auto;
   }
 
@@ -936,27 +940,32 @@
     display:block;
   }
 
+  .hero-brand-lockup{
+    display:flex;
+    align-items:center;
+    gap:18px;
+  }
 
-  .hero-logo-frame {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 92px;
-  height: 92px;
-  overflow: hidden;
-  background: #fff;
-  border: 1px solid rgba(255,255,255,.72);
-  flex: 0 0 auto;
-}
+  .hero-logo-frame{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:92px;
+    height:92px;
+    overflow:hidden;
+    background:#fff;
+    border:1px solid rgba(255,255,255,.72);
+    flex:0 0 auto;
+  }
 
-.hero-institute-logo {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.85);
-  transform-origin: center;
-}
+  .hero-institute-logo{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transform:scale(1.85);
+    transform-origin:center;
+  }
 
   .eligibility-flow{
     display:grid;
@@ -1031,7 +1040,7 @@
       align-items:flex-start;
     }
 
-    .hero-institute-logo{
+    .hero-logo-frame{
       width:72px;
       height:72px;
     }
@@ -1043,7 +1052,7 @@
   }
 
   @media print{
-    .hero-institute-logo{
+    .hero-logo-frame{
       width:76px;
       height:76px;
     }
