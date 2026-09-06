@@ -936,21 +936,27 @@
     display:block;
   }
 
-  .hero-brand-lockup{
-    display:flex;
-    align-items:center;
-    gap:18px;
-  }
 
-  .hero-institute-logo{
-    width:92px;
-    height:92px;
-    object-fit:contain;
-    background:#fff;
-    border:1px solid rgba(255,255,255,.72);
-    padding:5px;
-    flex:0 0 auto;
-  }
+  .hero-logo-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 92px;
+  height: 92px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(255,255,255,.72);
+  flex: 0 0 auto;
+}
+
+.hero-institute-logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.85);
+  transform-origin: center;
+}
 
   .eligibility-flow{
     display:grid;
@@ -1063,7 +1069,17 @@
 
   <aside class="sidebar" id="sidebar" aria-label="Fellowship Portal Index">
     <div class="sidebar-top">
-      <a href="index.html" class="s-logo"><img src="../../assets/img/fellowship-logo.PNG" alt="c-ECO INSTITUTE"><span>c-ECO INSTITUTE</span></a>
+      <a
+  href="https://c-eco.instute"
+  class="hero-logo-frame"
+  aria-label="Go to the c-ECO Institute home page"
+>
+  <img
+    src="../../assets/img/fellowship-logo.PNG"
+    alt="c-ECO Institute"
+    class="hero-institute-logo"
+  >
+</a>
     </div>
 
     <div class="search-container">
@@ -1097,7 +1113,8 @@
         <li class="nav-item"><a href="#FELLOWSHIP-LEVELS">17. Fellowship Levels</a></li>
         <li class="nav-item"><a href="#CERTIFICATE-LOGIC">18. Certificate Logic</a></li>
         <li class="nav-item"><a href="#CURRENT-CYCLE">19. Current Application Cycle</a></li>
-<li class="nav-item"><a href="#ACCESS-PATHWAYS">20. Access Pathways & Participation Structure</a></li>
+        
+        <li class="nav-item"><a href="#ACCESS-PATHWAYS">20. Access Pathways & Participation Structure</a></li>
 
         <li class="nav-section-title">Reference & Legal</li>
         <li class="nav-item"><a href="#REFERENCES">21. References</a></li>
@@ -1111,13 +1128,11 @@
       <article class="document-page" id="mainDocument">
       <header class="hero-header">
   <div class="hero-brand-lockup">
-    <a href="http://c-eco.institute.html" aria-label="Go to the c-ECO Institute home page">
-      <img
-        src="../../assets/img/fellowship-logo.PNG"
-        alt="c-ECO Institute"
-        class="hero-institute-logo"
-      >
-    </a>
+<a
+  href="http://c-eco.institute"
+  class="hero-logo-frame"
+  aria-label="Go to the c-ECO Institute home page"> <img src="../../assets/img/fellowship-logo.PNG" alt="c-ECO Institute" class="hero-institute-logo"> </a>
+
     <div>
       <div class="hero-eyebrow">c-ECO Institute · Systemic Governance Initiative</div>
       <h1 class="hero-title">c-ECO Fellowship Program — Applied Entry Portal</h1>
