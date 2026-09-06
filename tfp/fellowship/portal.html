@@ -926,10 +926,9 @@
 
   .s-logo img{
     display:block;
-    width:42px;
-    height:42px;
-    object-fit:cover;
-    transform-origin:center;
+    width:38px;
+    height:46px;
+    object-fit:contain;
     flex:0 0 auto;
   }
 
@@ -947,11 +946,11 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    width:92px;
-    height:92px;
-    overflow:hidden;
+    width:90px;
+    height:106px;
     background:#fff;
     border:1px solid rgba(255,255,255,.72);
+    padding:8px;
     flex:0 0 auto;
   }
 
@@ -959,8 +958,7 @@
     display:block;
     width:100%;
     height:100%;
-    object-fit:cover;
-    transform-origin:center;
+    object-fit:contain;
   }
 
   .eligibility-flow{
@@ -1038,7 +1036,8 @@
 
     .hero-logo-frame{
       width:72px;
-      height:72px;
+      height:86px;
+      padding:6px;
     }
 
     .eligibility-flow,
@@ -1050,7 +1049,8 @@
   @media print{
     .hero-logo-frame{
       width:76px;
-      height:76px;
+      height:90px;
+      padding:6px;
     }
 
     .eligibility-flow,
@@ -1074,17 +1074,13 @@
 
   <aside class="sidebar" id="sidebar" aria-label="Fellowship Portal Index">
     <div class="sidebar-top">
-      <a
-  href="https://c-eco.instute"
-  class="hero-logo-frame"
-  aria-label="Go to the c-ECO Institute home page"
->
-  <img
-    src="../../assets/img/fellowship-logo.PNG"
-    alt="c-ECO Institute"
-    class="hero-institute-logo"
-  >
-</a>
+  <a href="index.html" class="s-logo">
+    <img src="assets/img/c-eco-clean.png" alt="c-ECO INSTITUTE">
+    <span>c-ECO INSTITUTE</span>
+  </a>
+
+  <div class="sidebar-title">c-ECO Fellowship Portal</div>
+</div>
     </div>
 
     <div class="search-container">
@@ -1136,7 +1132,7 @@
 <a
   href="http://c-eco.institute"
   class="hero-logo-frame"
-  aria-label="Go to the c-ECO Institute home page"> <img src="../../assets/img/fellowship-logo.PNG" alt="c-ECO Institute" class="hero-institute-logo"> </a>
+  aria-label="Go to the c-ECO Institute home page"> <img src="assets/img/c-eco-clean.png" alt="c-ECO Institute" class="hero-institute-logo"> </a>
 
     <div>
       <div class="hero-eyebrow">c-ECO Institute · Systemic Governance Initiative</div>
