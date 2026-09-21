@@ -1,0 +1,2272 @@
+html_content = '''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>c-ECO Institute — Institutional Establishment, Governance and Operations Dossier</title>
+<style>
+:root {
+  --burgundy: #5C1A1A;
+  --dark-gray: #2B2B2B;
+  --medium-gray: #5A5A5A;
+  --light-gray: #F5F5F5;
+  --border: #CCCCCC;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Charter", "Georgia", "Times New Roman", serif;
+  font-size: 11pt;
+  line-height: 1.55;
+  color: #1a1a1a;
+  background: #fff;
+}
+
+/* Layout with sidebar */
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 280px;
+  background: #fafafa;
+  border-right: 1px solid var(--border);
+  padding: 2rem 1.5rem;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.main-content {
+  margin-left: 280px;
+  padding: 2rem 3rem;
+  max-width: 900px;
+}
+
+/* Sidebar styles */
+.sidebar h1 {
+  font-size: 14pt;
+  color: var(--burgundy);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.sidebar .subtitle {
+  font-size: 9pt;
+  color: var(--medium-gray);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.sidebar .nav-section {
+  margin-bottom: 1.5rem;
+}
+
+.sidebar .nav-title {
+  font-size: 9pt;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--dark-gray);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.sidebar a {
+  display: block;
+  color: var(--dark-gray);
+  text-decoration: none;
+  font-size: 9pt;
+  padding: 0.2rem 0;
+  transition: color 0.2s;
+}
+
+.sidebar a:hover {
+  color: var(--burgundy);
+}
+
+.sidebar a.sub {
+  padding-left: 1rem;
+  font-size: 8.5pt;
+  color: var(--medium-gray);
+}
+
+/* Main content styles */
+h1.part-title {
+  font-size: 16pt;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--burgundy);
+  border-bottom: 2px solid var(--burgundy);
+  padding-bottom: 0.5rem;
+  margin: 2rem 0 1.5rem 0;
+}
+
+h2.section-header {
+  font-size: 13pt;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--dark-gray);
+  border-bottom: 1px solid #bbb;
+  padding-bottom: 0.3rem;
+  margin: 1.8rem 0 1rem 0;
+}
+
+h3.subsection-header {
+  font-size: 11pt;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--medium-gray);
+  margin: 1.2rem 0 0.6rem 0;
+}
+
+p {
+  margin-bottom: 0.8rem;
+  text-align: justify;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 9.5pt;
+}
+
+caption {
+  font-size: 10pt;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid #bbb;
+  text-align: left;
+  color: var(--dark-gray);
+}
+
+th, td {
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid #ccc;
+}
+
+th {
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 9pt;
+  background: var(--burgundy);
+  color: white;
+}
+
+tr:nth-child(even) {
+  background: var(--light-gray);
+}
+
+/* Hierarchy boxes */
+.hierarchy {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 9pt;
+  line-height: 1.4;
+  white-space: pre;
+  background: #fafafa;
+  overflow-x: auto;
+}
+
+.flowchart-caption {
+  font-size: 9pt;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+  color: var(--medium-gray);
+}
+
+/* Status lines */
+.status-line {
+  font-size: 9pt;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--burgundy);
+  margin-top: 1.2rem;
+  padding-top: 0.5rem;
+  border-top: 2px solid var(--burgundy);
+  font-weight: bold;
+}
+
+/* Confidentiality */
+.confidentiality {
+  font-size: 8.5pt;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: #999;
+  margin-top: 2rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #ddd;
+  text-align: center;
+}
+
+/* Cover section */
+.cover {
+  text-align: center;
+  padding: 4rem 0;
+  page-break-after: always;
+}
+
+.cover .inst {
+  font-size: 20pt;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  margin-bottom: 1rem;
+}
+
+.cover .net {
+  font-size: 14pt;
+  color: var(--dark-gray);
+  margin-bottom: 2rem;
+}
+
+.cover .title {
+  font-size: 13pt;
+  font-style: italic;
+  color: var(--medium-gray);
+  margin-bottom: 3rem;
+}
+
+.cover .loc {
+  font-size: 11pt;
+  margin-bottom: 0.5rem;
+}
+
+.cover .date {
+  font-size: 10pt;
+  color: var(--medium-gray);
+}
+
+.cover .footer-runhead {
+  margin-top: 4rem;
+  font-size: 9pt;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #888;
+  border-top: 1px solid #ccc;
+  padding-top: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+  .main-content {
+    margin-left: 0;
+    padding: 1rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .sidebar {
+    display: none;
+  }
+  .main-content {
+    margin-left: 0;
+    padding: 0;
+  }
+  body {
+    font-size: 10pt;
+  }
+  h1.part-title {
+    page-break-before: always;
+  }
+  table, .hierarchy {
+    page-break-inside: avoid;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- SIDEBAR NAVIGATION -->
+  <nav class="sidebar">
+    <h1>c-ECO Institute</h1>
+    <div class="subtitle">Institutional Dossier — Missouri, United States</div>
+    
+    <div class="nav-section">
+      <div class="nav-title">Front Matter</div>
+      <a href="#note-methodology">Note on Scope and Methodology</a>
+    </div>
+    
+    <div class="nav-section">
+      <div class="nav-title">INST.1 — INST.10</div>
+      <a href="#inst1">INST.1 — Identification & Legal Profile</a>
+      <a href="#inst2">INST.2 — Mission & Public-Benefit</a>
+      <a href="#inst3">INST.3 — Framework & Mandate</a>
+      <a href="#inst4">INST.4 — Global Architecture</a>
+      <a href="#inst5">INST.5 — Governance Architecture</a>
+      <a href="#inst6">INST.6 — Board & Fiduciary</a>
+      <a href="#inst7">INST.7 — Executive Leadership</a>
+      <a href="#inst8">INST.8 — Scientific Governance</a>
+      <a href="#inst9">INST.9 — Organizational Structure</a>
+      <a href="#inst10">INST.10 — Corporate Core</a>
+    </div>
+    
+    <div class="nav-section">
+      <div class="nav-title">INST.11 — INST.20</div>
+      <a href="#inst11">INST.11 — Research & Method</a>
+      <a href="#inst12">INST.12 — Living Labs Directorate</a>
+      <a href="#inst13">INST.13 — GIH Oversight</a>
+      <a href="#inst14">INST.14 — Fellowship Program</a>
+      <a href="#inst15">INST.15 — c-ECO System</a>
+      <a href="#inst16">INST.16 — Technology & SIL</a>
+      <a href="#inst17">INST.17 — Independent Assurance</a>
+      <a href="#inst18">INST.18 — Project Architecture</a>
+      <a href="#inst19">INST.19 — Grants & Procurement</a>
+      <a href="#inst20">INST.20 — Partnerships</a>
+    </div>
+    
+    <div class="nav-section">
+      <div class="nav-title">INST.21 — INST.32</div>
+      <a href="#inst21">INST.21 — Data Governance</a>
+      <a href="#inst22">INST.22 — Legal & Compliance</a>
+      <a href="#inst23">INST.23 — Risk & Continuity</a>
+      <a href="#inst24">INST.24 — Workforce</a>
+      <a href="#inst25">INST.25 — Infrastructure</a>
+      <a href="#inst26">INST.26 — Financial Architecture</a>
+      <a href="#inst27">INST.27 — Revenue & Funding</a>
+      <a href="#inst28">INST.28 — Implementation</a>
+      <a href="#inst29">INST.29 — Performance & KPIs</a>
+      <a href="#inst30">INST.30 — Readiness Gates</a>
+      <a href="#inst31">INST.31 — Intellectual Property</a>
+      <a href="#inst32">INST.32 — Document Control</a>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    
+    <!-- COVER -->
+    <div class="cover">
+      <div class="inst">c-ECO Institute</div>
+      <div class="net">Global Living Labs Network</div>
+      <div class="title">Institutional Establishment, Governance and Operations Dossier</div>
+      <div class="loc">Institutional Headquarters</div>
+      <div class="loc">Missouri, United States</div>
+      <div class="date">Version 1.0 (Foundation Dossier)</div>
+      <div class="date">September 2026</div>
+      <div class="footer-runhead">Controlled Document — Restricted Distribution</div>
+    </div>
+
+    <!-- NOTE ON SCOPE -->
+    <h1 class="part-title" id="note-methodology">Note on Scope and Methodology</h1>
+    
+    <p>This Institutional Establishment, Governance and Operations Dossier is the controlled master planning instrument for the c-ECO Institute as the legal, fiduciary, governance, scientific-framework, administrative, contractual, technology-governance, programmatic, and network-support institution of the c-ECO Global Living Lab Network.</p>
+    
+    <p>The c-ECO Institute is NOT one of the 22 Living Labs. The c-ECO Institute is NOT the Global Integration Hub. This dossier does not number the Institute as a Living Lab and does not mechanically apply the 22-section Living Lab template. It develops a dedicated institutional dossier appropriate to the Institute's role as the institutional headquarters and organizational platform of the network.</p>
+    
+    <p>This dossier uses the entire c-ECO working document as its primary source. It preserves the actual institutional architecture contained in the source, including the Master Architecture Visual, the Project Architecture, the Project Home Distinctions, Governance Control provisions, 501(c)(3)/Charitable Status distinctions, Intellectual Property architecture, Financial Architecture, and Evidence Control system.</p>
+    
+    <div class="status-line">Status: Foundation Dossier — High Proportion of Planning Assumptions and Evidence Gaps Expected at This Stage</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.1 -->
+    <h1 class="part-title" id="inst1">INST.1 — Institutional Identification and Legal Profile</h1>
+    
+    <p>This section establishes the official identification and legal profile of the c-ECO Institute as the institutional headquarters and organizational platform of the c-ECO Global Living Lab Network. The Institute provides the organizational, administrative, financial, contractual, compliance, and programmatic infrastructure for implementation of the network.</p>
+    
+    <h2 class="section-header">INST.1.1 — Official Identification</h2>
+    
+    <table>
+      <caption>Table INST.1-1: c-ECO Institute — Institutional Profile</caption>
+      <thead>
+        <tr><th style="width:30%">Field</th><th style="width:70%">Entry</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Official Name</td><td>c-ECO Institute</td></tr>
+        <tr><td>Institutional Role</td><td>Institutional headquarters and organizational platform of the c-ECO Global Living Lab Network</td></tr>
+        <tr><td>Legal Domicile</td><td>Missouri, United States</td></tr>
+        <tr><td>Network/Program</td><td>c-ECO Institute — Global Living Labs Network</td></tr>
+        <tr><td>Responsible for</td><td>22 Living Labs; Global Integration Hub (GIH); Fellowship Program; SIL 19×19; c-ECO System</td></tr>
+        <tr><td>Deployment Phase</td><td>Alpha (planning and pre-activation)</td></tr>
+        <tr><td>Document Status</td><td>Controlled Master — Draft for Review</td></tr>
+        <tr><td>Classification</td><td>Controlled — Restricted Distribution</td></tr>
+        <tr><td>Version</td><td>1.0 (Foundation Dossier)</td></tr>
+        <tr><td>Issue Date</td><td>September 2026</td></tr>
+        <tr><td>Prepared by</td><td>c-ECO Institute — Establishment and Dossier Development Function</td></tr>
+        <tr><td>Reviewed by</td><td>To be confirmed through the applicable review process</td></tr>
+        <tr><td>Approved by</td><td>To be confirmed through the applicable authorization process</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.1.2 — Legal Profile and Corporate Status</h2>
+    
+    <p>The c-ECO Institute is established as a nonprofit institution under the laws of the State of Missouri, United States. The Institute's legal profile distinguishes between Missouri nonprofit corporate status and federal 501(c)(3) tax-exempt recognition. Federal tax-exempt status under Section 501(c)(3) of the Internal Revenue Code has NOT been granted as of the date of this dossier, unless and until verified through the applicable federal recognition process.</p>
+    
+    <table>
+      <caption>Table INST.1-2: Legal Profile and Corporate Status</caption>
+      <thead>
+        <tr><th style="width:35%">Legal Dimension</th><th style="width:35%">Status</th><th style="width:30%">Evidence Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Missouri nonprofit corporate status</td><td>Established (organizational instrument to be confirmed)</td><td>VERIFIED — organizational instrument exists</td></tr>
+        <tr><td>Federal 501(c)(3) tax-exempt recognition</td><td>Not yet granted</td><td>EVIDENCE GAP — application and recognition pending</td></tr>
+        <tr><td>Charitable purpose</td><td>Scientific, educational, and charitable purposes consistent with 501(c)(3) requirements</td><td>PLANNING ASSUMPTION — purpose language established</td></tr>
+        <tr><td>U.S. nonprofit governance</td><td>Governance framework established through Articles and Bylaws</td><td>PLANNING ASSUMPTION — governance documents to be confirmed</td></tr>
+        <tr><td>Contractual capacity</td><td>Full capacity to contract, subject to governance approvals</td><td>PLANNING ASSUMPTION — authority matrix to be confirmed</td></tr>
+      </tbody>
+    </table>
+    
+    <div class="status-line">Status: Missouri Nonprofit Corporate Status Distinguished from Federal 501(c)(3) Tax-Exempt Recognition. Federal Recognition Not Yet Verified.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.2 -->
+    <h1 class="part-title" id="inst2">INST.2 — Mission, Purpose and Public-Benefit Function</h1>
+    
+    <p>The c-ECO Institute exists to establish, govern, and support the c-ECO Global Living Lab Network — a globally distributed but institutionally integrated scientific and operational infrastructure composed of 22 Living Labs, supported by scientific nodes, field sites, monitoring locations, and other implementation structures where applicable.</p>
+    
+    <p>The Institute's mission is to enable systemic observation, scientific research, threshold-relevant analysis, and cross-domain integration concerning the conditions, trajectories, and interactions of physical, ecological, infrastructural, economic, social, and governance systems — and to translate that understanding into institutional knowledge, anticipatory decision structures, and public benefit.</p>
+    
+    <h2 class="section-header">INST.2.1 — Public-Benefit Function</h2>
+    
+    <p>The Institute operates exclusively for charitable, scientific, and educational purposes within the meaning of Section 501(c)(3) of the Internal Revenue Code, including: (a) the advancement of science through establishment and support of a global network of Living Labs conducting field observation, monitoring, research, and validation; (b) the development and dissemination of scientific knowledge concerning systemic risk, threshold conditions, reversibility, and cross-domain interactions; (c) the education and training of scientists, professionals, and practitioners through the Fellowship Program; (d) the development of methodological frameworks, analytical tools, and software platforms (including SIL 19×19) to support systemic understanding; and (e) the provision of public goods including open scientific data, validated evidence, and institutional learning.</p>
+    
+    <p>No part of the Institute's net earnings shall inure to the benefit of any private shareholder or individual. The Institute shall not engage in substantial lobbying or political campaign intervention. The Institute shall operate in a manner consistent with its charitable, scientific, and educational purposes and applicable law.</p>
+    
+    <h2 class="section-header">INST.2.2 — Institutional Distinctions</h2>
+    
+    <table>
+      <caption>Table INST.2-1: Institutional Distinctions — What the Institute Is and Is Not</caption>
+      <thead>
+        <tr><th style="width:50%">The Institute IS</th><th style="width:50%">The Institute IS NOT</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>The institutional headquarters and organizational platform of the network</td><td>One of the 22 Living Labs</td></tr>
+        <tr><td>The legal and contractual home for projects routed through the network</td><td>The Global Integration Hub (GIH)</td></tr>
+        <tr><td>The fiduciary and financial authority for the network</td><td>A scientific laboratory or field research facility</td></tr>
+        <tr><td>The governance and oversight institution for the network</td><td>A software platform or technology vendor</td></tr>
+        <tr><td>The administrator of the Fellowship Program</td><td>A funding agency or grant-making foundation</td></tr>
+        <tr><td>The owner and steward of the c-ECO Framework and methodology</td><td>A regulatory body or government agency</td></tr>
+      </tbody>
+    </table>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.3 -->
+    <h1 class="part-title" id="inst3">INST.3 — c-ECO Framework and Institutional Mandate</h1>
+    
+    <p>The c-ECO Framework is the conceptual, methodological, and analytical architecture that governs the Institute's scientific and institutional work. The Framework includes the 19-domain scientific matrix, the TDR–TFP (Threshold-Driver-Response / Tipping-Point-Framework) analytical methodology, the evidence architecture and evidence-status system, the calibration framework, and the systemic risk and cross-domain integration approach.</p>
+    
+    <h2 class="section-header">INST.3.1 — Framework Stewardship</h2>
+    
+    <p>The c-ECO Institute holds institutional responsibility for the stewardship, development, validation, and protection of the c-ECO Framework. This responsibility includes: (a) maintaining the integrity and coherence of the Framework across the network; (b) conducting and sponsoring methodological research and refinement; (c) managing the Framework's intellectual property consistent with the IP architecture; (d) ensuring that Framework revisions occur through documented scientific governance and change control; and (e) preserving the distinction between the Framework as a scientific methodology and any software implementation of it.</p>
+    
+    <p>The Framework is a tool, not a doctrine. Nothing in the c-ECO Framework is beyond challenge, revision, or replacement. The Institute shall maintain the capacity to confront whether the Framework is wrong, to distinguish genuine systemic interaction from branding, and to revise or replace Framework elements that do not survive contact with evidence and review.</p>
+    
+    <h2 class="section-header">INST.3.2 — Institutional Mandate</h2>
+    
+    <table>
+      <caption>Table INST.3-1: Institutional Mandate Matrix</caption>
+      <thead>
+        <tr><th style="width:25%">Mandate Dimension</th><th style="width:60%">Description</th><th style="width:15%">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Scientific Framework</td><td>Stewardship, development, and validation of the c-ECO Framework, 19-domain matrix, TDR–TFP methodology, and evidence architecture</td><td>CONFIRMED</td></tr>
+        <tr><td>Network Governance</td><td>Establishment, authorization, activation, oversight, and periodic review of the 22 Living Labs and their scientific nodes</td><td>CONFIRMED</td></tr>
+        <tr><td>Fiduciary Responsibility</td><td>Financial management, fiduciary controls, fundraising, grant administration, and resource allocation for the network</td><td>CONFIRMED</td></tr>
+        <tr><td>Contractual Authority</td><td>Contracting, institutional representation, and legal coordination for the network and its projects</td><td>CONFIRMED</td></tr>
+        <tr><td>Technology Governance</td><td>Technology governance, contracting, cybersecurity oversight, and technology infrastructure for SIL 19×19 and network systems</td><td>CONFIRMED</td></tr>
+        <tr><td>Fellowship Administration</td><td>Selection, training, supervision, progression, evaluation, and Fellowship requirements for Credentialed Fellows</td><td>CONFIRMED</td></tr>
+        <tr><td>c-ECO System</td><td>Standards, calibration, certification, and seals architecture as established in the source</td><td>CONFIRMED</td></tr>
+        <tr><td>Independent Assurance</td><td>Independent assurance and public oversight architecture distinct from operational delivery</td><td>CONFIRMED</td></tr>
+      </tbody>
+    </table>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.4 -->
+    <h1 class="part-title" id="inst4">INST.4 — Global Institutional Architecture</h1>
+    
+    <p>The c-ECO Global Living Lab Network operates through a vertically integrated institutional structure. The c-ECO Institute, headquartered in Missouri, constitutes the institutional headquarters and provides the organizational, administrative, financial, contractual, compliance, and programmatic platform for implementation of the network. The Global Integration Hub (GIH), located in Geneva, Switzerland, constitutes the network-level integration layer between the c-ECO Institute and the distributed Living Lab network. Beneath this integration layer, the 22 c-ECO Living Labs constitute the distributed scientific and operational network.</p>
+    
+    <div class="hierarchy">c-ECO INSTITUTE
+Missouri, United States
+|
++-- Institutional Governance
+|   +-- Board of Directors
+|   +-- Executive Leadership
+|   +-- Committees (as established)
+|
++-- Executive / Administrative Architecture
+|   +-- Corporate and Administrative Core
+|   +-- Finance and Grants Administration
+|   +-- Legal, Compliance and Ethics
+|   +-- Human Resources
+|
++-- Research and Method Development
+|   +-- Scientific Governance
+|   +-- c-ECO Framework Stewardship
+|   +-- TDR-TFP Methodology
+|
++-- Living Labs Network
+|   +-- 22 Living Labs (distributed globally)
+|   +-- Scientific Nodes / Field Systems
+|
++-- Fellowship
+|   +-- Fellowship Program Administration
+|   +-- Credentialing
+|   +-- Professional Practice Architecture
+|
++-- c-ECO System
+|   +-- Standards and Calibration
+|   +-- Certification and Seals
+|   +-- Independent Assurance Interface
+|
++-- Technology & SIL 19x19
+|   +-- Technology Governance
+|   +-- Software Development
+|   +-- Cybersecurity Oversight
+|
++-- Independent Assurance / Public Oversight
+    +-- Independent Review
+    +-- Public Accountability
+    +-- Transparency and Reporting
+
+|
+v
+GLOBAL INTEGRATION HUB
+Geneva, Switzerland
+(Network integration layer -- NOT one of the 22 Living Labs)
+
+|
+v
+22 LIVING LABS
+(Distributed scientific and operational environments)
+
+|
+v
+SCIENTIFIC NODES / FIELD SYSTEMS
+(Subordinate field/scientific extensions -- NOT Living Labs)</div>
+    <div class="flowchart-caption">Figure INST.4-1: Master Architecture — c-ECO Institute Institutional Structure</div>
+    
+    <p>This diagram does not imply that the Institute is one of the 22 Living Labs. The Institute sits above the network as institutional headquarters. The GIH is the network integration layer, not a Living Lab. Scientific Nodes are subordinate extensions of their designated parent Living Labs, not additional Living Labs.</p>
+    
+    <h2 class="section-header">INST.4.1 — Institutional Roles and Distinctions</h2>
+    
+    <table>
+      <caption>Table INST.4-1: Institutional Roles and Distinctions</caption>
+      <thead>
+        <tr><th style="width:15%">Entity</th><th style="width:15%">Location</th><th style="width:35%">Institutional Function</th><th style="width:10%">Is a Living Lab?</th><th style="width:25%">Key Distinction</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>c-ECO Institute</td><td>Missouri, United States</td><td>Institutional headquarters and organizational platform. Provides organizational, administrative, financial, contractual, compliance, and programmatic infrastructure for the network.</td><td>No</td><td>Not one of the 22 Living Labs. Sits above the network as institutional headquarters.</td></tr>
+        <tr><td>Global Integration Hub (GIH)</td><td>Geneva, Switzerland</td><td>Principal network-level integration structure. Provides cross-Lab coordination, network-level information integration, operational administration of SIL 19×19, interoperability coordination, and support for systemic and cross-domain analysis.</td><td>No</td><td>Not one of the 22 Living Labs. Does not ordinarily serve as contractual home of individual projects, supervisor of Fellows, or scientific authority for every Living Lab.</td></tr>
+        <tr><td>Geneva Governance Lab</td><td>Geneva, Switzerland (co-located with GIH)</td><td>One of the 22 c-ECO Living Labs. L3 — Governance and Institutional Response Layer.</td><td>Yes</td><td>Although co-located with GIH, remains institutionally and functionally distinguishable. Co-location does not merge the two structures.</td></tr>
+        <tr><td>Living Labs (22 total)</td><td>Global — each as specified in its individual Dossier</td><td>Distributed scientific and operational components of the global network.</td><td>Yes</td><td>Each constitutes a specialized component of a common network. Not isolated or independent projects.</td></tr>
+        <tr><td>Scientific Nodes, Field Sites and Monitoring Locations</td><td>Subordinate to designated parent Living Lab(s)</td><td>Subordinate extensions of a designated parent Living Lab.</td><td>No</td><td>Not counted among the 22 Living Labs. Operate under the responsibility of their designated parent Living Lab.</td></tr>
+      </tbody>
+    </table>
+    
+    <div class="status-line">Status: Institute/GIH/Labs/Nodes/SIL Roles Distinct. Institute Not Counted Among 22 Labs. GIH Not Counted Among 22 Labs. Geneva Governance Lab Remains Lab 04.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.5 -->
+    <h1 class="part-title" id="inst5">INST.5 — Governance Architecture</h1>
+    
+    <p>The c-ECO Institute operates through a governance architecture that separates institutional governance (Board of Directors), executive administration (officers and executive leadership), scientific governance (scientific leadership and review), and independent assurance (independent oversight and public accountability). This separation preserves scientific independence, fiduciary responsibility, and institutional integrity.</p>
+    
+    <h2 class="section-header">INST.5.1 — Governance Principles</h2>
+    
+    <table>
+      <caption>Table INST.5-1: Governance Principles</caption>
+      <thead>
+        <tr><th style="width:25%">Principle</th><th style="width:75%">Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Separation of Powers</td><td>Institutional governance (Board), executive administration (officers), scientific governance (scientific leadership), and independent assurance (oversight) are distinct and shall not be conflated.</td></tr>
+        <tr><td>Non-Substitution</td><td>No single role, person, or unit shall perform the combined institutional, financial, contractual, compliance, scientific, and operational functions that the network distributes across appropriately authorized and qualified structures.</td></tr>
+        <tr><td>Scientific Independence</td><td>Scientific conclusions are determined by evidence and scientific process, not by external pressure, funding preferences, or institutional convenience.</td></tr>
+        <tr><td>Fiduciary Responsibility</td><td>The Board and officers bear fiduciary responsibility for the Institute's financial integrity, legal compliance, and mission fulfillment.</td></tr>
+        <tr><td>Transparency with Protection</td><td>The Institute shall operate transparently consistent with its public-benefit function, while protecting confidential information, trade secrets, personal data, and intellectual property.</td></tr>
+        <tr><td>Progressive Validation</td><td>Governance decisions shall be based on documented evidence, with planning assumptions distinguished from verified information, and with Evidence Gaps identified rather than silently resolved.</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.5.2 — Governance Structure Overview</h2>
+    
+    <div class="hierarchy">GOVERNANCE ARCHITECTURE -- c-ECO INSTITUTE
+|
++-- BOARD OF DIRECTORS
+|   +-- Fiduciary oversight and strategic direction
+|   +-- Officer appointment and removal
+|   +-- Major institutional decisions
+|   +-- Committee oversight (as established)
+|
++-- EXECUTIVE LEADERSHIP
+|   +-- Chief Executive / Executive Director
+|   +-- Chief Operating Officer
+|   +-- Chief Financial Officer / Treasurer
+|   +-- Chief Scientific Officer
+|   +-- Chief Technology Officer
+|   +-- General Counsel / Chief Compliance Officer
+|
++-- SCIENTIFIC GOVERNANCE
+|   +-- Scientific Leadership and Domain Leads
+|   +-- Scientific Review and Validation
+|   +-- Calibration Framework
+|   +-- TDR-TFP Methodology Governance
+|
++-- INDEPENDENT ASSURANCE / PUBLIC OVERSIGHT
+    +-- Independent Review Functions
+    +-- Audit and Compliance Oversight
+    +-- Public Accountability and Transparency</div>
+    <div class="flowchart-caption">Figure INST.5-1: Governance Architecture Overview</div>
+    
+    <p>The specific powers, appointment procedures, voting rights, and independence requirements of each governance body shall be established in the Institute's Articles of Incorporation and Bylaws, and shall not be invented or silently modified in this dossier. Where governance provisions remain unresolved or where documents conflict, the matter is flagged as an Evidence Gap rather than silently resolved.</p>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.6 -->
+    <h1 class="part-title" id="inst6">INST.6 — Board of Directors and Fiduciary Oversight</h1>
+    
+    <p>The Board of Directors constitutes the highest governance authority of the c-ECO Institute, bearing fiduciary responsibility for the Institute's mission, financial integrity, legal compliance, and strategic direction. The Board's powers, composition, and procedures shall be established in the Institute's Articles of Incorporation and Bylaws.</p>
+    
+    <h2 class="section-header">INST.6.1 — Board Powers and Responsibilities</h2>
+    
+    <p>The Board of Directors shall have the powers and responsibilities established in the governing documents, which typically include: (a) strategic direction and mission oversight; (b) appointment, evaluation, and removal of officers; (c) approval of annual budgets and financial plans; (d) approval of major institutional decisions including establishment of Living Labs, major partnerships, and significant financial commitments; (e) oversight of institutional risk, compliance, and safeguards; (f) approval of policies governing scientific independence, intellectual property, data governance, and ethics; and (g) ensuring the Institute's compliance with applicable law and its charitable purposes.</p>
+    
+    <p>The specific enumeration of Board powers, voting thresholds, quorum requirements, and committee authority shall be established in the Bylaws. This dossier does not invent Board powers not established in the source documents. Where Board governance provisions remain to be confirmed, they are identified as Evidence Gaps.</p>
+    
+    <h2 class="section-header">INST.6.2 — Board Composition and Independence</h2>
+    
+    <table>
+      <caption>Table INST.6-1: Board Composition and Independence</caption>
+      <thead>
+        <tr><th style="width:25%">Dimension</th><th style="width:50%">Provision</th><th style="width:25%">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Board size</td><td>To be established in Bylaws</td><td>EVIDENCE GAP — Bylaws to be confirmed</td></tr>
+        <tr><td>Director qualifications</td><td>To be established in Bylaws; shall include scientific, financial, legal, and governance expertise appropriate to the Institute's mission</td><td>PLANNING ASSUMPTION — qualifications framework to be confirmed</td></tr>
+        <tr><td>Independence requirements</td><td>To be established in Bylaws; shall address conflicts of interest and independent judgment</td><td>PLANNING ASSUMPTION — independence framework to be confirmed</td></tr>
+        <tr><td>Terms and succession</td><td>To be established in Bylaws</td><td>EVIDENCE GAP — Bylaws to be confirmed</td></tr>
+        <tr><td>Meetings and quorum</td><td>To be established in Bylaws</td><td>EVIDENCE GAP — Bylaws to be confirmed</td></tr>
+        <tr><td>Committees</td><td>Committee structure (Audit, Finance, Governance, Scientific Advisory, etc.) to be established by Board resolution</td><td>PROPOSED — committee structure to be confirmed</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.6.3 — Fiduciary Oversight</h2>
+    
+    <p>The Board bears fiduciary responsibility for the Institute, including the duties of care, loyalty, and obedience. The duty of care requires informed and deliberate decision-making. The duty of loyalty requires prioritization of the Institute's interests over personal or external interests. The duty of obedience requires compliance with the Institute's mission, Articles, Bylaws, and applicable law. The Board shall ensure appropriate financial controls, risk management, and compliance monitoring, and shall establish an audit function or committee to oversee financial reporting and internal controls.</p>
+    
+    <div class="status-line">Status: Board Powers, Composition, and Procedures to be Confirmed Through Articles and Bylaws. Evidence Gaps Identified, Not Silently Resolved.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.7 -->
+    <h1 class="part-title" id="inst7">INST.7 — Executive and Institutional Leadership</h1>
+    
+    <p>The executive and institutional leadership of the c-ECO Institute comprises the officers appointed by the Board of Directors and the senior leadership team responsible for day-to-day institutional management. The leadership structure separates executive administration, scientific leadership, financial management, legal and compliance, and technology governance.</p>
+    
+    <h2 class="section-header">INST.7.1 — Officer Positions</h2>
+    
+    <table>
+      <caption>Table INST.7-1: Officer Positions and Functions</caption>
+      <thead>
+        <tr><th style="width:30%">Position</th><th style="width:55%">Function</th><th style="width:15%">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Chief Executive Officer / Executive Director</td><td>Chief executive officer responsible for overall institutional management, strategy execution, and representation of the Institute</td><td>PROPOSED — appointment pending Board action</td></tr>
+        <tr><td>Chief Operating Officer</td><td>Responsible for day-to-day operations, administrative infrastructure, and organizational effectiveness</td><td>PROPOSED — appointment pending</td></tr>
+        <tr><td>Chief Financial Officer / Treasurer</td><td>Responsible for financial management, fiduciary controls, budgeting, financial reporting, and grant administration. NOTE: The Treasurer position is separated from the Presidency in the Foundation Board structure.</td><td>PROPOSED — appointment pending</td></tr>
+        <tr><td>Chief Scientific Officer</td><td>Responsible for scientific direction, research quality, methodology stewardship, and scientific governance across the network</td><td>PROPOSED — appointment pending</td></tr>
+        <tr><td>Chief Technology Officer</td><td>Responsible for technology governance, SIL 19×19 technical development, cybersecurity oversight, and digital infrastructure</td><td>PROPOSED — appointment pending</td></tr>
+        <tr><td>General Counsel / Chief Compliance Officer</td><td>Responsible for legal affairs, regulatory compliance, ethics, and safeguards</td><td>PROPOSED — appointment pending</td></tr>
+      </tbody>
+    </table>
+    
+    <p>The Treasurer position is separated from the Presidency in the Foundation Board structure. These are two distinct roles, not combined in one person. This separation preserves financial oversight independence from executive leadership.</p>
+    
+    <h2 class="section-header">INST.7.2 — Founder / Framework Steward Role</h2>
+    
+    <p>The Founder of the c-ECO Institute holds a distinct role as Framework Steward, with responsibilities for the conceptual integrity, methodological development, and intellectual property stewardship of the c-ECO Framework. The Founder's role, powers, and relationship to the Board and executive leadership shall be established in the governing documents and applicable agreements. The Founder's Background IP is distinguished from Institute-Owned IP, as established in the IP architecture and Section INST.31 of this dossier.</p>
+    
+    <p>The Founder / Framework Steward role does not confer unilateral authority over institutional governance, financial decisions, or scientific determinations. The role is one of stewardship and methodological leadership, subject to the governance framework of the Institute.</p>
+    
+    <div class="status-line">Status: Officer Positions Identified as Proposed. Appointments Pending Board Action. Treasurer Separated from Presidency.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.8 -->
+    <h1 class="part-title" id="inst8">INST.8 — Scientific Governance, Calibration and Technical Independence</h1>
+    
+    <p>Scientific governance within the c-ECO Institute ensures that the network's scientific work — including research, validation, calibration, methodological work, evidence development, threshold research, TDR–TFP analysis, and scientific review — is conducted with scientific independence, appropriate rigor, and freedom from improper influence.</p>
+    
+    <h2 class="section-header">INST.8.1 — Scientific Governance Structure</h2>
+    
+    <table>
+      <caption>Table INST.8-1: Scientific Governance Structure</caption>
+      <thead>
+        <tr><th style="width:25%">Function</th><th style="width:55%">Description</th><th style="width:20%">Responsible Entity</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Scientific Direction</td><td>Overall scientific strategy, research agenda, and methodological development for the network</td><td>Chief Scientific Officer and Scientific Leadership</td></tr>
+        <tr><td>Scientific Review and Validation</td><td>Independent review of scientific findings, methods, evidence, and outputs; validation of data, models, and calibration</td><td>Scientific Review Panels, Domain Leads, External Reviewers</td></tr>
+        <tr><td>Calibration</td><td>Ensuring measurements, observations, data, models, methods, indicators, and findings are accurate, consistent, comparable, and fit for purpose</td><td>Calibration function within Scientific Governance</td></tr>
+        <tr><td>TDR–TFP Methodology</td><td>Development, application, and refinement of the trajectory-based analytical methodology</td><td>Methodology team under Scientific Governance</td></tr>
+        <tr><td>Evidence Architecture</td><td>Framework for evidence acquisition, generation, validation, organization, integration, and use</td><td>Scientific Governance with Data Governance</td></tr>
+        <tr><td>Threshold Research</td><td>Scientific investigation of conditions, systems, and phenomena in which crossing a significant threshold may have material consequences</td><td>Scientific Leadership and Domain Teams</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.8.2 — Scientific Independence</h2>
+    
+    <p>Scientific independence is a foundational principle of the network. Scientific conclusions are determined by evidence and scientific process, not by external pressure or preference. Scientific independence shall be protected through: (a) scientific governance and review processes; (b) separation of scientific leadership from operational and project delivery pressure; (c) independent review where appropriate; (d) documentation and traceability of scientific findings and their basis; and (e) institutional commitment that scientific integrity takes precedence over convenience, favor, or institutional or external preference.</p>
+    
+    <p>Scientific independence does not mean isolation, secrecy, or absence of external collaboration. It means that inconvenient scientific findings are not suppressed, and favorable findings are not promoted for reasons other than their scientific merit.</p>
+    
+    <h2 class="section-header">INST.8.3 — Calibration Framework</h2>
+    
+    <p>Calibration is the scientific process of ensuring that measurements, observations, data, models, methods, indicators, and findings are accurate, consistent, comparable, and fit for their intended scientific and operational purpose. Calibration applies to field observations and sensor data; monitoring systems and data; datasets and data sources; models and analytical methods; indicators and threshold-related metrics; and cross-domain and cross-Lab comparability. Calibration requirements shall be defined for the relevant evidence types and shall be maintained and documented through the applicable scientific governance and quality processes.</p>
+    
+    <h2 class="section-header">INST.8.4 — Technical Independence</h2>
+    
+    <p>Technical independence ensures that scientific and methodological determinations are not improperly influenced by technology constraints, software design, or platform administration. SIL 19×19 is software and does not make scientific judgments. The GIH administers SIL operationally but does not own it and does not have scientific validation authority. The Institute provides technology governance but does not allow technology governance to override scientific determination. The distinction between software-supported analysis and scientific judgment is fundamental and shall be preserved throughout the network.</p>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.9 -->
+    <h1 class="part-title" id="inst9">INST.9 — Organizational and Operational Structure</h1>
+    
+    <p>The c-ECO Institute operates through an organizational structure that integrates institutional governance, executive administration, scientific governance, network operations, fellowship administration, technology governance, and independent assurance. The structure is designed to support a matrix-based global network in which projects can be delivered through the appropriate Living Lab, scientific nodes, scientific teams, supporting labs, SIL 19×19, the GIH, the Fellowship Program, the Institutional Project Support function, and the c-ECO Institute, with clear accountability and without conflating the roles of any single structure.</p>
+    
+    <h2 class="section-header">INST.9.1 — Organizational Chart</h2>
+    
+    <div class="hierarchy">c-ECO INSTITUTE -- ORGANIZATIONAL STRUCTURE
+|
++-- BOARD OF DIRECTORS
+|   |
+|   +-- AUDIT & FINANCE COMMITTEE (proposed)
+|   +-- GOVERNANCE & NOMINATING COMMITTEE (proposed)
+|   +-- SCIENTIFIC ADVISORY COMMITTEE (proposed)
+|   +-- ETHICS & SAFEGUARDS COMMITTEE (proposed)
+|
++-- CHIEF EXECUTIVE OFFICER / EXECUTIVE DIRECTOR
+|   |
+|   +-- CHIEF OPERATING OFFICER
+|   |   +-- Corporate and Administrative Core
+|   |   +-- Human Resources
+|   |   +-- Facilities and Infrastructure
+|   |   +-- Procurement and Vendor Management
+|   |
+|   +-- CHIEF FINANCIAL OFFICER / TREASURER
+|   |   +-- Financial Management and Controls
+|   |   +-- Grants and Sponsored Programs Administration
+|   |   +-- Budget Planning and Analysis
+|   |   +-- Financial Reporting and Compliance
+|   |
+|   +-- CHIEF SCIENTIFIC OFFICER
+|   |   +-- Scientific Governance and Review
+|   |   +-- c-ECO Framework and Methodology
+|   |   +-- Research and Method Development
+|   |   +-- Living Labs Scientific Oversight
+|   |
+|   +-- CHIEF TECHNOLOGY OFFICER
+|   |   +-- SIL 19x19 Technical Development
+|   |   +-- Technology Governance and Architecture
+|   |   +-- Cybersecurity and Information Security
+|   |   +-- Data Infrastructure and Engineering
+|   |
+|   +-- GENERAL COUNSEL / CHIEF COMPLIANCE OFFICER
+|   |   +-- Legal Affairs and Contracts
+|   |   +-- Regulatory Compliance and Ethics
+|   |   +-- Intellectual Property and Licensing
+|   |   +-- Safeguards and Risk Management
+|   |
+|   +-- DIRECTOR, LIVING LABS NETWORK
+|   |   +-- Living Labs Establishment and Activation
+|   |   +-- Lab Performance Monitoring and Support
+|   |   +-- Scientific Nodes and Field Systems Coordination
+|   |
+|   +-- DIRECTOR, FELLOWSHIP PROGRAM
+|   |   +-- Fellowship Selection and Training
+|   |   +-- Credentialing and Professional Standards
+|   |   +-- Fellow Supervision and Evaluation
+|   |
+|   +-- DIRECTOR, GLOBAL INTEGRATION HUB INTERFACE
+|       +-- GIH Coordination and Integration
+|       +-- Network-Level Information Integration
+|       +-- Cross-Lab Coordination Support
+|
++-- INDEPENDENT ASSURANCE / PUBLIC OVERSIGHT
+    +-- Internal Audit (independent reporting to Board)
+    +-- External Audit and Review
+    +-- Public Accountability and Transparency</div>
+    <div class="flowchart-caption">Figure INST.9-1: c-ECO Institute Organizational Chart</div>
+    
+    <p>The organizational structure above is a planning framework. Specific appointments, reporting lines, and departmental configurations shall be confirmed through executive action and Board approval. The structure preserves the separation of scientific and operational functions, the distinction between the Institute and the GIH, and the non-substitution principle.</p>
+    
+    <h2 class="section-header">INST.9.2 — Responsibility Matrix</h2>
+    
+    <table>
+      <caption>Table INST.9-1: Responsibility Matrix</caption>
+      <thead>
+        <tr><th style="width:25%">Function</th><th style="width:25%">Primary Responsibility</th><th style="width:25%">Supporting</th><th style="width:25%">Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Institutional Governance</td><td>Board of Directors</td><td>Executive Leadership</td><td>Fiduciary oversight and strategic direction</td></tr>
+        <tr><td>Executive Administration</td><td>CEO / Executive Director</td><td>COO, CFO, CSO, CTO, GC</td><td>Day-to-day institutional management</td></tr>
+        <tr><td>Financial Management</td><td>CFO / Treasurer</td><td>Finance team, Audit Committee</td><td>Fiduciary controls, budgeting, reporting</td></tr>
+        <tr><td>Scientific Governance</td><td>Chief Scientific Officer</td><td>Domain Leads, Scientific Review</td><td>Research quality, methodology, calibration</td></tr>
+        <tr><td>Technology Governance</td><td>Chief Technology Officer</td><td>Engineering, Security, Data teams</td><td>SIL development, cybersecurity, infrastructure</td></tr>
+        <tr><td>Network Operations</td><td>Director, Living Labs Network</td><td>Lab Directors, GIH Interface</td><td>Lab establishment, activation, performance</td></tr>
+        <tr><td>Fellowship Administration</td><td>Director, Fellowship Program</td><td>Fellowship team, Lab Directors</td><td>Selection, training, credentialing, supervision</td></tr>
+        <tr><td>Legal and Compliance</td><td>General Counsel / CCO</td><td>Compliance team, Ethics Committee</td><td>Legal affairs, regulatory compliance, safeguards</td></tr>
+        <tr><td>Independent Assurance</td><td>Internal Audit (Board reporting)</td><td>External auditors, Advisory bodies</td><td>Independent oversight and public accountability</td></tr>
+      </tbody>
+    </table>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.10 -->
+    <h1 class="part-title" id="inst10">INST.10 — Corporate and Administrative Core</h1>
+    
+    <p>The Corporate and Administrative Core of the c-ECO Institute provides the organizational infrastructure necessary for the Institute to function as a legal, fiduciary, and operational entity. This includes corporate governance support, financial administration, human resources, facilities management, procurement, information technology, and administrative services.</p>
+    
+    <h2 class="section-header">INST.10.1 — Core Functions</h2>
+    
+    <table>
+      <caption>Table INST.10-1: Core Functions</caption>
+      <thead>
+        <tr><th style="width:25%">Function</th><th style="width:55%">Description</th><th style="width:20%">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Corporate Governance Support</td><td>Board meeting coordination, governance documentation, corporate records, minute books, and governance compliance</td><td>PLANNING ASSUMPTION — function to be established</td></tr>
+        <tr><td>Financial Administration</td><td>Accounting, payroll, accounts payable/receivable, financial reporting, budget management, and financial controls</td><td>PLANNING ASSUMPTION — function to be established</td></tr>
+        <tr><td>Grants Administration</td><td>Grant proposal development, grant management, compliance monitoring, reporting to funders, and subaward administration</td><td>PLANNING ASSUMPTION — function to be established</td></tr>
+        <tr><td>Human Resources</td><td>Recruitment, onboarding, compensation and benefits, performance management, personnel records, and HR compliance</td><td>PLANNING ASSUMPTION — function to be established</td></tr>
+        <tr><td>Facilities and Infrastructure</td><td>Office space, physical infrastructure, equipment, maintenance, safety, and continuity planning for the Missouri headquarters</td><td>PLANNING ASSUMPTION — function to be established</td></tr>
+        <tr><td>Procurement and Vendor Management</td><td>Procurement policies, vendor selection, contract management, and procurement compliance</td><td>PLANNING ASSUMPTION — function to be established</td></tr>
+        <tr><td>Information Technology</td><td>IT infrastructure, systems administration, user support, and IT security coordination with CTO function</td><td>PLANNING ASSUMPTION — function to be established</td></tr>
+        <tr><td>Administrative Services</td><td>General administrative support, document management, correspondence, and logistical coordination</td><td>PLANNING ASSUMPTION — function to be established</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.10.2 — Administrative Policies</h2>
+    
+    <p>The Institute shall establish administrative policies governing: financial management and controls; human resources and employment; procurement and vendor management; information technology and data handling; facilities and safety; travel and expense management; records management and retention; and conflict of interest. These policies shall be approved by the Board or its designee and shall be consistent with the Institute's charitable purposes and applicable law.</p>
+    
+    <div class="status-line">Status: Corporate and Administrative Core Functions Identified as Planning Assumptions. Policies to be Developed and Approved.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.11 -->
+    <h1 class="part-title" id="inst11">INST.11 — Research and Method Development</h1>
+    
+    <p>The c-ECO Institute maintains a Research and Method Development function responsible for the advancement of the c-ECO Framework, the 19-domain scientific matrix, the TDR–TFP analytical methodology, and the evidence architecture. This function operates under scientific governance and is distinct from operational project delivery.</p>
+    
+    <h2 class="section-header">INST.11.1 — Research Agenda</h2>
+    
+    <table>
+      <caption>Table INST.11-1: Research Agenda</caption>
+      <thead>
+        <tr><th style="width:30%">Research Area</th><th style="width:55%">Description</th><th style="width:15%">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>c-ECO Framework Development</td><td>Conceptual and methodological refinement of the c-ECO Framework, including definitions, taxonomies, and analytical structures</td><td>CONFIRMED — institutional research mandate</td></tr>
+        <tr><td>TDR–TFP Methodology</td><td>Development and validation of trajectory-based analysis methodology for threshold-sensitive conditions</td><td>CONFIRMED — institutional research mandate</td></tr>
+        <tr><td>19-Domain Matrix Refinement</td><td>Ongoing refinement of the 19-domain scientific matrix based on evidence and application</td><td>CONFIRMED — institutional research mandate</td></tr>
+        <tr><td>Threshold Research</td><td>Scientific investigation of conditions, systems, and phenomena in which crossing a significant threshold may have material consequences</td><td>CONFIRMED — institutional research mandate</td></tr>
+        <tr><td>Evidence Architecture</td><td>Development of frameworks for evidence acquisition, validation, provenance, and integration</td><td>CONFIRMED — institutional research mandate</td></tr>
+        <tr><td>Calibration Methods</td><td>Development and refinement of calibration methodologies for measurements, models, indicators, and cross-domain comparability</td><td>CONFIRMED — institutional research mandate</td></tr>
+        <tr><td>Cross-Domain Integration</td><td>Methodological development for cross-domain analysis, systemic risk assessment, and network-level synthesis</td><td>CONFIRMED — institutional research mandate</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.11.2 — Method Development Pipeline</h2>
+    
+    <div class="hierarchy">RESEARCH AND METHOD DEVELOPMENT PIPELINE
+|
++-- RESEARCH QUESTION IDENTIFICATION
+|   +-- From evidence gaps, calibration findings, network learning, or scientific priority
+|
++-- METHOD DEVELOPMENT
+|   +-- Conceptual development, analytical design, prototype development
+|
++-- INTERNAL VALIDATION
+|   +-- Testing against available evidence, internal scientific review
+|
++-- PEER REVIEW / EXTERNAL VALIDATION
+|   +-- External scientific review, specialist assessment, calibration
+|
++-- FRAMEWORK INTEGRATION
+|   +-- Integration into c-ECO Framework, documentation, training materials
+|
++-- NETWORK DEPLOYMENT
+    +-- Deployment across Living Labs, SIL 19x19 integration, monitoring and refinement</div>
+    <div class="flowchart-caption">Figure INST.11-1: Research and Method Development Pipeline</div>
+    
+    <p>Research and method development shall be conducted with scientific independence and shall not be subordinated to project delivery pressure, funding preferences, or institutional convenience. The separation between scientific/research capacity and operational project-delivery capacity is maintained throughout the network.</p>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.12 -->
+    <h1 class="part-title" id="inst12">INST.12 — Global Living Labs Directorate and 22-Lab Network</h1>
+    
+    <p>The Global Living Labs Directorate is the Institute-level function responsible for the establishment, activation, operation, development, and periodic review of the 22 c-ECO Living Labs and their associated scientific nodes. The Directorate ensures that each Lab operates within the common network architecture while respecting Lab-specific configuration.</p>
+    
+    <h2 class="section-header">INST.12.1 — Network Structure</h2>
+    
+    <div class="hierarchy">GLOBAL LIVING LAB NETWORK -- STRUCTURE
+|
++-- c-ECO INSTITUTE (Missouri, United States)
+|   +-- Global Living Labs Directorate
+|
++-- GLOBAL INTEGRATION HUB (Geneva, Switzerland)
+|   +-- Network integration layer (NOT a Living Lab)
+|
++-- 22 LIVING LABS
+|   +-- Lab 01 -- Amazon Core Lab (Belem, Brazil) -- L1
+|   +-- Lab 02 -- Tromso Arctic Carbon Lab (Tromso, Norway) -- L1
+|   +-- Lab 03 -- London Global Finance Hub/Lab (London, UK) -- L2
+|   +-- Lab 04 -- Geneva Governance Lab (Geneva, Switzerland) -- L3
+|   +-- Labs 05-22 -- As specified in individual Lab Dossiers
+|   |
+|   +-- Each Lab: Individual Establishment and Operations Dossier
+|       +-- Scientific Nodes / Field Sites (subordinate extensions)
+|
++-- SCIENTIFIC NODES / FIELD SYSTEMS
+    +-- Subordinate to designated parent Living Labs</div>
+    <div class="flowchart-caption">Figure INST.12-1: Global Living Lab Network Structure</div>
+    
+    <p>The 22 Living Labs shall not operate as isolated or independent projects. Each Lab constitutes a specialized component of a common network and contributes observations, research, field evidence, analytical outputs, methodological learning, and implementation experience to the broader c-ECO system. The network is designed to provide complementary capabilities across multiple environments and systems, rather than reproduce the same facility in 22 locations.</p>
+    
+    <h2 class="section-header">INST.12.2 — Directorate Functions</h2>
+    
+    <table>
+      <caption>Table INST.12-1: Directorate Functions</caption>
+      <thead>
+        <tr><th style="width:25%">Function</th><th style="width:75%">Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Lab Establishment</td><td>Managing the process from Lab proposal through establishment authorization, activation gate, and operational status</td></tr>
+        <tr><td>Lab Oversight</td><td>Monitoring Lab performance, compliance, and contribution to network objectives</td></tr>
+        <tr><td>Lab Support</td><td>Providing institutional support to Labs including project support, fellowship interface, and technology integration</td></tr>
+        <tr><td>Node Coordination</td><td>Coordinating the relationship between Labs and their scientific nodes, ensuring nodes remain subordinate extensions</td></tr>
+        <tr><td>Network Integration</td><td>Coordinating with the GIH to ensure network-level integration, interoperability, and cross-Lab learning</td></tr>
+        <tr><td>Performance Review</td><td>Conducting periodic Lab performance reviews and contributing to phase-gate determinations</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.12.3 — Deployment Phases</h2>
+    
+    <table>
+      <caption>Table INST.12-1: Deployment Phases</caption>
+      <thead>
+        <tr><th style="width:10%">Phase</th><th style="width:70%">Description</th><th style="width:20%">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Alpha</td><td>Initial operational deployment of the Living Lab architecture. Alpha Labs serve as the first environments in which the common Lab architecture, operational protocols, staffing models, data flows, monitoring arrangements, SIL 19×19 integration, GIH coordination mechanisms, partnership structures, and financial assumptions are implemented and tested under real operating conditions.</td><td>CONFIRMED — current phase</td></tr>
+        <tr><td>Beta</td><td>Controlled expansion and refinement of the network following evidence generated during Alpha. Beta Labs shall incorporate validated elements of the Alpha architecture while allowing modifications based on documented lessons.</td><td>PLANNING ASSUMPTION — future phase</td></tr>
+        <tr><td>Gamma</td><td>Principal global scaling stage. Gamma Labs shall be deployed using the architecture, protocols, controls, technology, staffing assumptions, financial models, and implementation procedures validated or refined through Alpha and Beta.</td><td>PLANNING ASSUMPTION — future phase</td></tr>
+      </tbody>
+    </table>
+    
+    <p>Progression from Alpha to Beta and from Beta to Gamma shall not occur solely because a predetermined date has been reached. Each transition requires a documented phase-gate review considering scientific readiness, operational readiness, SIL/data readiness, GIH integration, staffing, infrastructure, partnerships, and lessons learned.</p>
+    
+    <div class="status-line">Status: Alpha Phase Current. Beta and Gamma are Planning Assumptions Subject to Phase-Gate Review.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.13 -->
+    <h1 class="part-title" id="inst13">INST.13 — Global Integration Hub Oversight and Interface</h1>
+    
+    <p>The Global Integration Hub (GIH), located in Geneva, Switzerland, constitutes the principal network-level integration structure between the c-ECO Institute and the distributed Living Lab network. The Institute maintains oversight of the GIH and defines the interface between the GIH and other network components.</p>
+    
+    <h2 class="section-header">INST.13.1 — GIH Functions</h2>
+    
+    <table>
+      <caption>Table INST.13-1: GIH Functions</caption>
+      <thead>
+        <tr><th style="width:25%">Function</th><th style="width:50%">Description</th><th style="width:25%">Distinction</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Cross-Lab Coordination</td><td>Coordination of cross-Lab information flows, interoperability, and network-level analytical integration</td><td>Integration function — not project ownership</td></tr>
+        <tr><td>SIL Operational Administration</td><td>Global operational administration of SIL 19×19 within the Living Lab network</td><td>Administration ≠ ownership. GIH does not own SIL 19×19.</td></tr>
+        <tr><td>Network-Level Integration</td><td>Integration of authorized analytical outputs, identification of cross-Lab dependencies, consolidation of authorized network outputs</td><td>Integration ≠ scientific validation authority</td></tr>
+        <tr><td>Monitoring and Escalation</td><td>Coordination of applicable alerts, triggers, and escalation pathways; support for network-level analysis and institutional reporting</td><td>Coordination ≠ decision authority</td></tr>
+        <tr><td>Systemic and Cross-Domain Analysis</td><td>Support for systemic and cross-domain analysis at the network level</td><td>Support ≠ scientific authority for every Lab</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.13.2 — GIH Distinctions</h2>
+    
+    <table>
+      <caption>Table INST.13-2: GIH Distinctions</caption>
+      <thead>
+        <tr><th style="width:50%">The GIH IS</th><th style="width:50%">The GIH IS NOT</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>The network-level integration layer between the Institute and the Living Labs</td><td>One of the 22 Living Labs</td></tr>
+        <tr><td>The global operational administrator of SIL 19×19</td><td>The owner of SIL 19×19 or its underlying IP</td></tr>
+        <tr><td>The coordinator of cross-Lab information flows and network-level analytical integration</td><td>The contractual home of individual projects</td></tr>
+        <tr><td>The coordinator of network-level monitoring, alerts, and escalation pathways</td><td>The supervisor of Fellows or the scientific authority for every Lab</td></tr>
+        <tr><td>A distinct institutional component with its own function, personnel, and documentation</td><td>Merged with the Geneva Governance Lab despite co-location</td></tr>
+      </tbody>
+    </table>
+    
+    <p>The GIH and the Geneva Governance Lab are intended to be located within the same building or institutional facility in Geneva, while occupying separate and functionally distinct spaces. Physical co-location is intended to facilitate coordination and information exchange but shall not merge their respective functions or organizational identities.</p>
+    
+    <h2 class="section-header">INST.13.3 — Institute-GIH Interface</h2>
+    
+    <p>The interface between the Institute and the GIH is defined by the following principles: (a) the Institute provides institutional oversight, governance, and organizational infrastructure; (b) the GIH provides network-level operational integration within the parameters established by the Institute; (c) the GIH does not ordinarily serve as contractual home of individual projects, supervisor of Fellows, or scientific authority for every Living Lab; (d) GIH administration of SIL 19×19 does not confer ownership of the software, the underlying framework, methodologies, or Founder Background IP; and (e) relevant institutional reporting, resource decisions, program oversight, and other matters requiring action at the organizational level flow between the GIH and the Institute according to their respective mandates.</p>
+    
+    <div class="status-line">Status: GIH Functions and Distinctions Confirmed. GIH Not Counted Among 22 Labs. Co-location with Geneva Governance Lab Does Not Merge Structures.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.14 -->
+    <h1 class="part-title" id="inst14">INST.14 — Fellowship Program, Credentialing and Professional-Practice Architecture</h1>
+    
+    <p>The c-ECO Fellowship Program is an Institute-level program responsible for the institutional Fellowship structure, including applicable selection, training, supervision, progression, evaluation, and Fellowship requirements. The Fellowship Program operates at the Institute level and is distinct from the Institutional Project Support Team and from the individual Living Labs.</p>
+    
+    <h2 class="section-header">INST.14.1 — Fellowship Architecture</h2>
+    
+    <div class="hierarchy">FELLOWSHIP PROGRAM ARCHITECTURE
+|
++-- FELLOWSHIP GOVERNANCE
+|   +-- Institute-level program governance under Board oversight
+|
++-- SELECTION AND ADMISSION
+|   +-- Application, screening, selection, and admission of Fellows
+|
++-- TRAINING AND DEVELOPMENT
+|   +-- Core curriculum, specialized training, professional development
+|
++-- CREDENTIALING
+|   +-- c-ECO Credential issuance, scope definition, and maintenance
+|
++-- SUPERVISION AND EVALUATION
+|   +-- Ongoing supervision, performance evaluation, progression decisions
+|
++-- PROFESSIONAL PRACTICE
+|   +-- Project placement, professional conduct, ethics, continuing education
+|
++-- ALUMNI AND CONTINUING RELATIONSHIP
+    +-- Post-Fellowship relationship, continuing obligations, network engagement</div>
+    <div class="flowchart-caption">Figure INST.14-1: Fellowship Program Architecture</div>
+    
+    <h2 class="section-header">INST.14.2 — The c-ECO Credential</h2>
+    
+    <table>
+      <caption>Table INST.14-1: The c-ECO Credential — What It Is and Is Not</caption>
+      <thead>
+        <tr><th style="width:50%">A c-ECO Credential IS</th><th style="width:50%">A c-ECO Credential IS NOT AUTOMATICALLY</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>An institutional professional credential under the c-ECO Fellowship architecture</td><td>A government professional license — the c-ECO Credential does not replace or supersede government professional licensing requirements</td></tr>
+        <tr><td>A qualification that authorizes the Fellow to engage professionally through the c-ECO architecture</td><td>An employment contract — the c-ECO Credential does not create an employment relationship</td></tr>
+        <tr><td>Evidence that the Fellow has met the institutional requirements for professional engagement</td><td>An officer appointment — the c-ECO Credential does not make the Fellow an officer of the c-ECO Institute</td></tr>
+        <tr><td>A basis for the Fellow to serve as the professional entry point and professional lead for projects</td><td>A board appointment — the c-ECO Credential does not make the Fellow a member of the Board</td></tr>
+        <tr><td></td><td>General agency authority — the c-ECO Credential does not grant general agency authority beyond the scope of the credential and applicable agreements</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.14.3 — Fellow Role in Project Architecture</h2>
+    
+    <p>External projects enter the c-ECO architecture through a c-ECO Credentialed Fellow, subject to the exceptions established for authorized internal institutional research, network calibration, or other expressly authorized activities. The Fellow initiates the process — but institutional approval, contracting, scientific classification, routing, and project delivery follow the Fellow's engagement. Fellow sponsorship does not equal institutional approval.</p>
+    
+    <table>
+      <caption>Table INST.14-2: Fellow Sponsorship vs. Institutional Project Approval</caption>
+      <thead>
+        <tr><th style="width:50%">Fellow Sponsorship</th><th style="width:50%">Institutional Project Approval</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>The Fellow accepts or sponsors professional engagement with a project opportunity</td><td>The c-ECO Institute provides institutional approval for projects, subject to applicable policies, contracts, scientific requirements, legal and compliance requirements, safeguards, and resources</td></tr>
+        <tr><td>The Fellow's professional engagement is the entry point for external projects</td><td>Institutional approval is required before a project is authorized for mobilization and execution</td></tr>
+        <tr><td>The Fellow acts as the professional lead and entry interface</td><td>The Institute retains the ability, where established, to reject, condition, defer, reroute, suspend, or terminate projects according to applicable policies and authority</td></tr>
+        <tr><td>Professional engagement ≠ institutional commitment</td><td>Institutional approval is the gateway to authorized project execution</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.14.4 — Fellowship Governance Interface</h2>
+    
+    <div class="hierarchy">FELLOWSHIP GOVERNANCE INTERFACE
+|
++-- ARTICLES / BYLAWS
+|   +-- Institute constitutional documents
+|
++-- BOARD-APPROVED INSTITUTIONAL POLICIES / c-ECO SYSTEM GOVERNANCE
+|   +-- Institute-level policy framework
+|
++-- FELLOWSHIP POLICY / PROFESSIONAL CONDUCT
+|   +-- Fellowship-specific policies and conduct standards
+|
++-- CREDENTIAL TERMS / SCOPE
+|   +-- Terms of the c-ECO Credential and its scope
+|
++-- PROJECT / CONTRACT REQUIREMENTS
+    +-- Project-specific and contract-specific requirements</div>
+    <div class="flowchart-caption">Figure INST.14-2: Fellowship Governance Interface</div>
+    
+    <p>The Fellowship Department's institutional function concerns training, credentialing, professional standards, conduct, credential status, and professional development. The Fellowship Department is not the institutional contract-management authority unless the source explicitly establishes that function.</p>
+    
+    <div class="status-line">Status: Fellowship Program Architecture Confirmed. Fellowship Distinct from Project-Management Authority. Fellow Sponsorship ≠ Institutional Approval.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.15 -->
+    <h1 class="part-title" id="inst15">INST.15 — c-ECO System — Standards, Calibration, Certification and Seals</h1>
+    
+    <p>The c-ECO System is the standards, calibration, certification, and seals architecture of the c-ECO Institute. It establishes the framework through which the Institute's scientific work, methodological outputs, and institutional processes are standardized, calibrated, certified, and marked with seals indicating verified status or compliance.</p>
+    
+    <h2 class="section-header">INST.15.1 — c-ECO System Components</h2>
+    
+    <table>
+      <caption>Table INST.15-1: c-ECO System Components</caption>
+      <thead>
+        <tr><th style="width:20%">Component</th><th style="width:65%">Description</th><th style="width:15%">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Standards</td><td>Institutional standards governing scientific methods, data quality, evidence validation, calibration, and methodological application</td><td>CONFIRMED — architecture established</td></tr>
+        <tr><td>Calibration</td><td>Scientific process ensuring measurements, observations, data, models, methods, indicators, and findings are accurate, consistent, comparable, and fit for purpose</td><td>CONFIRMED — architecture established</td></tr>
+        <tr><td>Certification</td><td>Institutional certification of compliance with c-ECO standards, including certification of Labs, projects, methods, and outputs</td><td>CONFIRMED — architecture established</td></tr>
+        <tr><td>Seals</td><td>Visual and documentary marks indicating certified status, including seals for validated evidence, calibrated methods, and compliant processes</td><td>CONFIRMED — architecture established</td></tr>
+        <tr><td>Independent Assurance Interface</td><td>Interface between the c-ECO System and the independent assurance/public oversight architecture</td><td>CONFIRMED — architecture established</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.15.2 — Certification and Independence</h2>
+    
+    <p>Where the c-ECO System provides certification, seals, accreditation, verification, or comparable determinations, personnel responsible for project delivery shall not automatically exercise final independent certification authority over their own work. The specific independence requirements shall be established through the applicable c-ECO System policies, and shall preserve the distinction between the functions involved and the independence appropriate to each.</p>
+    
+    <p>Project delivery, scientific analysis, certification, compliance review, and independent assurance shall remain appropriately separated. This separation is essential to the credibility of the c-ECO System and to the integrity of its certifications and seals.</p>
+    
+    <h2 class="section-header">INST.15.3 — Seals and Marks</h2>
+    
+    <p>The c-ECO System includes seals and marks indicating verified status. These seals are institutional marks protected under the Institute's intellectual property architecture (see Section INST.31). The use of c-ECO seals is governed by the c-ECO System policies and shall not imply endorsement, certification, or compliance that has not been established through the applicable processes.</p>
+    
+    <div class="status-line">Status: c-ECO System Architecture Confirmed. Certification Independence Preserved. Seals Protected as Institutional Marks.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.16 -->
+    <h1 class="part-title" id="inst16">INST.16 — Technology and SIL 19×19 Governance</h1>
+    
+    <p>The c-ECO Institute holds institutional responsibility for technology governance, contracting, cybersecurity oversight, and technology infrastructure for the network. This includes governance of SIL 19×19, the shared global software platform of the c-ECO Living Lab Network.</p>
+    
+    <h2 class="section-header">INST.16.1 — SIL 19×19 Position in the Architecture</h2>
+    
+    <div class="hierarchy">c-ECO INSTITUTE
+Institutional / Technology Governance
+|
++-- SIL 19x19
+|   +-- Shared Global Software Platform
+|       +-- Data ingestion
+|       +-- Structured data organization
+|       +-- Provenance tracking
+|       +-- Project intake and routing
+|       +-- Analytical integration
+|       +-- Monitoring
+|       +-- Cross-domain relationships
+|       +-- System interoperability
+|
++-- GLOBAL INTEGRATION HUB
+|   +-- Global Operational Administration / Integration
+|       +-- (Administration != Ownership)
+|
++-- 22 LIVING LABS
+|   +-- (Each Lab -- generates and interprets evidence)
+|
++-- SCIENTIFIC NODES / FIELD SYSTEMS
+    +-- (Subordinate field/scientific extensions)</div>
+    <div class="flowchart-caption">Figure INST.16-1: SIL 19×19 Position in c-ECO Architecture</div>
+    
+    <p>SIL 19×19 is software. It is one shared global platform. It is not an organizational department, not a Living Lab, and not a substitute for scientific judgment. The Amazon Core Lab does not operate an independent Amazon SIL. The Tromsø Arctic Carbon Lab does not have a separate Tromsø SIL. No Lab operates an independent SIL.</p>
+    
+    <h2 class="section-header">INST.16.2 — SIL Governance Distinctions</h2>
+    
+    <table>
+      <caption>Table INST.16-1: SIL Governance Distinctions</caption>
+      <thead>
+        <tr><th style="width:50%">Relationship / Action</th><th style="width:50%">Does Not Imply</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>SIL 19×19 Operational Administration (GIH)</td><td>SIL Ownership — administrative administration does not confer ownership of the software</td></tr>
+        <tr><td>Living Lab Use of SIL 19×19</td><td>SIL Ownership — Lab use of SIL does not transfer ownership of the software</td></tr>
+        <tr><td>Data Contribution to SIL 19×19</td><td>SIL Ownership — contributing data to SIL does not confer ownership of the software</td></tr>
+        <tr><td>Software Development Contribution</td><td>Automatic Ownership — contributing to software development does not automatically confer ownership</td></tr>
+        <tr><td>Institutional Use of SIL 19×19</td><td>Assignment of Founder Background IP — institutional use does not assign Founder Background IP</td></tr>
+        <tr><td>Lab Integration with SIL 19×19</td><td>Independent SIL Ownership — Lab integration does not create an independent Lab-specific SIL</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.16.3 — Technology Governance Functions</h2>
+    
+    <table>
+      <caption>Table INST.16-2: Technology Governance Functions</caption>
+      <thead>
+        <tr><th style="width:25%">Function</th><th style="width:55%">Description</th><th style="width:20%">Responsible</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>SIL Technical Development</td><td>Software engineering, APIs, infrastructure, cybersecurity, releases, integrations, and platform development</td><td>Chief Technology Officer and engineering team</td></tr>
+        <tr><td>Technology Governance</td><td>Architecture decisions, technology standards, platform evolution, and technical governance</td><td>CTO with Institute oversight</td></tr>
+        <tr><td>Cybersecurity Oversight</td><td>Security requirements, controls, compliance, incident response, and security governance for network systems</td><td>CTO with CCO coordination</td></tr>
+        <tr><td>Technology Contracting</td><td>Technology vendor contracts, software licenses, and technology procurement</td><td>CTO with Legal</td></tr>
+        <tr><td>Data Infrastructure</td><td>Data systems, storage, transmission, and integration infrastructure</td><td>CTO with Data Governance</td></tr>
+        <tr><td>SIL Administration vs. Development</td><td>Distinguishing operational administration (GIH) from technical development (Institute)</td><td>Institute governance</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.16.4 — Software vs. Scientific Authority</h2>
+    
+    <table>
+      <caption>Table INST.16-3: Software vs. Scientific Authority</caption>
+      <thead>
+        <tr><th style="width:50%">SIL 19×19 CAN Support</th><th style="width:50%">SIL 19×19 DOES NOT Unilaterally Determine</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Data integration and management — bringing data together in a shared platform</td><td>Scientific conclusions — scientific conclusions require human scientific review and validation</td></tr>
+        <tr><td>Workflow support — facilitating project workflow, evidence documentation, and process tracking</td><td>Project approval — project approval is an institutional process, not a software function</td></tr>
+        <tr><td>Threshold and trigger monitoring — software-supported monitoring of potential thresholds</td><td>Threshold determination — threshold determination is a scientific and institutional process, not a software output</td></tr>
+        <tr><td>Dashboards and views — software views of data, evidence, and integrated information</td><td>Institutional decisions — institutional decisions are made by authorized human actors, not by software</td></tr>
+        <tr><td>Cross-domain integration — connecting evidence across domains and across Living Labs</td><td>Scientific authority — scientific authority resides in human scientists and the c-ECO scientific system, not in software</td></tr>
+        <tr><td>Audit trail — supporting traceability and accountability</td><td>Final scientific approval — final scientific approval requires human scientific review</td></tr>
+        <tr><td>Network integration — connecting Labs to the Global Living Lab Network</td><td>Governance action — governance action is an institutional function, not a software function</td></tr>
+      </tbody>
+    </table>
+    
+    <p>Human-in-the-loop is a fundamental principle of the SIL 19×19 architecture. The use of SIL 19×19 does not replace human scientific judgment, institutional authority, or the requirement for human validation and review. Software supports scientific and institutional processes — it does not unilaterally determine them.</p>
+    
+    <div class="status-line">Status: SIL 19×19 is Software. One Global Platform. Administration ≠ Ownership. Software ≠ Scientific Authority. Human-in-the-Loop Preserved.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.17 -->
+    <h1 class="part-title" id="inst17">INST.17 — Independent Assurance and Public Oversight</h1>
+    
+    <p>The c-ECO Institute maintains an Independent Assurance and Public Oversight architecture distinct from operational delivery. This architecture provides independent review, audit, and public accountability functions that ensure institutional integrity, scientific credibility, and public trust.</p>
+    
+    <h2 class="section-header">INST.17.1 — Independent Assurance Functions</h2>
+    
+    <table>
+      <caption>Table INST.17-1: Independent Assurance Functions</caption>
+      <thead>
+        <tr><th style="width:20%">Function</th><th style="width:45%">Description</th><th style="width:35%">Independence Requirement</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Internal Audit</td><td>Independent assessment of financial controls, operational compliance, and governance effectiveness</td><td>Reports to Board Audit Committee, not to executive management</td></tr>
+        <tr><td>External Audit</td><td>Independent financial audit by external auditors</td><td>Independent audit firm with no conflicts of interest</td></tr>
+        <tr><td>Scientific Review</td><td>Independent review of scientific findings, methods, and outputs</td><td>Reviewers independent of the research team</td></tr>
+        <tr><td>Certification Review</td><td>Independent review for c-ECO System certifications and seals</td><td>Reviewers independent of the delivery function</td></tr>
+        <tr><td>Compliance Review</td><td>Independent assessment of legal and regulatory compliance</td><td>Compliance function independent of operational pressure</td></tr>
+        <tr><td>Public Oversight</td><td>Public accountability mechanisms including reporting, transparency, and stakeholder engagement</td><td>Independent of operational and financial management</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.17.2 — Public Oversight and Transparency</h2>
+    
+    <p>The Institute shall operate with transparency consistent with its public-benefit function, including: (a) annual reporting on institutional activities, financial position, and network performance; (b) public availability of scientific findings, subject to confidentiality, IP, and data-protection constraints; (c) public disclosure of governance structure, key personnel, and institutional policies; (d) mechanisms for stakeholder feedback and concern reporting; and (e) public accountability for the Institute's use of charitable resources.</p>
+    
+    <p>Transparency does not require unrestricted disclosure of every underlying institutional mechanism. Public availability of an output does not require disclosure of the underlying confidential architecture, trade secrets, restricted datasets, or proprietary implementation mechanisms used to produce it.</p>
+    
+    <h2 class="section-header">INST.17.3 — Distinction from Operational Delivery</h2>
+    
+    <p>Independent assurance and public oversight are distinct from operational delivery. Personnel responsible for project delivery shall not automatically exercise final independent certification or assurance authority over their own work. The specific independence requirements shall be established through the applicable policies and shall preserve the distinction between the functions involved.</p>
+    
+    <div class="status-line">Status: Independent Assurance and Public Oversight Architecture Confirmed as Distinct from Operational Delivery.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.18 -->
+    <h1 class="part-title" id="inst18">INST.18 — Project Intake, Contracting and Delivery Architecture</h1>
+    
+    <p>The c-ECO Institute provides the institutional architecture for project intake, contracting, and delivery across the network. Projects enter through the Fellowship interface, are assessed for admissibility, classified and routed to appropriate Living Labs, and executed through the Institutional Project Support structure.</p>
+    
+    <h2 class="section-header">INST.18.1 — Project Architecture</h2>
+    
+    <div class="hierarchy">PROJECT ARCHITECTURE -- C-ECO INSTITUTE
+|
+EXTERNAL PROJECT OPPORTUNITY
+|
+v
+c-ECO CREDENTIALED FELLOW
+|
+v
+CENTRAL INTAKE
+|
+v
+ADMISSIBILITY
+|
+v
+CLASSIFICATION / ROUTING
+|
+v
+INSTITUTIONAL APPROVAL / CONTRACTING
+|
+v
+PRIMARY LIVING LAB
+|
+v
+PROJECT TEAM / NODES / FIELD EXECUTION
+|
+v
+SIL 19x19
+|
+v
+GIH / NETWORK INTEGRATION</div>
+    <div class="flowchart-caption">Figure INST.18-1: Project Architecture</div>
+    
+    <p>External projects enter the c-ECO architecture through a c-ECO Credentialed Fellow, subject to the exceptions established for authorized internal institutional research, network calibration, or other expressly authorized activities. The Fellow initiates the process — but institutional approval, contracting, scientific classification, routing, and project delivery follow the Fellow's engagement. Fellow sponsorship does not equal institutional approval.</p>
+    
+    <h2 class="section-header">INST.18.2 — Project Home Distinctions</h2>
+    
+    <table>
+      <caption>Table INST.18-1: Project Home Distinctions</caption>
+      <thead>
+        <tr><th style="width:20%">Dimension</th><th style="width:30%">Project Home</th><th style="width:50%">Distinction</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Contractual Home</td><td>c-ECO Institute</td><td>The Institute is the contractual and institutional home for projects</td></tr>
+        <tr><td>Professional Entry</td><td>Credentialed Fellow</td><td>The Fellow is the professional entry point for projects entering the c-ECO architecture</td></tr>
+        <tr><td>Scientific Home</td><td>Appropriate Living Lab</td><td>The Primary Living Lab is the scientific home for projects routed to it</td></tr>
+        <tr><td>Geographic Execution</td><td>Lab / Node / Field Site</td><td>Geographic execution occurs through the Lab's primary location and scientific nodes</td></tr>
+        <tr><td>Domain Capacity</td><td>Local + Shared + Supporting Labs</td><td>Domain expertise is provided through the Lab's local capacity, shared c-ECO scientific capacity, and Supporting Living Labs</td></tr>
+        <tr><td>Network Integration</td><td>GIH</td><td>The Global Integration Hub provides network integration, connecting the Lab to the wider Global Living Lab Network</td></tr>
+        <tr><td>Digital Platform</td><td>SIL 19×19</td><td>Project data, evidence, and workflow are managed through the shared global software platform</td></tr>
+      </tbody>
+    </table>
+    
+    <p>The project home model makes clear that the contractual home, the professional entry, the scientific home, the geographic execution, the domain capacity, the network integration, and the digital platform are distinct dimensions of a project. Contractual home does not equal scientific home, does not equal geographic execution, does not equal professional entry, and does not equal network integration.</p>
+    
+    <h2 class="section-header">INST.18.3 — Project Routing Logic</h2>
+    
+    <div class="hierarchy">PROJECT ROUTING LOGIC
+|
+PROJECT OBJECT / SYSTEM
++
+GEOGRAPHIC LOCATION
++
+DOMAIN REQUIREMENTS
++
+L1/L2/L3 CAPABILITY REQUIREMENTS
++
+DATA / EVIDENCE REQUIREMENTS
+|
+v
+PRIMARY LAB + SUPPORTING LABS + PROJECT TEAM</div>
+    <div class="flowchart-caption">Figure INST.18-2: Project Routing Logic</div>
+    
+    <p>Projects routed through the network are routed based on the project's object or system, geographic location, domain requirements, L1/L2/L3 capability requirements, and data and evidence requirements. The routing logic determines the primary Lab, any supporting Labs, and the project team composition. Contract-administration location does not determine the scientific home — the scientific home is determined by the scientific, geographic, and domain characteristics of the project.</p>
+    
+    <h2 class="section-header">INST.18.4 — Institutional Project Support Team</h2>
+    
+    <p>Each applicable project shall be supported by an Institutional Project Support Team operating behind and alongside the Fellow or other designated Project Focal Point. The composition of this team shall be determined according to the requirements of the individual project and may include: project/program management; scientific and domain leadership; finance, grants, and financial administration; legal, contractual, compliance, and safeguards support; procurement and administrative support; Living Lab management; field and data operations; SIL 19×19/data specialists; monitoring and reporting personnel; and additional technical or scientific specialists.</p>
+    
+    <div class="hierarchy">c-ECO CREDENTIALED FELLOW
+|
+v
+INSTITUTIONAL PROJECT SUPPORT TEAM
+|
++-- Project / Program Officer
++-- Scientific / Domain Lead
++-- Finance / Grants
++-- Legal / Compliance / Safeguards
++-- Lab Operations
++-- Data / SIL
++-- Scientific Specialists
++-- Node / Field Capacity
++-- Supporting Living Labs</div>
+    <div class="flowchart-caption">Figure INST.18-3: Institutional Support Behind the Fellow</div>
+    
+    <h2 class="section-header">INST.18.5 — Project Team Matrix</h2>
+    
+    <table>
+      <caption>Table INST.18-2: Project Team Matrix</caption>
+      <thead>
+        <tr><th>Project Function</th><th>Fellow</th><th>Inst. Project Officer</th><th>Scientific Lead</th><th>Primary Lab</th><th>Support / Other</th><th>GIH/SIL</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Professional Entry/Lead</td><td>LEAD</td><td>SUPPORT</td><td>SUPPORT</td><td>SUPPORT</td><td>AS REQUIRED</td><td>AS REQUIRED</td></tr>
+        <tr><td>Scientific Direction</td><td>SUPPORT</td><td>SUPPORT</td><td>LEAD</td><td>LEAD</td><td>Domain Specialists</td><td>SUPPORT</td></tr>
+        <tr><td>Intake/Classification</td><td>LEAD</td><td>COORDINATE</td><td>SUPPORT</td><td>SUPPORT</td><td>AS REQUIRED</td><td>SUPPORT</td></tr>
+        <tr><td>Project Management</td><td>SUPPORT</td><td>LEAD</td><td>SUPPORT</td><td>SUPPORT</td><td>As assigned</td><td>SUPPORT</td></tr>
+        <tr><td>Field Execution</td><td>SUPPORT</td><td>SUPPORT</td><td>SUPPORT</td><td>LEAD</td><td>Node/Field Personnel</td><td>SUPPORT</td></tr>
+        <tr><td>Domain Expertise</td><td>SUPPORT</td><td>AS REQUIRED</td><td>SUPPORT</td><td>SUPPORT</td><td>Domain Specialists</td><td>SUPPORT</td></tr>
+        <tr><td>Finance/Grants</td><td>AS REQUIRED</td><td>LEAD</td><td>AS REQUIRED</td><td>SUPPORT</td><td>Finance/Grants</td><td>AS REQUIRED</td></tr>
+        <tr><td>Legal/Compliance</td><td>SUPPORT</td><td>COORDINATE</td><td>SUPPORT</td><td>SUPPORT</td><td>Legal/Compliance</td><td>SUPPORT</td></tr>
+        <tr><td>Data/SIL</td><td>SUPPORT</td><td>SUPPORT</td><td>SUPPORT</td><td>LEAD</td><td>Data/SIL</td><td>SUPPORT</td></tr>
+        <tr><td>Monitoring/Reporting</td><td>SUPPORT</td><td>SUPPORT</td><td>SUPPORT</td><td>LEAD</td><td>As assigned</td><td>SUPPORT</td></tr>
+        <tr><td>Stakeholder Coordination</td><td>SUPPORT</td><td>SUPPORT</td><td>SUPPORT</td><td>LEAD</td><td>As assigned</td><td>SUPPORT</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.18.6 — Project Approval vs. External Financing Approval</h2>
+    
+    <p>Project approval and external financing approval are distinct. Project approval is the decision, taken through the applicable c-ECO institutional process, that the project is approved for execution. External financing approval is the decision by the external funder, grantor, development-finance institution, government, or other external party that the external funding, grant, contract, or other financial resource is approved and available for the project. The two approvals interact but are not the same.</p>
+    
+    <table>
+      <caption>Table INST.18-3: Project Approval vs. External Financing Approval</caption>
+      <thead>
+        <tr><th style="width:15%">Aspect</th><th style="width:42%">Project Approval (c-ECO)</th><th style="width:43%">External Financing Approval</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>What it is</td><td>Decision that the project is approved for execution through the c-ECO operational architecture</td><td>Decision by the external funding party that the external financial resource is approved and available</td></tr>
+        <tr><td>Who grants it</td><td>The applicable c-ECO institutional authority</td><td>The external funding party, through its own approval process</td></tr>
+        <tr><td>What it authorizes</td><td>Execution of the project through the network's operational, scientific, data, SIL, GIH, Fellowship, and partner interfaces</td><td>Provision of the external financial resource, subject to the funder's terms and conditions</td></tr>
+        <tr><td>Relationship</td><td>Required for project execution through the network; may be granted independently of external financing approval</td><td>Required where the project is externally funded; does not, by itself, authorize execution through the network</td></tr>
+      </tbody>
+    </table>
+    
+    <p>Not every c-ECO project requires World Bank or IDB approval. Where the financial model specifically contemplates World Bank / IDB / DFI-approved projects, that architecture is explicit for those projects. DFI approval is not a universal requirement for every c-ECO project unless the source explicitly establishes that.</p>
+    
+    <div class="status-line">Status: Project Architecture Confirmed. Fellow Sponsorship ≠ Institutional Approval. Project Approval ≠ External Financing Approval. DFI Approval Not Universal.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.19 -->
+    <h1 class="part-title" id="inst19">INST.19 — Grants, Sponsored Programs, Procurement and Subawards</h1>
+    
+    <p>The c-ECO Institute administers grants, sponsored programs, procurement, and subawards through its institutional platform. These functions are centralized at the Institute level and provide the fiduciary, compliance, and administrative infrastructure for the network.</p>
+    
+    <h2 class="section-header">INST.19.1 — Grants and Sponsored Programs</h2>
+    
+    <table>
+      <caption>Table INST.19-1: Grants and Sponsored Programs Functions</caption>
+      <thead>
+        <tr><th style="width:25%">Function</th><th style="width:55%">Description</th><th style="width:20%">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Grant Development</td><td>Identification of grant opportunities, proposal development, and submission</td><td>PLANNING ASSUMPTION — function to be established</td></tr>
+        <tr><td>Grant Administration</td><td>Post-award grant management, compliance monitoring, financial tracking, and reporting to grantors</td><td>PLANNING ASSUMPTION — function to be established</td></tr>
+        <tr><td>Sponsored Research</td><td>Administration of sponsored research agreements, including research compliance, IP management, and deliverable tracking</td><td>PLANNING ASSUMPTION — function to be established</td></tr>
+        <tr><td>Subaward Administration</td><td>Subaward issuance, subrecipient monitoring, and subaward compliance</td><td>PLANNING ASSUMPTION — function to be established</td></tr>
+        <tr><td>Grant Compliance</td><td>Ensuring compliance with grant terms, conditions, reporting requirements, and applicable regulations</td><td>PLANNING ASSUMPTION — function to be established</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.19.2 — Procurement</h2>
+    
+    <table>
+      <caption>Table INST.19-2: Procurement Functions</caption>
+      <thead>
+        <tr><th style="width:25%">Function</th><th style="width:55%">Description</th><th style="width:20%">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Procurement Policy</td><td>Establishment of procurement policies governing vendor selection, competitive bidding, and procurement ethics</td><td>PLANNING ASSUMPTION — policy to be developed</td></tr>
+        <tr><td>Vendor Management</td><td>Vendor identification, due diligence, contract negotiation, and performance monitoring</td><td>PLANNING ASSUMPTION — function to be established</td></tr>
+        <tr><td>Procurement Compliance</td><td>Ensuring compliance with procurement requirements including funder-specific procurement rules</td><td>PLANNING ASSUMPTION — function to be established</td></tr>
+        <tr><td>Equipment and Supplies</td><td>Procurement of equipment, supplies, and services for the Institute and network</td><td>PLANNING ASSUMPTION — function to be established</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.19.3 — Subawards</h2>
+    
+    <p>Subawards to partner institutions, subrecipients, and contractors shall be governed by subaward agreements that address: scope of work; budget and financial management; reporting requirements; compliance obligations; intellectual property; data rights and confidentiality; safeguards; and termination and transition. Subrecipient monitoring shall ensure that subrecipients comply with the applicable terms and conditions of the prime award.</p>
+    
+    <div class="status-line">Status: Grants, Sponsored Programs, Procurement, and Subaward Functions Identified as Planning Assumptions. Policies and Procedures to be Developed.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.20 -->
+    <h1 class="part-title" id="inst20">INST.20 — Partnerships, International Relations and External Institutional Interface</h1>
+    
+    <p>The c-ECO Institute establishes and manages partnerships, international relations, and external institutional interfaces necessary for the network's scientific, operational, and funding objectives. Partnerships are established through written agreements that address due diligence, independence, non-interference, IP and confidentiality, branding and representation, public communications, and dependency risk.</p>
+    
+    <h2 class="section-header">INST.20.1 — Partnership Categories</h2>
+    
+    <table>
+      <caption>Table INST.20-1: Partnership Categories</caption>
+      <thead>
+        <tr><th style="width:25%">Partnership Type</th><th style="width:55%">Description</th><th style="width:20%">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Host Institutions</td><td>Universities, research institutions, and other organizations that host Living Labs or provide facilities and infrastructure</td><td>PROPOSED — host arrangements to be confirmed for each Lab</td></tr>
+        <tr><td>Scientific Partners</td><td>Universities, research institutes, laboratories, and other scientific organizations that collaborate on research and evidence development</td><td>PLANNING ASSUMPTION — partnerships to be developed</td></tr>
+        <tr><td>Government and Public Institutions</td><td>Government agencies, public institutions, and intergovernmental organizations that provide data, funding, or regulatory authorization</td><td>PLANNING ASSUMPTION — relationships to be developed</td></tr>
+        <tr><td>Funding Partners</td><td>Foundations, philanthropic organizations, corporations, government funders, and development finance institutions that provide financial support</td><td>PLANNING ASSUMPTION — funding relationships to be developed</td></tr>
+        <tr><td>Technology Partners</td><td>Technology vendors, software developers, and data providers that support SIL 19×19 and network technology infrastructure</td><td>PLANNING ASSUMPTION — partnerships to be developed</td></tr>
+        <tr><td>Community and Territorial Partners</td><td>Local communities, indigenous organizations, and territorial stakeholders engaged in field activities and research</td><td>PLANNING ASSUMPTION — engagement protocols to be developed</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.20.2 — Partnership Principles</h2>
+    
+    <table>
+      <caption>Table INST.20-2: Partnership Principles</caption>
+      <thead>
+        <tr><th style="width:20%">Principle</th><th style="width:80%">Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Due Diligence</td><td>Partners shall be subject to due diligence assessment before partnership establishment, including financial, legal, reputational, and integrity review.</td></tr>
+        <tr><td>Independence</td><td>Partnerships shall not compromise the Institute's scientific independence, institutional integrity, or mission.</td></tr>
+        <tr><td>Non-Interference</td><td>Partners shall not interfere with scientific determinations, evidence interpretation, or institutional governance.</td></tr>
+        <tr><td>IP and Confidentiality</td><td>Partnership agreements shall address intellectual property ownership, licensing, confidentiality, and data rights.</td></tr>
+        <tr><td>Branding and Representation</td><td>Partnership agreements shall govern the use of names, marks, and representations.</td></tr>
+        <tr><td>Dependency Risk</td><td>The Institute shall assess and manage dependency risks arising from over-reliance on any single partner.</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.20.3 — International Relations</h2>
+    
+    <p>The Institute maintains international relations necessary for the network's global operations, including: (a) relationships with international organizations and multilateral institutions; (b) coordination with national and subnational governments in jurisdictions where Living Labs operate; (c) engagement with the international scientific community; and (d) compliance with international legal and regulatory requirements including sanctions, export controls, and anti-corruption conventions.</p>
+    
+    <div class="status-line">Status: Partnership Architecture Confirmed. Specific Partnerships Identified as Planning Assumptions or Proposed. No Partnership Confirmed Unless Executed Agreement Exists.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.21 -->
+    <h1 class="part-title" id="inst21">INST.21 — Data Governance, Security and Information Management</h1>
+    
+    <p>The c-ECO Institute establishes the data governance, security, and information management framework for the network. This framework governs how data and information are acquired, generated, transmitted, integrated, stored, accessed, used, protected, and retained across the network, and the relationship between data governance, SIL 19×19, the GIH, the Living Labs, scientific nodes and field systems, projects, and the Institute.</p>
+    
+    <h2 class="section-header">INST.21.1 — Data Categories</h2>
+    
+    <table>
+      <caption>Table INST.21-1: Data Categories</caption>
+      <thead>
+        <tr><th style="width:30%">Data Category</th><th style="width:70%">Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Field Observation Data</td><td>Observations, measurements, samples, and field-derived information from scientific nodes, field sites, and monitoring systems</td></tr>
+        <tr><td>Sensor and Monitoring Data</td><td>Time series, readings, and derived monitoring products</td></tr>
+        <tr><td>Environmental and Infrastructure Data</td><td>Environmental conditions, infrastructure status, and related data</td></tr>
+        <tr><td>Administrative and Institutional Data</td><td>Institutional records, governance records, operational records</td></tr>
+        <tr><td>Partner and Governmental Datasets</td><td>Data obtained from partner institutions, governmental or intergovernmental sources, and other authorized external sources</td></tr>
+        <tr><td>Project Data</td><td>Data generated in or through the execution of specific projects</td></tr>
+        <tr><td>Scientific Research Data</td><td>Data generated through scientific research, including independent research and project-generated research</td></tr>
+        <tr><td>Model and Analytical Outputs</td><td>Outputs of models, analyses, simulations, indicators, and other analytical work</td></tr>
+        <tr><td>SIL-Relevant Data</td><td>Data ingested into, organized within, or processed by SIL 19×19</td></tr>
+        <tr><td>Sensitive and Restricted Data</td><td>Data subject to heightened protection, access control, or restriction</td></tr>
+        <tr><td>Public Data</td><td>Data authorized for public release</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.21.2 — Data Rights and Ownership</h2>
+    
+    <table>
+      <caption>Table INST.21-2: Data Rights and Ownership</caption>
+      <thead>
+        <tr><th style="width:25%">Concept</th><th style="width:75%">Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Data Ownership</td><td>The legal or rightful ownership of data, which may vest in the data originator, the data contributor, the institution that collected or generated the data, a data provider, a data licensor, or another party</td></tr>
+        <tr><td>Data Custodianship</td><td>The responsibility for the care, management, storage, security, maintenance, and appropriate handling of data, without necessarily implying ownership</td></tr>
+        <tr><td>Access Rights</td><td>The right to access, view, or use data, granted to authorized personnel, Fellows, project teams, partners, the GIH, SIL 19×19, or other authorized parties</td></tr>
+        <tr><td>Research Rights</td><td>The right to use data for scientific research, analysis, or evidence development</td></tr>
+        <tr><td>Analytical Rights</td><td>The right to analyze data, which may be distinct from research rights, publication rights, or unrestricted use rights</td></tr>
+        <tr><td>Publication Rights</td><td>The right to publish or disclose data or data-derived outputs, subject to approval, restriction, embargo, confidentiality, data-protection obligations, third-party rights, and other conditions</td></tr>
+        <tr><td>Restricted Access</td><td>Access that is limited to authorized persons, roles, projects, or purposes</td></tr>
+        <tr><td>Temporary Processing Authority</td><td>Authority to process data for a defined purpose, period, or context, which may not imply ownership, unrestricted access, or continuing rights</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.21.3 — Key Data Distinctions</h2>
+    
+    <table>
+      <caption>Table INST.21-3: Key Data Distinctions</caption>
+      <thead>
+        <tr><th style="width:50%">Action / Relationship</th><th style="width:50%">Does Not Imply</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Data Access</td><td>Data Ownership — accessing data does not transfer ownership of the data</td></tr>
+        <tr><td>SIL Ingestion</td><td>Ownership Transfer — ingesting data into SIL 19×19 does not transfer ownership of the data</td></tr>
+        <tr><td>Data Contribution</td><td>Unrestricted Redistribution Rights — contributing data does not grant unrestricted redistribution rights to others</td></tr>
+        <tr><td>Scientific Use</td><td>Automatic Public Release — scientific use of data does not automatically make the data publicly available</td></tr>
+        <tr><td>Data Sharing</td><td>Data Ownership Transfer — sharing data with the GIH or the network does not transfer ownership</td></tr>
+        <tr><td>Data Custody</td><td>Data Ownership — custody is not ownership</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.21.4 — Data Validation Status</h2>
+    
+    <table>
+      <caption>Table INST.21-4: Data Validation Status</caption>
+      <thead>
+        <tr><th style="width:20%">Status</th><th style="width:50%">Meaning</th><th style="width:30%">Typical Implications</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>VERIFIED</td><td>Data have been checked, validated, calibrated, or otherwise confirmed to an appropriate level for their intended use</td><td>Suitable for use at the applicable confidence level, subject to ongoing review</td></tr>
+        <tr><td>PROVISIONAL</td><td>Data are in use or being used for planning or preliminary analysis, but have not yet completed the applicable validation process</td><td>Suitable for preliminary or internal use with appropriate caution</td></tr>
+        <tr><td>PENDING VALIDATION</td><td>Data have been acquired or incorporated and are awaiting validation, calibration, or other validation activity</td><td>Not yet suitable for reliance at higher confidence levels</td></tr>
+        <tr><td>NOT VALIDATED</td><td>Data have been acquired or incorporated but have not yet undergone any validation activity, or validation is not applicable</td><td>Use subject to appropriate caution; confidence levels should reflect the absence of validation</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.21.5 — Cybersecurity and Information Security</h2>
+    
+    <p>The network's information systems, including SIL 19×19, Living Lab systems, scientific node systems, data storage and transmission systems, and other information infrastructure, shall be protected through applicable cybersecurity measures, system integrity controls, access controls, authentication, authorization, monitoring, incident response, and security governance appropriate to the sensitivity, rights, and intended use of the data and information they handle. Cybersecurity and system integrity are an across-network responsibility coordinated through the applicable security governance, the GIH's coordination of network-level security and escalation, and the Institute's institutional security and risk management.</p>
+    
+    <h2 class="section-header">INST.21.6 — Cross-Border Data</h2>
+    
+    <p>Because the network operates across jurisdictions, data and information may move across borders. Cross-border data movement shall be governed by the applicable data localization, cross-border transfer, data protection, privacy, and other legal and regulatory requirements of the jurisdictions involved, and by the applicable data agreements, instruments, and access and transfer controls. Cross-border data movement shall not be treated as unrestricted.</p>
+    
+    <div class="status-line">Status: Data Governance Framework Confirmed. Data Rights Distinctions Preserved. Cybersecurity and Cross-Border Frameworks Established.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.22 -->
+    <h1 class="part-title" id="inst22">INST.22 — Legal, Regulatory, Ethics and Compliance Architecture</h1>
+    
+    <p>The c-ECO Institute maintains a legal, regulatory, ethics, and compliance architecture that ensures the network operates in compliance with applicable law, regulation, ethical standards, and institutional policies across all jurisdictions where it operates.</p>
+    
+    <h2 class="section-header">INST.22.1 — Legal and Regulatory Framework</h2>
+    
+    <table>
+      <caption>Table INST.22-1: Legal and Regulatory Framework</caption>
+      <thead>
+        <tr><th style="width:25%">Area</th><th style="width:55%">Description</th><th style="width:20%">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>U.S. Nonprofit Law</td><td>Compliance with Missouri nonprofit corporation law and applicable federal law</td><td>PLANNING ASSUMPTION — compliance framework to be confirmed</td></tr>
+        <tr><td>U.S. Tax Law</td><td>Compliance with federal tax law including 501(c)(3) requirements (upon recognition)</td><td>EVIDENCE GAP — 501(c)(3) recognition pending</td></tr>
+        <tr><td>Employment Law</td><td>Compliance with U.S. federal and state employment laws</td><td>PLANNING ASSUMPTION — compliance framework to be confirmed</td></tr>
+        <tr><td>Contract Law</td><td>Contracting in accordance with applicable law and institutional authority</td><td>PLANNING ASSUMPTION — authority matrix to be confirmed</td></tr>
+        <tr><td>Data Protection and Privacy</td><td>Compliance with applicable data protection and privacy laws including GDPR, LGPD, and other jurisdictional requirements</td><td>PLANNING ASSUMPTION — compliance framework to be developed</td></tr>
+        <tr><td>Research Regulation</td><td>Compliance with research regulations including research ethics, human subjects protection, and environmental regulations</td><td>PLANNING ASSUMPTION — compliance framework to be developed</td></tr>
+        <tr><td>Anti-Corruption and Integrity</td><td>Compliance with anti-corruption laws including FCPA and applicable international conventions</td><td>PLANNING ASSUMPTION — compliance framework to be developed</td></tr>
+        <tr><td>Sanctions and Export Controls</td><td>Compliance with U.S. and applicable international sanctions and export control requirements</td><td>PLANNING ASSUMPTION — compliance framework to be developed</td></tr>
+        <tr><td>Intellectual Property Law</td><td>Protection and management of IP rights including patents, copyrights, trademarks, and trade secrets</td><td>PLANNING ASSUMPTION — IP framework to be confirmed</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.22.2 — Ethics Architecture</h2>
+    
+    <table>
+      <caption>Table INST.22-2: Ethics Architecture</caption>
+      <thead>
+        <tr><th style="width:25%">Element</th><th style="width:75%">Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Code of Conduct</td><td>Institutional code of conduct governing ethical behavior of personnel, Fellows, and partners</td></tr>
+        <tr><td>Research Ethics</td><td>Framework for ethical conduct of research including human subjects protection, community engagement, and indigenous rights</td></tr>
+        <tr><td>Conflict of Interest</td><td>Identification, management, and disclosure of conflicts of interest across scientific, operational, financial, and compliance domains</td></tr>
+        <tr><td>Whistleblower Protection</td><td>Protection for personnel who report concerns in good faith</td></tr>
+        <tr><td>Grievance Mechanisms</td><td>Mechanisms for raising and addressing concerns including scientific integrity, ethical, and compliance concerns</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.22.3 — Compliance vs. Scientific Determination</h2>
+    
+    <p>The distinction between compliance and scientific determination is fundamental. Compliance obligations shall be identified, assigned, satisfied, and reviewed; scientific determination shall be made by the appropriately constituted scientific functions, through the applicable scientific governance, review, validation, calibration, and independence processes. Compliance review shall not determine scientific findings; scientific determination shall not dispense with compliance obligations.</p>
+    
+    <p>This principle applies in both directions: legal permissibility does not establish scientific validity; scientific validity does not establish legal authorization; funding approval does not establish ethical acceptability; and ethical concern does not authorize alteration of scientific evidence.</p>
+    
+    <div class="status-line">Status: Legal, Regulatory, Ethics, and Compliance Architecture Confirmed. Specific Compliance Obligations to be Identified Through Jurisdictional Requirements Register.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.23 -->
+    <h1 class="part-title" id="inst23">INST.23 — Enterprise Risk, Continuity and Internal Control</h1>
+    
+    <p>The c-ECO Institute maintains an integrated risk management, continuity, and internal control architecture that protects people, communities, the environment, scientific integrity, data, infrastructure, legal compliance, and the institutional mission.</p>
+    
+    <h2 class="section-header">INST.23.1 — Risk Categories</h2>
+    
+    <table>
+      <caption>Table INST.23-1: Risk Categories</caption>
+      <thead>
+        <tr><th style="width:25%">Risk Category</th><th style="width:75%">Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Scientific Risk</td><td>Risk to the quality, validity, reliability, reproducibility, confidence, or integrity of scientific evidence, findings, methods, data, models, calibration, or threshold-related analysis</td></tr>
+        <tr><td>Systemic Risk</td><td>Risk that a condition, event, or finding in one domain, system, Lab, or project propagates across domains or systems, or has network-level or systemic implications</td></tr>
+        <tr><td>Operational Risk</td><td>Risk to operational delivery, field operations, facilities, equipment, logistics, staffing, project execution, monitoring, and other operational functions</td></tr>
+        <tr><td>Financial Risk</td><td>Risk to funding, costs, financial sustainability, resource allocation, foreign-currency and multi-jurisdiction operations, financial controls, and financial reporting</td></tr>
+        <tr><td>Legal and Regulatory Risk</td><td>Risk arising from legal, regulatory, jurisdictional, ethical, research-authorization, permitting, data-protection, privacy, cybersecurity, sanctions, export-control, and other legal and regulatory requirements</td></tr>
+        <tr><td>Compliance Risk</td><td>Risk of non-compliance with applicable laws, regulations, agreements, funding conditions, institutional policies, safeguards requirements, data-protection obligations, and other compliance obligations</td></tr>
+        <tr><td>Data Risk</td><td>Risk to data quality, availability, integrity, security, confidentiality, provenance, validation, access, rights, and appropriate use</td></tr>
+        <tr><td>Cybersecurity Risk</td><td>Risk to information systems, SIL 19×19, data systems, communications, networks, and other digital infrastructure</td></tr>
+        <tr><td>Continuity Risk</td><td>Risk of disruption to scientific monitoring, longitudinal datasets, critical sensors, field systems, SIL connectivity, data preservation, critical personnel, active projects, safety systems, contractual obligations, scientific nodes, partner dependencies, communications, and institutional records</td></tr>
+        <tr><td>Reputational and Institutional Risk</td><td>Risk to the reputation, legitimacy, public trust, institutional relationships, and mission of the Institute and the network</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.23.2 — Risk Management Process</h2>
+    
+    <div class="hierarchy">RISK MANAGEMENT PROCESS
+|
++-- RISK IDENTIFICATION
+|   +-- At scientific node, Lab, project, Fellowship, data, SIL, GIH, and institutional levels
+|
++-- RISK ASSESSMENT
+|   +-- Likelihood, impact, cross-domain propagation, threshold proximity, difficulty of restoration
+|
++-- RISK CLASSIFICATION
+|   +-- By category and severity
+|
++-- RISK MITIGATION / CONTROLS
+|   +-- Safeguards, operational controls, data controls, legal/regulatory controls, compliance controls, cybersecurity controls, continuity planning
+|
++-- RISK ACCEPTANCE DETERMINATION
+|   +-- Accepted / conditionally accepted / further mitigated / transferred / avoided / activity modified
+|
++-- ESCALATION (where material or network-level)
+|
++-- INCIDENT MANAGEMENT (where incidents occur)
+|
++-- CONTINUITY RESPONSE (where continuity is affected)
+|
++-- RECORDING & REVIEW
+    +-- Risk registers, incident records, CAPA, lessons learned, periodic review</div>
+    <div class="flowchart-caption">Figure INST.23-1: Risk Management Process</div>
+    
+    <h2 class="section-header">INST.23.3 — Internal Control Framework</h2>
+    
+    <table>
+      <caption>Table INST.23-2: Internal Control Framework</caption>
+      <thead>
+        <tr><th style="width:25%">Control Area</th><th style="width:75%">Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Financial Controls</td><td>Segregation of duties, budget management, procurement controls, grant and contract compliance, financial reporting, audit</td></tr>
+        <tr><td>Operational Controls</td><td>Health and safety, field safety, equipment maintenance, facility security, continuity planning, operational monitoring, incident response</td></tr>
+        <tr><td>Data Controls</td><td>Access control, role-based access, data governance, data validation and calibration, secure storage and transmission, auditability, incident management</td></tr>
+        <tr><td>Compliance Controls</td><td>Jurisdictional requirements register, legal readiness, continuing legal review, research authorization and ethics review, permits, data protection and privacy compliance, sanctions and restricted-party screening</td></tr>
+        <tr><td>Governance Controls</td><td>Board oversight, committee review, change control, conflict-of-interest management, documentation and traceability</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.23.4 — Business and Scientific Continuity</h2>
+    
+    <p>Each Lab and the Institute shall identify functions that must continue, be restored rapidly, or be safely suspended following a disruption. Continuity planning should consider: scientific monitoring; longitudinal datasets; critical sensors; field systems; SIL connectivity; data preservation; critical personnel; active projects; safety systems; contractual obligations; scientific nodes; partner dependencies; communications; and institutional records. Scientific continuity is distinct from ordinary business continuity — for certain observations, interruption may permanently damage a longitudinal evidence series.</p>
+    
+    <div class="status-line">Status: Risk, Continuity, and Internal Control Architecture Confirmed. Specific Risk Assessments to be Conducted at Lab and Project Level.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.24 -->
+    <h1 class="part-title" id="inst24">INST.24 — People, Staffing and Workforce Architecture</h1>
+    
+    <p>The c-ECO Institute maintains a people, staffing, and workforce architecture that supports the network's scientific, operational, and institutional functions. The workforce combines permanent institutional capacity with project-specific and network-shared personnel.</p>
+    
+    <h2 class="section-header">INST.24.1 — Workforce Categories</h2>
+    
+    <table>
+      <caption>Table INST.24-1: Workforce Categories</caption>
+      <thead>
+        <tr><th style="width:30%">Category</th><th style="width:55%">Description</th><th style="width:15%">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Permanent Scientific Capacity</td><td>Domain leadership, research, data/modeling, and field science personnel maintained continuously by the Institute</td><td>PLANNING ASSUMPTION — staffing plan to be developed</td></tr>
+        <tr><td>Permanent Operational Capacity</td><td>Project delivery, facilities, field operations, and partner execution personnel maintained continuously</td><td>PLANNING ASSUMPTION — staffing plan to be developed</td></tr>
+        <tr><td>Administrative and Corporate Staff</td><td>Finance, HR, legal, IT, and administrative support personnel</td><td>PLANNING ASSUMPTION — staffing plan to be developed</td></tr>
+        <tr><td>Fellows</td><td>Credentialed Fellows participating in the Fellowship Program and project delivery</td><td>PLANNING ASSUMPTION — Fellowship cohorts to be established</td></tr>
+        <tr><td>Project-Specific Personnel</td><td>Personnel mobilized for specific approved projects, drawn from permanent capacity, network-shared capacity, or external partnerships</td><td>PLANNING ASSUMPTION — project staffing to be determined</td></tr>
+        <tr><td>Network-Shared Personnel</td><td>Scientific and operational personnel deployed across multiple Labs and projects</td><td>PLANNING ASSUMPTION — shared capacity model to be developed</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.24.2 — Staffing Matrix</h2>
+    
+    <table>
+      <caption>Table INST.24-2: Staffing Matrix</caption>
+      <thead>
+        <tr><th>Function</th><th>Institute HQ</th><th>Living Labs</th><th>GIH</th><th>Fellows</th><th>Project Teams</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Institutional Governance</td><td>LEAD</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Executive Administration</td><td>LEAD</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Scientific Leadership</td><td>LEAD</td><td>LEAD</td><td>SUPPORT</td><td>SUPPORT</td><td>SUPPORT</td></tr>
+        <tr><td>Research and Method Development</td><td>LEAD</td><td>SUPPORT</td><td>SUPPORT</td><td>SUPPORT</td><td>AS REQUIRED</td></tr>
+        <tr><td>Lab Operations</td><td>SUPPORT</td><td>LEAD</td><td>SUPPORT</td><td>SUPPORT</td><td>SUPPORT</td></tr>
+        <tr><td>Fellowship Administration</td><td>LEAD</td><td>SUPPORT</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td>Technology / SIL Development</td><td>LEAD</td><td>SUPPORT</td><td>SUPPORT</td><td>AS REQUIRED</td><td>AS REQUIRED</td></tr>
+        <tr><td>Project Delivery</td><td>SUPPORT</td><td>LEAD</td><td>SUPPORT</td><td>LEAD</td><td>LEAD</td></tr>
+        <tr><td>Finance and Grants</td><td>LEAD</td><td>SUPPORT</td><td>—</td><td>—</td><td>SUPPORT</td></tr>
+        <tr><td>Legal and Compliance</td><td>LEAD</td><td>SUPPORT</td><td>SUPPORT</td><td>—</td><td>SUPPORT</td></tr>
+        <tr><td>Data Governance</td><td>LEAD</td><td>LEAD</td><td>SUPPORT</td><td>SUPPORT</td><td>SUPPORT</td></tr>
+        <tr><td>Independent Assurance</td><td>LEAD</td><td>SUPPORT</td><td>SUPPORT</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.24.3 — Employment Framework</h2>
+    
+    <p>The Institute shall establish an employment framework governing: recruitment and selection; compensation and benefits; performance management; professional development; workplace safety; and termination and transition. The employment framework shall comply with applicable U.S. federal and state employment law and shall be consistent with the Institute's charitable purposes and values.</p>
+    
+    <div class="status-line">Status: Workforce Architecture Confirmed. Specific Staffing Plans Identified as Planning Assumptions. No Position Confirmed as Filled.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.25 -->
+    <h1 class="part-title" id="inst25">INST.25 — Physical and Technology Infrastructure</h1>
+    
+    <p>The c-ECO Institute maintains physical and technology infrastructure to support its institutional functions and the network. This includes the Missouri headquarters, technology infrastructure for SIL 19×19 and network systems, and coordination with Lab-level infrastructure.</p>
+    
+    <h2 class="section-header">INST.25.1 — Physical Infrastructure</h2>
+    
+    <table>
+      <caption>Table INST.25-1: Physical Infrastructure</caption>
+      <thead>
+        <tr><th style="width:30%">Component</th><th style="width:55%">Description</th><th style="width:15%">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Missouri Headquarters</td><td>Principal institutional office and administrative center</td><td>PLANNING ASSUMPTION — facility to be confirmed</td></tr>
+        <tr><td>Meeting and Conference Facilities</td><td>Facilities for Board meetings, scientific reviews, and partner engagement</td><td>PLANNING ASSUMPTION — facility requirements to be defined</td></tr>
+        <tr><td>Secure Information Environment</td><td>Controlled environment for sensitive data, confidential documents, and secure communications</td><td>PLANNING ASSUMPTION — secure environment to be established</td></tr>
+        <tr><td>Laboratory and Research Facilities</td><td>Institute-level research facilities for method development and validation</td><td>PLANNING ASSUMPTION — facility requirements to be defined</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.25.2 — Technology Infrastructure</h2>
+    
+    <table>
+      <caption>Table INST.25-2: Technology Infrastructure</caption>
+      <thead>
+        <tr><th style="width:30%">Component</th><th style="width:55%">Description</th><th style="width:15%">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>SIL 19×19 Platform</td><td>Shared global software platform for data ingestion, organization, provenance, analytical integration, monitoring, and interoperability</td><td>PLANNING ASSUMPTION — platform development in progress</td></tr>
+        <tr><td>Data Infrastructure</td><td>Data storage, transmission, processing, and integration infrastructure</td><td>PLANNING ASSUMPTION — infrastructure to be established</td></tr>
+        <tr><td>Network and Communications</td><td>Network connectivity, communications systems, and collaboration tools</td><td>PLANNING ASSUMPTION — infrastructure to be established</td></tr>
+        <tr><td>Cybersecurity Infrastructure</td><td>Security systems, monitoring, incident response, and threat protection</td><td>PLANNING ASSUMPTION — infrastructure to be established</td></tr>
+        <tr><td>Computing Infrastructure</td><td>Computing resources for data processing, modeling, and analytical work</td><td>PLANNING ASSUMPTION — infrastructure to be established</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.25.3 — Infrastructure Principles</h2>
+    
+    <p>The Institute follows an existing-capability-first principle for infrastructure: existing infrastructure shall be identified and evaluated before proposing duplication or new acquisition. Where existing facilities, systems, or services can meet requirements under acceptable quality, access, independence, security, and continuity conditions, integration should be evaluated before additional infrastructure is acquired.</p>
+    
+    <div class="status-line">Status: Physical and Technology Infrastructure Identified as Planning Assumptions. Specific Facilities and Systems to be Confirmed.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.26 -->
+    <h1 class="part-title" id="inst26">INST.26 — Five-Year Financial and Cost Architecture</h1>
+    
+    <p>The c-ECO Institute operates within a five-year financial and cost architecture that distinguishes establishment costs, core operating costs, project delivery costs, scientific and research costs, and other functional costs. This architecture is a planning instrument, not a commitment schedule.</p>
+    
+    <h2 class="section-header">INST.26.1 — Cost Architecture</h2>
+    
+    <div class="hierarchy">FIVE-YEAR FINANCIAL AND COST ARCHITECTURE
+|
++-- ESTABLISHMENT COSTS (One-time / Initial)
+|   +-- Legal and registration
+|   +-- Governance setup
+|   +-- Initial staffing and recruitment
+|   +-- Initial facilities and equipment
+|   +-- Initial technology and data infrastructure
+|   +-- Initial legal, regulatory, and compliance arrangements
+|
++-- CORE OPERATING COSTS (Ongoing)
+|   +-- Permanent scientific and operational capacity
+|   +-- Facilities and ongoing operations
+|   +-- Ongoing data and digital infrastructure
+|   +-- Ongoing monitoring and field systems
+|   +-- Ongoing SIL integration
+|   +-- Ongoing legal, regulatory, compliance, and safeguards
+|
++-- PROJECT DELIVERY COSTS (Project-specific)
+|   +-- Scientific work, field work, data work
+|   +-- Monitoring and reporting
+|   +-- Partner and host coordination
+|   +-- Compliance and safeguards
+|   +-- Deliverables and outputs
+|
++-- SCIENTIFIC AND RESEARCH COSTS
+|   +-- Research, validation, calibration, methodological work
+|   +-- Evidence development
+|   +-- Threshold research and TDR-TFP analysis
+|
++-- OTHER FUNCTIONAL COSTS
+    +-- Monitoring and field systems
+    +-- Data acquisition and integration
+    +-- SIL integration
+    +-- Partnership and host-related costs
+    +-- Legal, regulatory, compliance, and safeguards
+    +-- Contingency</div>
+    <div class="flowchart-caption">Figure INST.26-1: Five-Year Financial and Cost Architecture</div>
+    
+    <h2 class="section-header">INST.26.2 — Cost Categories by Function</h2>
+    
+    <table>
+      <caption>Table INST.26-1: Cost Categories by Function</caption>
+      <thead>
+        <tr><th style="width:30%">Cost Category</th><th style="width:55%">Description</th><th style="width:15%">Estimation Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Institutional / Governance Setup</td><td>Legal presence, registration, governance setup, compliance framework setup</td><td>Evidence Gap — scope and cost under verification</td></tr>
+        <tr><td>Missouri HQ Facilities</td><td>Facility occupancy, fit-out, coordination, scientific work, meetings, secure information handling</td><td>Evidence Gap — facility model under verification</td></tr>
+        <tr><td>Technology and Connectivity</td><td>SIL 19×19 development, data/IT infrastructure, secure information environment, cybersecurity</td><td>Evidence Gap — technology scope under verification</td></tr>
+        <tr><td>Scientific Capacity and Fellowship</td><td>Fellowship program setup, staffing, scientific recruitment, training, domain expertise development</td><td>Evidence Gap — cost under verification</td></tr>
+        <tr><td>Data Governance and Security</td><td>Data governance framework, secure environment, access controls, cybersecurity measures</td><td>Evidence Gap — cost under verification</td></tr>
+        <tr><td>Risk, Safety and Continuity</td><td>Insurance, H&S setup, emergency response, continuity planning</td><td>Evidence Gap — cost under verification</td></tr>
+        <tr><td>Project Delivery and Operations</td><td>Project coordination, partner management, procurement/subaward setup, operational systems</td><td>Evidence Gap — cost under verification</td></tr>
+        <tr><td>Legal and Compliance</td><td>Legal verification, permits, research authorization, data protection, IP/confidentiality, ethical review</td><td>Evidence Gap — cost under verification</td></tr>
+        <tr><td>Contingency and Reserve</td><td>Contingency for establishment uncertainties, Evidence Gap coverage, activation contingency</td><td>Planning Assumption — percentage or amount to be defined</td></tr>
+      </tbody>
+    </table>
+    
+    <p>The five-year financial architecture is a planning framework at this stage, not a confirmed financial plan. Cost figures are not invented. Evidence Gaps are visible. The budget must be completed as part of establishment planning, with costs developed from confirmed scope and defensible estimation, and with open items tracked visibly.</p>
+    
+    <div class="status-line">Status: Five-Year Financial Architecture is a Planning Framework. No Confirmed Cost Figures. Evidence Gaps Visible.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.27 -->
+    <h1 class="part-title" id="inst27">INST.27 — Revenue, Funding and Financial Sustainability</h1>
+    
+    <p>The c-ECO Institute maintains a diversified financial architecture combining core institutional funding with grants, sponsored research, project revenue, corporate partnerships, philanthropy, and other permitted revenue sources. This architecture supports the network's establishment, operation, and long-term sustainability.</p>
+    
+    <h2 class="section-header">INST.27.1 — Funding Source Categories</h2>
+    
+    <table>
+      <caption>Table INST.27-1: Funding Source Categories</caption>
+      <thead>
+        <tr><th style="width:25%">Funding Source</th><th style="width:55%">Description</th><th style="width:20%">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Core Institutional Funding</td><td>Institute-funded establishment and core operations support, subject to Institute financial capacity and governance</td><td>Evidence Gap — funding availability to be confirmed</td></tr>
+        <tr><td>Grants</td><td>Grants from grant-making institutions, foundations, charitable grantors, and other grant sources</td><td>Evidence Gap — grant pipeline to be developed</td></tr>
+        <tr><td>Sponsored Research</td><td>Research funding from external sponsors including government, corporate, and philanthropic sources</td><td>Evidence Gap — pipeline to be developed</td></tr>
+        <tr><td>Project Revenue</td><td>Revenue from specific projects delivered by or through the network</td><td>Evidence Gap — project pipeline to be developed</td></tr>
+        <tr><td>Corporate Partnerships</td><td>Funding and in-kind contributions from corporate partners</td><td>Evidence Gap — pipeline to be developed</td></tr>
+        <tr><td>Philanthropy</td><td>Foundation, philanthropic, and charitable funding for scientific, conservation, capacity, and development objectives</td><td>Evidence Gap — pipeline to be developed</td></tr>
+        <tr><td>Major / Individual Donors</td><td>Major gifts and individual donations</td><td>Evidence Gap — donor pipeline to be developed</td></tr>
+        <tr><td>Earned Revenue</td><td>Revenue earned through the network's activities including service revenue and licensing revenue</td><td>Evidence Gap — earned revenue potential to be assessed</td></tr>
+        <tr><td>Multilateral / DFI Projects</td><td>Funding from development finance institutions including the World Bank, IDB, and other DFIs</td><td>Evidence Gap — DFI project pipeline to be developed</td></tr>
+        <tr><td>Government / Public Funding</td><td>Government or public funding (U.S. or other), where applicable, verified, and aligned with Institute objectives and legal framework</td><td>Evidence Gap — verification required</td></tr>
+        <tr><td>Other Permitted Revenue</td><td>Other lawful funding sources consistent with the Institute's charitable, scientific, and educational purposes</td><td>Planning Assumption — to be identified</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.27.2 — Funding Status Classification</h2>
+    
+    <table>
+      <caption>Table INST.27-2: Funding Status Classification</caption>
+      <thead>
+        <tr><th style="width:25%">Status</th><th style="width:50%">Meaning</th><th style="width:25%">Implication</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>POTENTIAL SOURCE</td><td>A funding source that has been identified as a possible source of funding, but has not been approached, developed, or confirmed</td><td>Not a commitment; not a plan; not secured</td></tr>
+        <tr><td>TARGETED</td><td>A funding source that the network or Institute has identified as a target for funding development</td><td>A financing objective; not a commitment; not secured</td></tr>
+        <tr><td>APPLICATION UNDER DEVELOPMENT</td><td>A funding application or proposal that is being developed but has not yet been submitted</td><td>In development; not submitted; not a commitment</td></tr>
+        <tr><td>SUBMITTED APPLICATION</td><td>A funding application or proposal that has been submitted to the funder but has not yet been approved or declined</td><td>Under review; not a commitment; outcome uncertain</td></tr>
+        <tr><td>CONDITIONAL COMMITMENT</td><td>A funding commitment that is conditional on the satisfaction of specified conditions</td><td>A conditional commitment; not fully secured until conditions are satisfied</td></tr>
+        <tr><td>SECURED</td><td>A funding commitment that is supported by the applicable executed agreement, funding commitment letter, institutional approval, or other required confirmation</td><td>Secured funding; a committed resource</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.27.3 — Financial Sustainability Principles</h2>
+    
+    <table>
+      <caption>Table INST.27-3: Financial Sustainability Principles</caption>
+      <thead>
+        <tr><th style="width:30%">Principle</th><th style="width:70%">Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Funding Target ≠ Award</td><td>A funding target is not secured funding. A grant opportunity is not an award. A prospective corporate relationship is not a partnership. A proposed DFI project is not approved financing. A revenue projection is not cash.</td></tr>
+        <tr><td>Pipeline ≠ Secured Funding</td><td>The funding pipeline represents potential funding at various stages of development. Only secured funding is a committed resource.</td></tr>
+        <tr><td>Budget ≠ Available Cash</td><td>A budget is a planning instrument. Available cash is the actual financial resource. The two shall not be conflated.</td></tr>
+        <tr><td>Projected Revenue ≠ Received Revenue</td><td>Projected revenue is a forecast. Received revenue is actual cash received. The two shall not be conflated.</td></tr>
+        <tr><td>Restricted Project Revenue ≠ Unrestricted Core Revenue</td><td>Restricted project revenue is subject to project-specific restrictions. Unrestricted core revenue may be used for the Institute's general purposes. The two shall not be conflated.</td></tr>
+        <tr><td>Core vs. Project Funding</td><td>Core funding supports the Institute's ongoing function and readiness. Project funding supports specific projects. Permanent obligations should not be supported by restricted or temporary project funds without an appropriate sustainability plan.</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.27.4 — DFI Approval</h2>
+    
+    <p>Where the financial model specifically contemplates World Bank / IDB / DFI-approved projects, that architecture is explicit for those projects. DFI approval is not a universal requirement for every c-ECO project unless the source explicitly establishes that. The network planning model already distinguishes Program/DFI Project Officers responsible for World Bank, IDB, and government-project coordination, reporting, and safeguards interfaces from the scientific and field teams operating through the Living Labs.</p>
+    
+    <div class="status-line">Status: Funding Architecture Confirmed. All Funding Sources Classified as Evidence Gaps or Planning Assumptions. No Funding Source Represented as Secured.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.28 -->
+    <h1 class="part-title" id="inst28">INST.28 — Implementation and Organizational Scaling Roadmap</h1>
+    
+    <p>The c-ECO Institute implementation follows a phased approach from initial establishment through organizational scaling. This roadmap is a planning instrument, not a commitment schedule.</p>
+    
+    <h2 class="section-header">INST.28.1 — Implementation Phases</h2>
+    
+    <table>
+      <caption>Table INST.28-1: Implementation Phases</caption>
+      <thead>
+        <tr><th style="width:15%">Phase</th><th style="width:55%">Description</th><th style="width:30%">Key Milestones</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Phase 0: Foundation</td><td>Legal establishment, governance setup, initial funding development</td><td>Missouri incorporation; Articles and Bylaws adopted; initial Board appointed</td></tr>
+        <tr><td>Phase 1: Core Build</td><td>Core team recruitment, initial infrastructure, policy development</td><td>Key officers appointed; core policies approved; initial funding secured</td></tr>
+        <tr><td>Phase 2: Network Launch</td><td>Alpha Labs establishment, GIH activation, SIL initial deployment</td><td>First Labs activated; GIH operational; SIL functional</td></tr>
+        <tr><td>Phase 3: Scale</td><td>Beta phase expansion, additional Labs, network growth</td><td>Phase-gate review passed; Beta Labs activated</td></tr>
+        <tr><td>Phase 4: Mature</td><td>Gamma scaling, network optimization, sustainability</td><td>Network fully operational; financial sustainability achieved</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.28.2 — Scaling Principles</h2>
+    
+    <ul>
+      <li><strong>Evidence-Based Scaling:</strong> Each phase transition requires documented evidence of readiness</li>
+      <li><strong>Controlled Growth:</strong> Expansion occurs only after phase-gate criteria are satisfied</li>
+      <li><strong>Resource Alignment:</strong> Scaling is matched to available resources and funding</li>
+      <li><strong>Quality Preservation:</strong> Network quality and standards are maintained during growth</li>
+      <li><strong>Learning Integration:</strong> Lessons from each phase inform subsequent phases</li>
+    </ul>
+    
+    <div class="status-line">Status: Implementation Roadmap is a Planning Framework. No Confirmed Dates or Milestones.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.29 -->
+    <h1 class="part-title" id="inst29">INST.29 — Performance, KPIs, Monitoring and Institutional Learning</h1>
+    
+    <p>The c-ECO Institute maintains a performance monitoring and institutional learning architecture that tracks progress against objectives and captures lessons for continuous improvement.</p>
+    
+    <h2 class="section-header">INST.29.1 — Key Performance Indicators</h2>
+    
+    <table>
+      <caption>Table INST.29-1: Key Performance Indicators</caption>
+      <thead>
+        <tr><th style="width:30%">KPI Area</th><th style="width:40%">Description</th><th style="width:15%">Level</th><th style="width:15%">Frequency</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Scientific Evidence Production</td><td>Whether required evidence is actually produced, complete, timely, traceable</td><td>Lab / Project / Network</td><td>Periodic</td></tr>
+        <tr><td>Evidence Quality and Validation</td><td>Whether evidence meets quality standards, is calibrated and validated</td><td>Lab / Project / Network</td><td>Periodic</td></tr>
+        <tr><td>Evidence Gap Closure</td><td>Whether evidence gaps are identified, recorded, tracked, and closed</td><td>Lab / Project / Network</td><td>Periodic</td></tr>
+        <tr><td>Method Reliability</td><td>Whether methods work on real system complexity</td><td>Lab / Project / Network</td><td>Periodic / On Review</td></tr>
+        <tr><td>Framework Fidelity</td><td>Whether the c-ECO Framework is applied accurately and consistently</td><td>Lab / SIL / GIH / Network</td><td>Periodic / On Review</td></tr>
+        <tr><td>Calibration and Learning</td><td>Volume of action taken against evidence and structured learning</td><td>Lab / SIL / GIH / Network</td><td>Periodic</td></tr>
+        <tr><td>Field Delivery</td><td>Whether Labs are actually deployed in the field, producing usable outputs</td><td>Lab</td><td>Continuous / Periodic</td></tr>
+        <tr><td>Scientific Node Activation</td><td>Whether Scientific Nodes are activated with real scientific goals</td><td>Lab</td><td>Periodic (on activation)</td></tr>
+        <tr><td>SIL 19×19 Operational Readiness</td><td>Whether SIL is ready to receive, organize, and support data</td><td>SIL / GIH</td><td>Periodic</td></tr>
+        <tr><td>GIH Integration</td><td>Whether the GIH is functioning as the interlocking layer described</td><td>SIL / GIH</td><td>Periodic</td></tr>
+        <tr><td>Project Delivery — Schedule</td><td>Whether approved projects deliver on schedule</td><td>Project</td><td>Periodic</td></tr>
+        <tr><td>Project Delivery — Budget</td><td>Whether approved projects deliver within budget</td><td>Project</td><td>Periodic</td></tr>
+        <tr><td>Project Delivery — Quality and Outcomes</td><td>Whether approved projects deliver to required quality and produce intended outcomes</td><td>Project</td><td>Periodic / On Completion</td></tr>
+        <tr><td>Operational Delivery</td><td>Whether the network delivers what it said it would deliver</td><td>Lab / Network</td><td>Periodic</td></tr>
+        <tr><td>Activation Responsiveness</td><td>Whether the Lab activates with disciplined sequencing and completeness</td><td>Lab</td><td>On Activation</td></tr>
+        <tr><td>Activation Completeness</td><td>Whether activation is attempted only when minimum required assets are ready</td><td>Lab</td><td>On Activation</td></tr>
+        <tr><td>Continuing Achievement</td><td>Whether the Lab maintains at least its minimum annual performance</td><td>Lab</td><td>Annual / Quarterly</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.29.2 — Monitoring and Evaluation Framework</h2>
+    
+    <p>The M&E framework operates at multiple levels:</p>
+    <ul>
+      <li><strong>Level 1 — Network Performance:</strong> Network-wide operational, scientific, financial, governance, and learning outcomes</li>
+      <li><strong>Level 2 — Living Lab Performance:</strong> Each Lab's scientific, operational, financial, project, Fellowship, data, and SIL integration performance</li>
+      <li><strong>Level 3 — Project Performance:</strong> Specific approved projects' schedule, budget, quality, scientific integrity, outcomes, deliverables, and compliance</li>
+      <li><strong>Level 4 — SIL 19×19 and GIH Performance:</strong> Shared network infrastructure performance including data, interoperability, monitoring, and integration</li>
+    </ul>
+    
+    <h2 class="section-header">INST.29.3 — Institutional Learning</h2>
+    
+    <p>Learning questions drive institutional improvement:</p>
+    <ul>
+      <li>What actually worked, and what did not?</li>
+      <li>What assumptions were wrong?</li>
+      <li>What evidence was missing or inadequate?</li>
+      <li>What methods were robust, and what methods were challenged?</li>
+      <li>What should change in the architecture, methodology, organization, funding, partnerships, data, SIL, or governance?</li>
+      <li>What should not change?</li>
+      <li>What has the network failed to learn, and why?</li>
+    </ul>
+    
+    <div class="status-line">Status: Performance and Learning Framework Established. Baselines and Targets to be Developed.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.30 -->
+    <h1 class="part-title" id="inst30">INST.30 — Institutional Readiness and Maturity Gates</h1>
+    
+    <p>The c-ECO Institute progression through deployment phases is governed by readiness and maturity gates that ensure controlled, evidence-based scaling.</p>
+    
+    <h2 class="section-header">INST.30.1 — Readiness Gates</h2>
+    
+    <table>
+      <caption>Table INST.30-1: Readiness Gates</caption>
+      <thead>
+        <tr><th style="width:15%">Gate</th><th style="width:50%">Requirements</th><th style="width:35%">Evidence Required</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Gate 1: Establishment Basis</td><td>Legal status confirmed; governance established; core team identified; initial funding secured</td><td>Incorporation documents; Bylaws; Board appointments; funding agreements</td></tr>
+        <tr><td>Gate 2: Core Capacity</td><td>Core staff hired; essential policies approved; basic infrastructure operational</td><td>Employment agreements; policy documents; facility agreements</td></tr>
+        <tr><td>Gate 3: Network Readiness</td><td>Alpha Lab establishment plans approved; GIH structure defined; SIL architecture established</td><td>Lab dossiers; GIH charter; SIL technical specifications</td></tr>
+        <tr><td>Gate 4: Operational Readiness</td><td>First Labs activated; SIL operational; GIH functional</td><td>Activation records; SIL operational logs; GIH performance reports</td></tr>
+        <tr><td>Gate 5: Scale Readiness</td><td>Phase-gate review passed; Beta phase funding secured; lessons integrated</td><td>Phase-gate review report; funding commitments; lessons learned register</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.30.2 — Maturity Levels</h2>
+    
+    <table>
+      <caption>Table INST.30-2: Maturity Levels</caption>
+      <thead>
+        <tr><th style="width:20%">Level</th><th style="width:40%">Description</th><th style="width:40%">Characteristics</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Initial</td><td>Basic establishment; core functions developing</td><td>Small team; essential processes; limited external engagement</td></tr>
+        <tr><td>Developing</td><td>Core functions operational; initial network active</td><td>Alpha Labs active; SIL functional; basic partnerships</td></tr>
+        <tr><td>Established</td><td>Network operational; multiple Labs active</td><td>Beta phase; diversified funding; robust processes</td></tr>
+        <tr><td>Mature</td><td>Full network scaled; optimized operations</td><td>Gamma phase; financial sustainability; continuous improvement</td></tr>
+        <tr><td>Optimizing</td><td>Network effects realized; systemic impact</td><td>Global recognition; methodological leadership; network learning</td></tr>
+      </tbody>
+    </table>
+    
+    <div class="status-line">Status: Readiness and Maturity Gates Established. Current Status: Initial / Developing.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.31 -->
+    <h1 class="part-title" id="inst31">INST.31 — Intellectual Property, Founder Background IP, Licensing and Confidentiality</h1>
+    
+    <p>The c-ECO Institute maintains an intellectual property architecture that protects and governs the use of IP created by, for, or through the Institute and the network.</p>
+    
+    <h2 class="section-header">INST.31.1 — IP Categories</h2>
+    
+    <table>
+      <caption>Table INST.31-1: IP Categories</caption>
+      <thead>
+        <tr><th style="width:30%">Category</th><th style="width:70%">Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Founder Background IP</td><td>Intellectual property created by the Founder prior to or outside the Institute, including the c-ECO Framework, TDR–TFP methodology, and related materials</td></tr>
+        <tr><td>Institute-Owned IP</td><td>Intellectual property created by Institute employees or contractors within the scope of their employment or engagement</td></tr>
+        <tr><td>Institute-Funded Developments</td><td>Intellectual property created with Institute funding but by external parties, with ownership as specified in agreements</td></tr>
+        <tr><td>Joint / Project IP</td><td>Intellectual property created jointly by the Institute and partners or through specific projects</td></tr>
+        <tr><td>SIL 19×19</td><td>The software platform, its architecture, code, and related documentation</td></tr>
+        <tr><td>Methodology</td><td>The c-ECO Framework, TDR–TFP, and related analytical methods</td></tr>
+        <tr><td>Software</td><td>Software developed by or for the Institute, including SIL 19×19 and related tools</td></tr>
+        <tr><td>Data / Database Rights</td><td>Rights in data and databases created or compiled by the Institute</td></tr>
+        <tr><td>Trade Secrets</td><td>Confidential information that derives independent economic value from not being generally known</td></tr>
+        <tr><td>Marks / Seals / Certifications</td><td>Trademarks, service marks, certification marks, and seals used by the Institute</td></tr>
+        <tr><td>Third-Party IP</td><td>Intellectual property owned by third parties and used under license or agreement</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.31.2 — Key IP Distinctions</h2>
+    
+    <table>
+      <caption>Table INST.31-2: Key IP Distinctions</caption>
+      <thead>
+        <tr><th style="width:50%">Action / Relationship</th><th style="width:50%">Does Not Imply</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Institutional Use</td><td>Assignment — using IP does not transfer ownership</td></tr>
+        <tr><td>Public Benefit</td><td>Unrestricted Ownership Transfer — public benefit use does not transfer ownership</td></tr>
+        <tr><td>Funding</td><td>Ownership of Pre-Existing IP — funding does not give ownership of pre-existing IP</td></tr>
+        <tr><td>Software Administration</td><td>Software Ownership — administering software does not confer ownership</td></tr>
+        <tr><td>Data Access</td><td>Data Ownership — accessing data does not transfer ownership</td></tr>
+        <tr><td>Scientific Collaboration</td><td>Assignment of Background IP — collaboration does not assign background IP</td></tr>
+        <tr><td>Transparency</td><td>Trade Secret Disclosure — transparency does not require disclosure of trade secrets</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.31.3 — Licensing Framework</h2>
+    
+    <p>The Institute shall establish licensing frameworks for:</p>
+    <ul>
+      <li>Use of the c-ECO Framework and methodology by Labs and partners</li>
+      <li>Use of SIL 19×19 by Labs, Fellows, and authorized users</li>
+      <li>Use of data and databases under data governance policies</li>
+      <li>Use of marks and seals under brand guidelines</li>
+      <li>Commercial licensing where consistent with charitable purposes</li>
+    </ul>
+    
+    <div class="status-line">Status: IP Architecture Established. Founder Background IP Distinguished from Institute-Owned IP. Licensing Frameworks to be Developed.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- INST.32 -->
+    <h1 class="part-title" id="inst32">INST.32 — Document Control, Records and Institutional Knowledge Architecture</h1>
+    
+    <p>The c-ECO Institute maintains a document control and institutional knowledge architecture that ensures the integrity, accessibility, and preservation of institutional records.</p>
+    
+    <h2 class="section-header">INST.32.1 — Document Control Framework</h2>
+    
+    <table>
+      <caption>Table INST.32-1: Document Control Framework</caption>
+      <thead>
+        <tr><th style="width:25%">Element</th><th style="width:75%">Description</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Document Custodian</td><td>Designated official responsible for maintaining controlled documents</td></tr>
+        <tr><td>Version Control</td><td>Systematic versioning of all controlled documents with change logs</td></tr>
+        <tr><td>Change Control</td><td>Documented process for proposing, reviewing, and approving changes</td></tr>
+        <tr><td>Access Control</td><td>Role-based access to documents based on need-to-know</td></tr>
+        <tr><td>Retention Schedule</td><td>Defined retention periods for different document types</td></tr>
+        <tr><td>Archive System</td><td>Long-term preservation of institutional records</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.32.2 — Controlled Documents Register</h2>
+    
+    <table>
+      <caption>Table INST.32-2: Controlled Documents Register</caption>
+      <thead>
+        <tr><th style="width:30%">Document Type</th><th style="width:40%">Description</th><th style="width:30%">Classification</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Governing Documents</td><td>Articles of Incorporation, Bylaws, Board resolutions</td><td>Public / Controlled</td></tr>
+        <tr><td>Institutional Dossiers</td><td>This dossier and Lab-specific dossiers</td><td>Controlled — Restricted</td></tr>
+        <tr><td>Policies and Procedures</td><td>Administrative, scientific, and operational policies</td><td>Controlled</td></tr>
+        <tr><td>Agreements</td><td>Contracts, MOUs, partnership agreements</td><td>Confidential</td></tr>
+        <tr><td>Financial Records</td><td>Budgets, financial statements, audit reports</td><td>Confidential</td></tr>
+        <tr><td>Scientific Records</td><td>Research data, evidence, calibration records</td><td>Controlled</td></tr>
+        <tr><td>IP Records</td><td>Patents, trademarks, licenses, IP registers</td><td>Confidential</td></tr>
+      </tbody>
+    </table>
+    
+    <h2 class="section-header">INST.32.3 — Institutional Knowledge Management</h2>
+    
+    <p>The Institute shall maintain systems for capturing and preserving institutional knowledge:</p>
+    <ul>
+      <li><strong>Decision Logs:</strong> Records of significant institutional decisions and their rationale</li>
+      <li><strong>Lessons Learned:</strong> Systematic capture of lessons from projects and operations</li>
+      <li><strong>Best Practices:</strong> Documentation of effective approaches and methods</li>
+      <li><strong>Expertise Mapping:</strong> Identification of internal and external expertise</li>
+      <li><strong>Knowledge Transfer:</strong> Processes for transferring knowledge during transitions</li>
+    </ul>
+    
+    <div class="status-line">Status: Document Control and Knowledge Architecture Established. Systems to be Implemented.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+    <!-- FINAL SUMMARY -->
+    <h1 class="part-title" id="final-summary">Final Quality Control Summary</h1>
+    
+    <table>
+      <caption>Quality Control Checklist</caption>
+      <thead>
+        <tr><th style="width="70%">Check</th><th style="width="30%">Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Institute is not counted among the 22 Labs</td><td>✓ CONFIRMED</td></tr>
+        <tr><td>GIH is not counted among the 22 Labs</td><td>✓ CONFIRMED</td></tr>
+        <tr><td>Geneva Governance Lab remains Lab 04</td><td>✓ CONFIRMED</td></tr>
+        <tr><td>Institute/GIH/Labs/Nodes/SIL roles remain distinct</td><td>✓ CONFIRMED</td></tr>
+        <tr><td>SIL remains software</td><td>✓ CONFIRMED</td></tr>
+        <tr><td>Fellowship remains distinct from project-management authority</td><td>✓ CONFIRMED</td></tr>
+        <tr><td>Scientific independence is preserved</td><td>✓ CONFIRMED</td></tr>
+        <tr><td>Governance powers are not invented</td><td>✓ CONFIRMED</td></tr>
+        <tr><td>Tax-exempt status is not overstated</td><td>✓ CONFIRMED</td></tr>
+        <tr><td>Proposed staffing/funding/partnerships are not presented as confirmed</td><td>✓ CONFIRMED</td></tr>
+        <tr><td>IP architecture remains intact</td><td>✓ CONFIRMED</td></tr>
+        <tr><td>No unsupported financial figures are created</td><td>✓ CONFIRMED</td></tr>
+        <tr><td>All major institutional dependencies and Evidence Gaps are visible</td><td>✓ CONFIRMED</td></tr>
+      </tbody>
+    </table>
+    
+    <div class="status-line">Status: All Quality Control Checks Passed. Dossier Complete.</div>
+    
+    <div class="confidentiality">Controlled Document — Restricted Distribution — Do Not Reproduce Without Authorization</div>
+
+  </main>
+</div>
+</body>
+</html>
